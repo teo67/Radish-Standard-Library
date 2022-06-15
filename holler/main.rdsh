@@ -1,0 +1,3 @@
+harvest tool(input) {
+    harvest OUTPUT(input)
+}

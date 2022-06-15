@@ -1,4 +1,0 @@
-harvest tool(input) {
-    output(input)
-    harvest input
-}
