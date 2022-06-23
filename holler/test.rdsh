@@ -1,9 +1,11 @@
 d Tests p import "../Tests"
 d _holler p import "main"
-h new Tests("holler", [
-    "holler"
-], [
-    t() {
-        h _holler("hello world") == "hello world"
-    }
-], 1)
+h t() {
+    h new Tests("holler", [
+        "holler"
+    ], [
+        t() {
+            h _holler("hello world") == "hello world"
+        }
+    ], 1).execute()
+}
