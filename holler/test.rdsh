@@ -1,10 +1,4 @@
 d Tests p import "../Tests"
 h t() {
-    h new Tests("holler", [
-        "holler"
-    ], [
-        t() {
-            h holler("hello world") == "hello world"
-        }
-    ], 1).execute()
+    h holler("hello world") == "hello world"
 }

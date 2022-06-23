@@ -2,5 +2,8 @@ d OBJECT p {
     d getValue p t() {
         h this
     }
+    d delete p t(key) {
+        h DELETE(this, key)
+    }
 }
 h OBJECT

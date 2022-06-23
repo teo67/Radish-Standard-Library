@@ -1,7 +1,7 @@
 ;Recursively print a Radish value using the standard C# Console.WriteLine() method.
 @input@The value to be printed@;
-d _holler p t(input) {
+d holler p t(input) {
     OUTPUT(input)
     h input
 }
-h _holler
+h holler

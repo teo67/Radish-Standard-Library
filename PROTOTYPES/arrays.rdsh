@@ -9,11 +9,11 @@ d ARRAY p {
         h this
     }
     d pop p t() {
-        d len p this.len
+        d len p this.length
         if(len < 1) {
             throw "Cannot pop from an empty array!"
         }
-        h uproot this[len - 1]
+        h this.delete(len - 1)
     }
     d indexOf p t(item) {
         for(d i p 0, i < this.length, i++) {
@@ -58,16 +58,17 @@ d ARRAY p {
         this[index] p adding
         h this
     }
-    d delete p t(index p 0) {
+    d remove p t(index p 0) {
         d len p this.length
         if(index >= len || index < 0) {
-            throw "Invalid delete index argument! It should be in range (0 <-> length of array - 1)."
+            throw "Invalid remove index argument! It should be in range (0 <-> length of array - 1)."
         }
+        d s p this[index]
         for(d i p index, i < len - 1, i++) {
             this[i] p this[i + 1]
         }
-        uproot this[len - 1]
-        h this
+        this.delete(len - 1)
+        h s
     }
     d reverse p t() {
         d len p this.length
