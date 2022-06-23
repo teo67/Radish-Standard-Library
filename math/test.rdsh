@@ -1,5 +1,4 @@
 d Tests p import "../Tests"
-<<<<<<< HEAD
 h t() {
     h new Tests("math", [
         "ceiling", "factorial", "floor", "isPrime", "log", "root", "round", "summation"
@@ -23,26 +22,3 @@ h t() {
         }
     ], 8).execute()
 }
-=======
-h new Tests("math", [
-    "ceiling", "factorial", "floor", "isPrime", "log", "root", "round", "summation"
-], [
-    t() {
-        h math.ceiling(4, 5) == 5
-    }, t() {
-        h math.factorial(5) == 120
-    }, t() {
-        h math.floor(4, 5) == 4
-    }, t() {
-        h math.isPrime(17)
-    }, t() {
-        h math.log(1000, 10) == 3
-    }, t() {
-        h math.root(256, 4) == 4
-    }, t() {
-        h math.round(4, 5) == 5
-    }, t() {
-        h math.summation(6) == 21
-    }
-], 8)
->>>>>>> a9e6d978ad2b74a6a11c5d7f2919bbc4caab8b36
