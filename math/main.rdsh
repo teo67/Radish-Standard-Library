@@ -1,0 +1,74 @@
+;An object that provides core functionality for mathematical operations.;
+d math p {
+    ;Round a number down to the nearest integer by default, or to the nearest custom interval if defined.
+    @input@The number to be floored.@
+    @toNearest@The interval (1 by default) to round by. For example, floor(12.5, 5) would return 10.@;
+    d floor p t(input p 0, toNearest p 1) {
+        h input - input % toNearest
+    }
+    ;Round a number up to the nearest integer by default, or to the nearest custom interval if defined.
+    @input@The number to be ceilinged.@
+    @toNearest@The interval (1 by default) to round by. For example, ceiling(12.5, 5) would return 15.@;
+    d ceiling p t(input p 0, toNearest p 1) {
+        d diff p input % toNearest
+        if(diff == 0) {
+            h input
+        }
+        h input + toNearest - diff
+    }
+    ;Round a number to the nearest integer by default, or to the nearest custom interval if defined.
+    @input@The number to be rounded.@
+    @toNearest@The interval (1 by default) to round by. For example, round(12.5, 5) would return 15.@;
+    d round p t(input, toNearest p 1) {
+        d diff p input % toNearest
+        if(diff < toNearest / 2) {
+            h input - diff
+        }
+        h input + toNearest - diff
+    }
+    ;A built-in object with useful math constants such as pi!;
+    d constants p {
+        ;The value obtained by dividing the circumference of a circle by its diameter.;
+        d pi p 3.1415926535897932384626
+        ;The value obtained by finding the limit as x approaches infinity of (1+(1/x))^x.;
+        d e p 2.718
+        ;Equivalent to root(2).;
+        d rootTwo p 1.414
+        ;Equivalent to root(3).;
+        d rootThree p 1.7
+    }
+    ;Find the natural logarithm of a given input, or a log with a different base if provided.
+    @input@The input to the logarithm. For example, log(2) = ln2.@
+    @base@The base of the logarithm. Defaults to the constant 'e'.@;
+    d log p t(input, base p constants.e) {
+        h LOG(input, base) # we'll have to default to an imported function, because the log algorithm has to be highly optimized #
+    }
+    ;Find the square root of an input, or a root with a different exponent if provided.
+    @input@The number to be evaluated: (return value ^ exponent) = input.@
+    @iexp@The root - or inverse exponent - to be used. Defaults to 2.@;
+    d root p t(input, iexp p 2) {
+        h input ** (1 / iexp)
+    }
+    ;Get the factorial of any positive integer.
+    @input@The number to find the factorial of. For example, factorial(3) = 3 * 2 * 1 = 6.@;
+    d factorial p t(input) {
+        d r p 1
+        for(d i p 2, i <= input, i++) {
+            r *= i
+        }
+        h r
+    }
+    ;Sum the positive integers from 1 to a given input. For a more customized summation, you should probably just use a for loop.
+    @max@The greatest integer in the summation. For example, summation(3) = 1 + 2 + 3 = 6.@;
+    d summation p t(max) {
+        d r p 0
+        for(d i p 1, i <= max, i++) {
+            r += i
+        }
+        h r
+    }
+    ;Check whether a given integer is prime. This algorithm is not particularly cheap, but it caches results that can be generalized to other inputs in the future.
+    @input@The number to be checked. For example, isPrime(3) harvests yes.@;
+    d isPrime p import "isPrime"
+}
+h math

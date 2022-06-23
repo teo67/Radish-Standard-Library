@@ -1,3 +1,7 @@
-harvest tool(input) {
-    harvest OUTPUT(input)
+;Recursively print a Radish value using the standard C# Console.WriteLine() method.
+@input@The value to be printed@;
+d _holler p t(input) {
+    OUTPUT(input)
+    h input
 }
+h _holler

@@ -1,0 +1,21 @@
+d NUMBER p {
+    d add p t(other p 0) {
+        h this + other
+    }
+    d subtract p t(other p 0) {
+        h this - other
+    }
+    d multiply p t(other p 1) {
+        h this * other
+    }
+    d divide p t(other p 1) {
+        h this / other
+    }
+    d modulo p t(other p 1) {
+        h this % other
+    }
+    d exponent p t(other p 1) {
+        h this ** other
+    }
+}
+h NUMBER

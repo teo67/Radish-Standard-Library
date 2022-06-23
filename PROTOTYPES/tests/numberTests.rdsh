@@ -1,0 +1,19 @@
+d Tests p import "../../Tests"
+h t() {
+    d num p 8
+    h new Tests("number tests", ["add", "subtract", "multiply", "divide", "modulo", "exponent"], [
+        t() {
+            h num.add(3) == 11
+        }, t() {
+            h num.subtract(3) == 5
+        }, t() {
+            h num.multiply(3) == 24
+        }, t() {
+            h num.divide(4) == 2
+        }, t() {
+            h num.modulo(3) == 2
+        }, t() {
+            h num.exponent(2) == 64
+        }
+    ], 6).execute()
+}

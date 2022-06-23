@@ -1,0 +1,7 @@
+d OBJECT p {
+    d getValue p t() {
+        h this
+    }
+    
+}
+h OBJECT

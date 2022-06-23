@@ -1,0 +1,13 @@
+d BOOLEAN p {
+    d opposite {
+        h {
+            h !this
+        }
+    }
+    d asNumber {
+        h {
+            h 0 + this
+        }
+    }
+}
+h BOOLEAN

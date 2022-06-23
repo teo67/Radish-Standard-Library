@@ -1,3 +1,5 @@
-Object.getValue plant tool() {
-    harvest this
-}
+Object p import "objects"
+String p import "strings"
+Array p import "arrays"
+Number p import "numbers"
+Boolean p import "booleans"

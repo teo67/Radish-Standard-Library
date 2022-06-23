@@ -1,0 +1,86 @@
+d ARRAY p {
+    d length {
+        h {
+            h ARRLEN(this)
+        }
+    }
+    d push p t(input) {
+        this[this.length] p input
+        h this
+    }
+    d pop p t() {
+        d len p this.len
+        if(len < 1) {
+            throw "Cannot pop from an empty array!"
+        }
+        h uproot this[len - 1]
+    }
+    d indexOf p t(item) {
+        for(d i p 0, i < this.length, i++) {
+            if(this[i] == item) {
+                h i
+            }
+        }
+        h -1
+    }
+    d has p t(item) {
+        h this.indexOf(item) != -1
+    }
+    d first {
+        h {
+            h this[0]
+        }
+    }
+    d last {
+        h {
+            h this[this.length - 1]
+        }
+    }
+    d clone p t() {
+        d a p []
+        for(d i p 0, i < this.length, i++) {
+            a.push(this[i])
+        }
+        h a
+    }
+    d deepClone p t() {
+        # coming soon (requires type checking) #
+        h yes
+    }
+    d insert p t(adding, index p 0) {
+        d len p this.length
+        if(len < index || index < 0) {
+            throw "Invalid insert index argument! It should be in range (0 <-> length of array)."
+        }
+        for(d i p len, i > index, i--) {
+            this[i] p this[i - 1]
+        }
+        this[index] p adding
+        h this
+    }
+    d delete p t(index p 0) {
+        d len p this.length
+        if(index >= len || index < 0) {
+            throw "Invalid delete index argument! It should be in range (0 <-> length of array - 1)."
+        }
+        for(d i p index, i < len - 1, i++) {
+            this[i] p this[i + 1]
+        }
+        uproot this[len - 1]
+        h this
+    }
+    d reverse p t() {
+        d len p this.length
+        for(d i p 0, i < len / 2, i++) {
+            d onI p this[i]
+            d onO p this[len - i - 1]
+            if(onO == onI) {
+                continue
+            }
+            this[i] p onO
+            this[len - 1] p onI
+        }
+        h this
+    }
+}
+h ARRAY

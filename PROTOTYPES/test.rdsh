@@ -1,0 +1,12 @@
+import "main"
+d Tests p import "../Tests"
+d cases p [
+    import "tests/arrayTests",
+    import "tests/booleanTests", 
+    import "tests/numberTests", 
+    import "tests/objectTests", 
+    import "tests/stringTests"
+]
+h new Tests("prototype classes", [
+    "arrays", "booleans", "numbers", "objects", "strings"
+], cases, 5)
