@@ -1,5 +1,4 @@
 d Tests p import "../Tests"
-d math p import "main"
 h new Tests("math", [
     "ceiling", "factorial", "floor", "isPrime", "log", "root", "round", "summation"
 ], [

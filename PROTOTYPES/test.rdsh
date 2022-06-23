@@ -1,4 +1,3 @@
-import "main"
 d Tests p import "../Tests"
 d cases p [
     import "tests/arrayTests",

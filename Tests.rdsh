@@ -21,6 +21,4 @@ d Tests p class {
         h good
     }
 }
-d a p new Tests()
-a.
 h Tests

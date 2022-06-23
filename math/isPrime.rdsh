@@ -1,20 +1,27 @@
 d primes p [2]
+d len p 1
 h t(input p 2) { 
-    d last p primes[primes.length - 1]
+    d last p primes[len - 1]
     if(input <= last) {
-        h primes.has(input)
+        for(d i p 0, i < len, i++) {
+            if(primes[i] == input) {
+                h yes
+            }
+        }
+        h no
     }
-    for(d n p 1 + last, primes[primes.length - 1] < input, n++) {
+    for(d n p 1 + last, primes[len - 1] < input, n++) {
         d ip p yes
-        for(d i p 0, i < primes.length, i++) {
+        for(d i p 0, i < len, i++) {
             if(n % primes[i] == 0) {
                 ip p no
                 cancel
             }
         }
         if(ip) {
-            primes[primes.length] p n
+            primes[len] p n
+            len++
         }
     }
-    h primes[primes.length - 1] == input
+    h primes[len - 1] == input
 } 
