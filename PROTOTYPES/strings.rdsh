@@ -1,9 +1,12 @@
 d STRING p {
+    ;Get the length of a string as a number.;
     d length {
         h {
-            h STRLEN(this)
+            h 0 + STRLEN(this)
         }
     }
+    ;Find the 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
+    @input@The character (string with length == 1) to be searched for.@;
     d indexOf p t(input p "") {
         d len p this.length
         for(d i p 0, i < len, i++) {
@@ -13,6 +16,9 @@ d STRING p {
         }
         h -1
     }
+    ;Create a string from part of another string by copying character by character, and harvest the new string.
+    @start@The 0-based index to start reading at. For example, "abc".substring(1) -> "bc".@
+    @finish@The 0-based index to stop reading at. The new string will read up to but will not include the character at the finish index. Example: "abcdef".substring(1, 4) -> "bcd".@;
     d substring p t(start p 0, finish p this.length) {
         d len p this.length
         if(start < 0 || start >= len || finish < 0 || finish > len) {
@@ -24,15 +30,22 @@ d STRING p {
         }
         h r
     }
+    ;Check whether a string begins with a certain starter string. Harvests falsy if the string does not begin with the given input, and truthy otherwise.
+    @input@The 'starter string' to be checked for.@;
     d begins p t(input p "") {
         h this.substring(0, input.length) == input
     }
+    ;Check whether a string ends with a certain input string. Harvests falsy if the string does not end with the given input, and truthy otherwise.
+    @input@The string to be checked for.@;
     d ends p t(input p "") {
         h this.substring(this.length - input.length) == input
     }
+    ;Check whether a string contains a given character using String.indexOf().
+    @input@The character (string with length == 1) to be searched for.@;
     d has p t(input p "") {
         h this.indexOf(input) != -1
     }
+    ;Create an array from a string, where each character in the string is converted into a single item in the array.;
     d split p t() {
         d r p []
         d len p this.length

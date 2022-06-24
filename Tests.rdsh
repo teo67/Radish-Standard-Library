@@ -1,5 +1,5 @@
 d Tests p class {
-    d constructor p t(_name, _caseNames, _cases, _len) {
+    d constructor p t(_name p "", _caseNames p [], _cases p [], _len p 0) {
         this.name p _name
         this.caseNames p _caseNames
         this.cases p _cases

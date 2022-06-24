@@ -1,8 +1,11 @@
 d OBJECT p {
+    ;Get the value of any Radish object. x == x.getValue().;
     d getValue p t() {
         h this
     }
-    d delete p t(key) {
+    ;Remove an item from an object by searching for its key. This will directly remove the value from memory, similar to 'uproot x' or 'x:y'.
+    @key@The key of the value to be deleted.@;
+    d delete p t(key p "") {
         h DELETE(this, key)
     }
 }

@@ -1,9 +1,11 @@
 d BOOLEAN p {
+    ;Get the opposite value of a boolean. boo.opposite == !boo.;
     d opposite {
         h {
             h !this
         }
     }
+    ;Get the value of a boolean as a number: yes -> 1, no -> 0.;
     d asNumber {
         h {
             h 0 + this

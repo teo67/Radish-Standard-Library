@@ -1,7 +1,6 @@
-;Recursively print a Radish value using the standard C# Console.WriteLine() method.
-@input@The value to be printed@;
+;Write any Radish value to the console using the standard C# Console.WriteLine() method. Holler travels recursively through arrays and objects, but only for a few layers (in order to avoid an infinite circular dependency chain).
+@input@The value to be printed using holler().@;
 d holler p t(input) {
-    OUTPUT(input)
-    h input
+    h OUTPUT(input)
 }
 h holler

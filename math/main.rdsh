@@ -1,4 +1,4 @@
-;An object that provides core functionality for mathematical operations.;
+;An object that provides core functionality for basic mathematical operations.;
 d math p {
     ;Round a number down to the nearest integer by default, or to the nearest custom interval if defined.
     @input@The number to be floored.@
