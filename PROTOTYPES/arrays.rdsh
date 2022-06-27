@@ -1,4 +1,4 @@
-d ARRAY p {
+h {
     ;Get the length of an array. Note that this will count any additional object parameters that have been added to the array.;
     d length {
         h {
@@ -103,4 +103,3 @@ Note: indexOf will return -1 if no item is found.
         h this
     }
 }
-h ARRAY

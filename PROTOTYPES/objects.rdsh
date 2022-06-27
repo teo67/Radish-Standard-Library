@@ -1,4 +1,4 @@
-d OBJECT p {
+h {
     ;Get the value of any Radish object. x == x.getValue().;
     d getValue p t() {
         h this
@@ -9,4 +9,3 @@ d OBJECT p {
         h DELETE(this, key)
     }
 }
-h OBJECT

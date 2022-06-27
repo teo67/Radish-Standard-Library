@@ -1,4 +1,4 @@
-d NUMBER p {
+h {
     ;Add a number to another number, and harvest the result.
     @other@The number to be combined using addition. Example: (4).add(3) -> 4 + 3 -> 7.@;
     d add p t(other p 0) {
@@ -30,4 +30,3 @@ d NUMBER p {
         h this ** other
     }
 }
-h NUMBER

@@ -1,4 +1,4 @@
-d STRING p {
+h {
     ;Get the length of a string as a number.;
     d length {
         h {
@@ -55,4 +55,3 @@ d STRING p {
         h r
     }
 }
-h STRING
