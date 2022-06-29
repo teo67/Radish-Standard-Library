@@ -2,7 +2,8 @@ h {
     ;Get the length of a string as a number.;
     d length {
         h {
-            h 0 + STRLEN(this)
+            h STRLEN(this)
+            h 0 + 0
         }
     }
     ;Find the 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.

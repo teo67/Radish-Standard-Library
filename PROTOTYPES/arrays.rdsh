@@ -2,7 +2,8 @@ h {
     ;Get the length of an array. Note that this will count any additional object parameters that have been added to the array.;
     d length {
         h {
-            h 0 + ARRLEN(this)
+            h ARRLEN(this)
+            h 0 + 0
         }
     }
     ;Append a value to the end of an array. arr.push(x) is equivalent to arr[arr.length] p x, and both are acceptable statements.
