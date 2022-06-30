@@ -1,0 +1,6 @@
+;A collection of useful data structures - for arrays, see the built-in Array object.;
+h {
+    ;A LIFO data structure where each node stores a value and is attached to one other node. Stacks are typically accessed via the head, or the most recent value added to the stack.
+    @vals@Specify any number of values to be added to the stack as it is constructed. Values will be pushed one by one such that the last value specified becomes the head of the stack.@;
+    d Stack p import "Stack"
+}

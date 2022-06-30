@@ -1,0 +1,178 @@
+d StackNode p class {
+    constructor p t(val, next p null) {
+        this.val p val
+        this.next p next
+    }
+}
+d Stack p class {
+    ;A private node that is only accessed within the stack's machinery.;
+    d private __head
+    constructor p t(fill vals) {
+        this.__head p null
+        for(d i p 0, i < vals.length, i++) {
+            this.push(vals[i])
+        }
+    }
+    ;Append a value to the top of the stack. The provided value becomes the new head and is attached to the old head of the stack, and the entire stack is harvested.
+    @val@The value (any type) to be pushed.@;
+    d push p t(val) {
+        this.__head p new StackNode(val, this.__head)
+        h this
+    }
+    ;Remove the head of the stack, or throw an error if it doesn't exist. This tool harvests the value of the removed element.;
+    d pop p t() {
+        if(this.__head == null) {
+            throw "Cannot pop from an empty stack!"
+        }
+        d saved p this.__head.val
+        this.__head p this.__head.next
+        h saved
+    }
+    ;A private tool used as a helper for other tools such as get() and indexOf().
+    @condition@A tool that takes two inputs, len (the current length of the stack) and current (the current viewing value), and harvests a boolean.@;
+    d private through p t(condition) {
+        d len p 0
+        d current p this.__head
+        while(condition(len, current)) {
+            len++
+            current p current.next
+        }
+        h [len, current]
+    }
+    ;Get the length of a stack using recursive jumping (beginning at the head).;
+    d length {
+        h {
+            h this.through(t(len, current) {
+                h current != null
+            })[0]
+        }
+    }
+    ;Get the uppermost value of the stack. Traditionally, stacks are LIFO, meaning that users can only access the head. While this behavior is suggested in Radish (less time complexity), methods such as get(index) are provided as well.;
+    d head {
+        h {
+            h this.__head.val
+        }
+    }
+    ;A private tool used as a helper for tools such as get() and insert().
+    @index@The index of the element being searched for.@;
+    d private __get p t(index) {
+        h this.through(t(len, current) {
+            h len != index && current != null
+        })[1]
+    }
+    ;Get the value of an element at a specified index in a stack. Stacks are 0-indexed, with the head being at 0, the value after being at 1, and so on.
+    @index@The index of the element to be searched for.@;
+    d get p t(index) {
+        d res p this.__get(index)
+        if(res == null) {
+            h null
+        }
+        h res.val
+    }
+    ;Get the first index of a certain value in a stack. Stacks are 0-indexed, with the head being at 0, the value after being at 1, and so on.
+    @val@The value to be searched for.@;
+    d indexOf p t(val) {
+        d res p this.through(t(len, current) {
+            h current != null && current.val != val
+        })
+        if(res[1] == null) {
+            h -1
+        }
+        h res[0]
+    }
+    ;Get the last index of a certain value in a stack. Stacks are 0-indexed, with the head being at 0, the value after being at 1, and so on.
+    @val@The value to be searched for.@;
+    d lastIndexOf p t(val) {
+        d index p 0
+        d current p this.head
+        d recent p -1
+        while(current != null) {
+            if(current.val == val) {
+                recent p index
+            }
+            index++
+            current p current.next
+        }
+        h recent
+    }
+    ;Check if a stack includes a certain value via indexOf(). This tool harvests truthy if the value is found, falsy otherwise.
+    @val@The value to be searched for.@;
+    d has p t(val) {
+        h this.indexOf(val) != -1
+    }
+    ;Insert one or more elements at a given index in a stack. Elements will be inserted from the given index downward, such that the first element will end up furthest from the stack's head. This tool harvests the original stack once completed.
+    @index@The index at which the element(s) will be inserted.@
+    @vals@Specify any number of values to insert. The first value will be inserted at the given index, and values will continue to be inserted at that index. This pushes the first value away from the starting index, and the last value specified ends up closest to the head.@;
+    d insert p t(index, fill vals) {
+        d before
+        if(index == 0) {
+            before p new StackNode(null, this.head)
+        } else {
+            before p this.__get(index - 1)
+        }
+        if(before == null) {
+            throw "Unable to insert element(s) in index 'index' because the stack is not long enough!"
+        }
+        for(d i p 0, i < vals.length, i++) {
+            before.next p new StackNode(vals[i], before.next)
+            if(index == 0 && i == vals.length - 1) {
+                this.head p before.next
+            }
+        }
+        h this
+    }
+    ;Remove one or more elements from an stack beginning at a given index. Elements will be deleted from the given index downward for as many repeats as are specified in the 'count' parameter. If only one element is deleted, its value will be harvested by itself. If multiple are deleted, an array of their values will be harvested instead. Enabling 'alwaysArray' will ensure that this tool always harvests an array.
+    @index@The first index to be deleted.@
+    @count@(default: 1) The number of elements to be deleted. Elements are deleted downwards - in other words, calling delete(5, 3) on a stack will delete elements 5, 6, and 7 rather than 5, 4, and 3.@
+    @alwaysArray@(default: no) This parameter ensures that delete() always harvests an array. Otherwise, delete() will harvest a single value if only one element is deleted@;
+    d delete p t(index, count p 1, alwaysArray p no) {
+        d before
+        d deleting p []
+        if(index == 0) {
+            before p new StackNode(null, this.head)
+        } else {
+            before p this.__get(index - 1)
+        }
+        if(before == null) {
+            throw "Unable to delete at index 'index' because the stack is not long enough!"
+        }
+        for(d i p 0, i < count, i++) {
+            if(before.next == null) {
+                throw "Unable to delete 'count' element(s) at index 'index' because not enough elements exist!"
+            }
+            deleting.push(before.next.val)
+            before.next p before.next.next
+            if(i == count - 1 && index == 0) {
+                this.head p before.next
+            }
+        }
+        if(count == 1 && !alwaysArray) {
+            h deleting[0]
+        }
+        h deleting
+    }
+    ;Edit a particular node's value in the stack, using its index. This tool harvests the original stack, or throws an error if the stack doesn't include an element at the given index.
+    @val@The new value of the node at the given index.@
+    @index@The index of the element to be searched for (0-based, where the stack's head is at index 0).@;
+    d set p t(val, index) {
+        d res p this.__get(index)
+        if(res == null) {
+            throw "Unable to set an element at index 'index' because no such element exists!"
+        }
+        res.val p val
+        h this
+    } 
+    ;Convert a stack to an array, where the head becomes the first element of the array. This tool can be useful for printing a readable version of a stack.;
+    d getArray p t() {
+        d returning p []
+        through(t(len, current) {
+            if(current == null) {
+                h no
+            }
+            returning.push(current.val)
+            h yes
+        })
+        h returning
+    }
+}
+h Stack
