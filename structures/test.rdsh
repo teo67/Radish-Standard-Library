@@ -1,0 +1,7 @@
+d Tests p import "../Tests"
+h t() {
+    h new Tests("structure tests", ["Stack", "Binary Tree"], [
+        import "tests/stackTests", 
+        import "tests/binaryTreeTests"
+    ], 2).execute()
+}

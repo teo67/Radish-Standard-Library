@@ -1,0 +1,167 @@
+d BinaryTreeNode p class {
+    constructor p t(val, left p null, right p null) {
+        this.val p val
+        this.left p left
+        this.right p right
+    }
+}
+d BinaryTree p class {
+    ;A private node that is only accessed within the tree's machinery.;
+    d private __head
+    constructor p t(fill vals) {
+        this.__head p null
+        this.add.call(vals, this)
+    }
+    ;Get the value of the tree's head if it exists, or null otherwise.;
+    d head {
+        h {
+            if(this.__head == null) {
+                h null
+            }
+            h this.__head.val
+        }
+    }
+    ;Append any number of values to the tree one by one. Values are added such that all left nodes are <= to their parent and all right nodes are > than their parent node.
+    @vals@Supply any number of number values to be added. They will be added in the order specified by the user.@;
+    d add p t(fill vals) {
+        for(d i p 0, i < vals.length, i++) {
+            d val p vals[i]
+            if(this.__head == null) {
+                this.__head p new BinaryTreeNode(val)
+                continue
+            }
+            d current p this.__head
+            while(yes) {
+                if(val <= current.val) {
+                    if(current.left == null) {
+                        current.left p new BinaryTreeNode(val)
+                        cancel
+                    }
+                    current p current.left
+                } else {
+                    if(current.right == null) {
+                        current.right p new BinaryTreeNode(val)
+                        cancel
+                    }
+                    current p current.right
+                }
+            }
+        }
+        h this
+    }
+    ;Check whether a binary tree contains a given numeric value. If the binary tree is inverted beforehand, this tool will not function properly.
+    @val@The value to be searched for.@;
+    d search p t(val) {
+        d current p this.__head
+        while(current != null) {
+            if(val == current.val) {
+                h yes
+            }
+            if(val <= current.val) {
+                current p current.left
+            } else {
+                current p current.right
+            }
+        }
+        h no
+    }
+    ;A private helper tool to be used by traverse(), along with some other functions. See BinaryTree.traverse for more information.
+    @onEach@The tool to be executed for every node found in the tree. It takes one parameter, which is the node itself.@
+    @root@The root to begin traversing at.@;
+    d private __traverse p t(onEach, root p this.__head) {
+        if(root == null) {
+            h this
+        }
+        this.__traverse(onEach, root.left)
+        onEach(root)
+        this.__traverse(onEach, root.right)
+        h this
+    }
+    ;Sweep across a binary tree in a left-parent-right order, such that nodes are inspected from least to greatest. The onEach parameter is called for every node.
+    @onEach@The tool to be executed for every node found in the tree. It takes one parameter, which is the value of the node (a number).@;
+    d traverse p t(onEach) {
+        h this.__traverse(t(root) {
+            onEach(root.val)
+        })
+    }
+    ;Get the minimum value stored in a binary tree. The optional parameter is only used in Radish's private machinery.
+    @root@The root to begin traversal at.@;
+    d min p t(root p this.__head) {
+        d min p null
+        this.__traverse(t(root) {
+            if(min == null || root.val < min) {
+                min p root.val
+            }
+        }, root)
+        h min
+    }
+    ;Get the maximum value stored in a binary tree. The optional parameter is only used in Radish's private machinery.
+    @root@The root to begin traversal at.@;
+    d max p t(root p this.__head) {
+        d max p null
+        this.__traverse(t(root) {
+            if(max == null || root.val > max) {
+                max p root.val
+            }
+        }, root)
+        h max
+    }
+    ;Invert a binary tree such that every pair of left and right pointers are swapped. Note that this tool is not actually useful and will ruin functions like add() and search().;
+    d invert p t() {
+        h this.__traverse(t(root) {
+            d s p root.left
+            root.left p root.right
+            root.right p s
+        })
+    }
+    ;Get the length of the binary tree by traversing every node. Note that this can be quite time-expensive depending on the size of the tree.;
+    d length {
+        h {
+            d len p 0
+            this.traverse(t(root) {
+                len++
+            })
+            h len
+        }
+    }
+    ;Generate an array based on a binary tree by traversing every node. The array will be sorted from least to greatest, unless the tree is inverted.;
+    d getArray p t() {
+        d arr p []
+        this.traverse(t(val) {
+            arr.push(val)
+        })
+        h arr 
+    }
+    ;A private helper tool to be used by delete().
+    @val@The value to be removed from the tree.@
+    @root@The root to search in.@;
+    d private __delete p t(val, root p this.__head) {
+        if (root == null) {
+            throw "No value 'val' found to delete!"
+        }
+        if (val < root.val) {
+            root.left p this.__delete(val, root.left)
+        } elseif (val > root.val) {
+            root.right p this.__delete(val, root.right)
+        } else {
+            if (root.left == null && root.right == null) {
+                h null
+            } elseif (root.left == null) {
+                h root.right
+            } elseif (root.right == null) {
+                h root.left
+            }
+            d min p this.min(root.right)
+            root.val p min.val
+            root.right p this.__delete(root.right, min.val)
+        }
+        h root
+    }
+    ;Remove a value from a binary tree. If the node found has no children, it will simply be deleted. If it has one child, that child will replace it as the new value of the node. If it has two children, the minimum node on the right branch will itself be removed from the tree, and its value will replace the value of the deleted node.
+    @val@The value to be removed from the tree.@;
+    d delete p t(val) {
+        this.__head p this.__delete(val)
+        h this
+    }
+}
+h BinaryTree

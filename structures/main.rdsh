@@ -3,4 +3,10 @@ h {
     ;A LIFO data structure where each node stores a value and is attached to one other node. Stacks are typically accessed via the head, or the most recent value added to the stack.
     @vals@Specify any number of values to be added to the stack as it is constructed. Values will be pushed one by one such that the last value specified becomes the head of the stack.@;
     d Stack p import "Stack"
+    ;A linear data structure where each node stores a value and is attached to one other node. Note that stacks and linked lists are identical in Radish, save the name. This is because their relative structures are fundamentally the same, and the only difference is lack of functionality for accessing elements of stacks. In Radish, the Stack/LinkedList class has all of the functionality needed to use a linked list - if you wish to save time complexity, just don't use the expensive methods!
+    @vals@Specify any number of values to be added to the list as it is constructed. Values will be pushed one by one such that the last value specified becomes the head of the list.@;
+    d LinkedList p import "Stack"
+    ;A data structure where each node stores a value and is attached to two other nodes - one to the left, and one to the right. The node on the left is always <= to its parent, while the right is always greater. Binary trees are used to efficiently search sorted lists of numbers.
+    @vals@Specify any number of values to be added to the tree as it is constructed. Values will be pushed one by one such that the first value becomes the head of the tree.@;
+    d BinaryTree p import "BinaryTree"
 }

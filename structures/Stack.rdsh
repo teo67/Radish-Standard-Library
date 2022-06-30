@@ -29,36 +29,48 @@ d Stack p class {
         h saved
     }
     ;A private tool used as a helper for other tools such as get() and indexOf().
-    @condition@A tool that takes two inputs, len (the current length of the stack) and current (the current viewing value), and harvests a boolean.@;
-    d private through p t(condition) {
-        d len p 0
+    @onEach@A tool that takes one input, the current viewing value, and harvests a boolean.@;
+    d private through p t(onEach) {
         d current p this.__head
-        while(condition(len, current)) {
-            len++
+        while(current != null) {
+            if(onEach(current)) {
+                end
+            }
             current p current.next
         }
-        h [len, current]
     }
-    ;Get the length of a stack using recursive jumping (beginning at the head).;
+    ;Get the length of a stack as if it were an array.;
     d length {
         h {
-            h this.through(t(len, current) {
-                h current != null
-            })[0]
+            d len p 0
+            this.through(t(current) {
+                len++
+            })
+            h len
         }
     }
     ;Get the uppermost value of the stack. Traditionally, stacks are LIFO, meaning that users can only access the head. While this behavior is suggested in Radish (less time complexity), methods such as get(index) are provided as well.;
     d head {
         h {
+            if(this.__head == null) {
+                h null
+            }
             h this.__head.val
         }
     }
     ;A private tool used as a helper for tools such as get() and insert().
     @index@The index of the element being searched for.@;
     d private __get p t(index) {
-        h this.through(t(len, current) {
-            h len != index && current != null
-        })[1]
+        d i p 0
+        d x p null
+        this.through(t(current) {
+            if(i == index) {
+                x p current
+                h yes
+            }
+            i++
+        })
+        h x
     }
     ;Get the value of an element at a specified index in a stack. Stacks are 0-indexed, with the head being at 0, the value after being at 1, and so on.
     @index@The index of the element to be searched for.@;
@@ -72,19 +84,22 @@ d Stack p class {
     ;Get the first index of a certain value in a stack. Stacks are 0-indexed, with the head being at 0, the value after being at 1, and so on.
     @val@The value to be searched for.@;
     d indexOf p t(val) {
-        d res p this.through(t(len, current) {
-            h current != null && current.val != val
+        d i p 0
+        d x p -1
+        d res p this.through(t(current) {
+            if(current.val == val) {
+                x p i
+                h yes
+            }
+            i++
         })
-        if(res[1] == null) {
-            h -1
-        }
-        h res[0]
+        h x
     }
     ;Get the last index of a certain value in a stack. Stacks are 0-indexed, with the head being at 0, the value after being at 1, and so on.
     @val@The value to be searched for.@;
     d lastIndexOf p t(val) {
         d index p 0
-        d current p this.head
+        d current p this.__head
         d recent p -1
         while(current != null) {
             if(current.val == val) {
@@ -106,7 +121,7 @@ d Stack p class {
     d insert p t(index, fill vals) {
         d before
         if(index == 0) {
-            before p new StackNode(null, this.head)
+            before p new StackNode(null, this.__head)
         } else {
             before p this.__get(index - 1)
         }
@@ -116,7 +131,7 @@ d Stack p class {
         for(d i p 0, i < vals.length, i++) {
             before.next p new StackNode(vals[i], before.next)
             if(index == 0 && i == vals.length - 1) {
-                this.head p before.next
+                this.__head p before.next
             }
         }
         h this
@@ -129,7 +144,7 @@ d Stack p class {
         d before
         d deleting p []
         if(index == 0) {
-            before p new StackNode(null, this.head)
+            before p new StackNode(null, this.__head)
         } else {
             before p this.__get(index - 1)
         }
@@ -143,7 +158,7 @@ d Stack p class {
             deleting.push(before.next.val)
             before.next p before.next.next
             if(i == count - 1 && index == 0) {
-                this.head p before.next
+                this.__head p before.next
             }
         }
         if(count == 1 && !alwaysArray) {
@@ -165,12 +180,8 @@ d Stack p class {
     ;Convert a stack to an array, where the head becomes the first element of the array. This tool can be useful for printing a readable version of a stack.;
     d getArray p t() {
         d returning p []
-        through(t(len, current) {
-            if(current == null) {
-                h no
-            }
+        this.through(t(current) {
             returning.push(current.val)
-            h yes
         })
         h returning
     }
