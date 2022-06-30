@@ -77,11 +77,11 @@ d BinaryTree p class {
         this.__traverse(onEach, root.right)
         h this
     }
-    ;Sweep across a binary tree in a left-parent-right order, such that nodes are inspected from least to greatest. The onEach parameter is called for every node.
-    @onEach@The tool to be executed for every node found in the tree. It takes one parameter, which is the value of the node (a number).@;
-    d traverse p t(onEach) {
+    ;Sweep across a binary tree in a left-parent-right order, such that nodes are inspected from least to greatest. The each parameter is called for every node.
+    @each@The tool to be executed for every node found in the tree. It takes one parameter, which is the value of the node (a number).@;
+    d traverse p t(each) {
         h this.__traverse(t(root) {
-            onEach(root.val)
+            each(root.val)
         })
     }
     ;Get the minimum value stored in a binary tree. The optional parameter is only used in Radish's private machinery.
@@ -152,8 +152,8 @@ d BinaryTree p class {
                 h root.left
             }
             d min p this.min(root.right)
-            root.val p min.val
-            root.right p this.__delete(root.right, min.val)
+            root.val p min
+            root.right p this.__delete(min, root.right)
         }
         h root
     }

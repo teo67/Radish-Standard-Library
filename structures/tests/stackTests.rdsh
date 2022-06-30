@@ -1,5 +1,4 @@
 d Tests p import "../../Tests"
-d Stack p import "../Stack"
 h t() {
     d stack p new Stack(1, 2, 3) # 3 - 2 - 1 #
     h new Tests("Stack tests", ["push", "pop", "length", "head", "get", "indexOf", "lastIndexOf", "has", "insert one", "insert many", "head insert one", "head insert many", "delete one", "delete many", "head delete one", "head delete many", "set", "getArray"], 
