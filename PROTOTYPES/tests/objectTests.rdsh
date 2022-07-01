@@ -1,6 +1,6 @@
 d Tests p import "../../Tests"
 h t() {
-    h new Tests("object tests", ["getValue"], [
+    h new Tests(["getValue"], [
         t() {
             h yes.getValue()
         }

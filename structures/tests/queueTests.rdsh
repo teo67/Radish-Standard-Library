@@ -1,0 +1,29 @@
+d Tests p import "../../Tests"
+h t() {
+    d queue p new Queue(1, 2, 3) # h 1 2 3 t #
+    h new Tests(["enqueue", "dequeue", "insert", "insert head", "insert tail", "delete", "delete head", "delete tail", "tail"], 
+    [
+        t() {
+            h queue.enqueue(4).tail == 4 # h 1 2 3 4 t #
+        }, t() {
+            h queue.dequeue() == 1 && queue.head == 2 # h 2 3 4 t#
+        }, t() {
+            h queue.insert(1, "a", "b", "c").get(1) == "c" && queue.get(2) == "b" && queue.get(3) == "a" && queue.length == 6 # h 2 c b a 3 4 t #
+        }, t() {
+            h queue.insert(0, "d", "e").head == "e" && queue.get(1) == "d" && queue.get(2) == 2 # h e d 2 c b a 3 4 t #
+        }, t() {
+            h queue.insert(8, 5, 6).tail == 5 && queue.get(8) == 6 # h e d 2 c b a 3 4 6 5 t #
+        }, t() {
+            d res p queue.delete(3, 3, yes)
+            h res[0] == "c" && res[1] == "b" && res[2] == "a" && queue.get(3) == 3 # h e d 2 3 4 6 5 t #
+        }, t() {
+            d res p queue.delete(0, 2, yes)
+            h res[0] == "e" && res[1] == "d" && queue.head == 2 # h 2 3 4 6 5 t #
+        }, t() {
+            d res p queue.delete(3, 2, yes)
+            h res[0] == 6 && res[1] == 5 && queue.tail == 4 && queue.get(2) == 4 # h 2 3 4 t #
+        }, t() {
+            h queue.tail == 4
+        }
+    ], 9).execute()
+}

@@ -1,0 +1,6 @@
+h class {
+    constructor p t(val, next p null) {
+        this.val p val
+        this.next p next
+    }
+}

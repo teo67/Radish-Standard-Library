@@ -9,4 +9,7 @@ h {
     ;A data structure where each node stores a value and is attached to two other nodes - one to the left, and one to the right. The node on the left is always <= to its parent, while the right is always greater. Binary trees are used to efficiently search sorted lists of numbers.
     @vals@Specify any number of values to be added to the tree as it is constructed. Values will be pushed one by one such that the first value becomes the head of the tree.@;
     d BinaryTree p import "BinaryTree"
+    ;A FIFO data structure that inherits from Stack/LinkedList. The primary difference is that queues store a 'tail' property, which allows the user to access both ends of the queue with low time complexity. Otherwise, everything is the same except that pushing to a queue adds to the tail while pushing to a stack adds to the head.
+    @vals@Specify any number of values to be added to the queue as it is constructed. Values will be pushed one by one such that the last value specified becomes the tail of the queue.@;
+    d Queue p import "Queue"
 }

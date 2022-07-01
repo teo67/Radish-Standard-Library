@@ -8,7 +8,7 @@ d cases p [
     import "tests/stringTests" 
 ]
 h t() {
-    h new Tests("prototype classes", [
+    h new Tests([
     "arrays", "booleans", "functions", "numbers", "objects", "strings"
     ], cases, 5).execute()
 }

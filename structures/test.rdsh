@@ -1,7 +1,8 @@
 d Tests p import "../Tests"
 h t() {
-    h new Tests("structure tests", ["Stack", "Binary Tree"], [
+    h new Tests(["Stack", "Binary Tree", "Queue"], [
         import "tests/stackTests", 
-        import "tests/binaryTreeTests"
-    ], 2).execute()
+        import "tests/binaryTreeTests",
+        import "tests/queueTests"
+    ], 3).execute()
 }

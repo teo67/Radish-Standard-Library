@@ -1,6 +1,6 @@
 d Tests p import "../../Tests"
 h t() {
-    h new Tests("boolean tests", ["opposite", "asNumber"], [
+    h new Tests(["opposite", "asNumber"], [
         t() {
             h no.opposite
         }, t() {

@@ -1,6 +1,6 @@
 d Tests p import "../Tests"
 h t() {
-    h new Tests("math", [
+    h new Tests([
         "ceiling", "factorial", "floor", "isPrime", "log", "root", "round", "summation"
     ], [
         t() {

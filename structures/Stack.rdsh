@@ -1,12 +1,7 @@
-d StackNode p class {
-    constructor p t(val, next p null) {
-        this.val p val
-        this.next p next
-    }
-}
+d StackNode p import "StackNode"
 d Stack p class {
     ;A private node that is only accessed within the stack's machinery.;
-    d private __head
+    d protected __head
     constructor p t(fill vals) {
         this.__head p null
         for(d i p 0, i < vals.length, i++) {
@@ -30,7 +25,7 @@ d Stack p class {
     }
     ;A private tool used as a helper for other tools such as get() and indexOf().
     @onEach@A tool that takes one input, the current viewing value, and harvests a boolean.@;
-    d private through p t(onEach) {
+    d protected through p t(onEach) {
         d current p this.__head
         while(current != null) {
             if(onEach(current)) {
@@ -60,7 +55,7 @@ d Stack p class {
     }
     ;A private tool used as a helper for tools such as get() and insert().
     @index@The index of the element being searched for.@;
-    d private __get p t(index) {
+    d protected __get p t(index) {
         d i p 0
         d x p null
         this.through(t(current) {
@@ -126,20 +121,20 @@ d Stack p class {
             before p this.__get(index - 1)
         }
         if(before == null) {
-            throw "Unable to insert element(s) in index 'index' because the stack is not long enough!"
+            throw "Unable to insert element(s) in index 'index' because the structure is not long enough!"
         }
         for(d i p 0, i < vals.length, i++) {
             before.next p new StackNode(vals[i], before.next)
-            if(index == 0 && i == vals.length - 1) {
-                this.__head p before.next
-            }
+        }
+        if(index == 0) {
+            this.__head p before.next
         }
         h this
     }
-    ;Remove one or more elements from an stack beginning at a given index. Elements will be deleted from the given index downward for as many repeats as are specified in the 'count' parameter. If only one element is deleted, its value will be harvested by itself. If multiple are deleted, an array of their values will be harvested instead. Enabling 'alwaysArray' will ensure that this tool always harvests an array.
+    ;Remove one or more elements from a stack beginning at a given index. Elements will be deleted from the given index downward for as many repeats as are specified in the 'count' parameter. If only one element is deleted, its value will be harvested by itself. If multiple are deleted, an array of their values will be harvested instead. Enabling 'alwaysArray' will ensure that this tool always harvests an array.
     @index@The first index to be deleted.@
     @count@(default: 1) The number of elements to be deleted. Elements are deleted downwards - in other words, calling delete(5, 3) on a stack will delete elements 5, 6, and 7 rather than 5, 4, and 3.@
-    @alwaysArray@(default: no) This parameter ensures that delete() always harvests an array. Otherwise, delete() will harvest a single value if only one element is deleted@;
+    @alwaysArray@(default: no) This parameter ensures that delete() always harvests an array. Otherwise, delete() will harvest a single value if only one element is deleted.@;
     d delete p t(index, count p 1, alwaysArray p no) {
         d before
         d deleting p []
@@ -157,9 +152,9 @@ d Stack p class {
             }
             deleting.push(before.next.val)
             before.next p before.next.next
-            if(i == count - 1 && index == 0) {
-                this.__head p before.next
-            }
+        }
+        if(index == 0) {
+            this.__head p before.next
         }
         if(count == 1 && !alwaysArray) {
             h deleting[0]

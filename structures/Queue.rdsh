@@ -1,0 +1,107 @@
+d StackNode p import "StackNode"
+d Queue p class : import "Stack" {
+    ;A private node representing the end of the queue (the most recently added values).;
+    d private __tail
+    constructor p t(fill vals) {
+        this.__tail p null
+        super.call(vals, this)
+    }
+    ;(A.K.A. enqueue) Append a value to the end of the queue. The provided value becomes the new tail and is attached to the old tail of the queue, and the entire queue is harvested.
+    @val@The value (any type) to be pushed.@;
+    d push p t(val) {
+        d n p new StackNode(val)
+        if(this.__tail == null) {
+            this.__head p n
+        } else {
+            this.__tail.next p n
+        }
+        this.__tail p n
+        h this
+    }
+    ;(A.K.A. push) Append a value to the end of the queue. The provided value becomes the new tail and is attached to the old tail of the queue, and the entire queue is harvested.
+    @val@The value (any type) to be pushed.@;
+    d enqueue p push
+    ;(A.K.A. dequeue) Remove the head of the queue, or throw an error if it doesn't exist. This tool harvests the value of the removed element.;
+    d pop p t() {
+        if(this.__head == null) {
+            throw "Cannot pop from an empty queue!"
+        }
+        d s p this.__head.val
+        this.__head p this.__head.next
+        if(this.__head == null) {
+            this.__tail p null
+        }
+        h s
+    }
+    ;(A.K.A. pop) Remove the head of the queue, or throw an error if it doesn't exist. This tool harvests the value of the removed element.;
+    d dequeue p pop
+    ;Get the tail of the queue as a value, or null if it doesn't exist.;
+    d tail {
+        h {
+            if(this.__tail == null) {
+                h null
+            }
+            h this.__tail.val
+        }
+    }
+    ;Insert one or more elements at a given index in a queue. Elements will be inserted from the given index downward, such that the first element will end up furthest from the queue's head. This tool harvests the original queue once completed.
+    @index@The index at which the element(s) will be inserted.@
+    @vals@Specify any number of values to insert. The first value will be inserted at the given index, and values will continue to be inserted at that index. This pushes the first value away from the starting index, and the last value specified ends up closest to the head.@;
+    d insert p t(index, fill vals) {
+        d before
+        if(index == 0) {
+            before p new StackNode(null, this.__head)
+        } else {
+            before p this.__get(index - 1)
+        }
+        if(before == null) {
+            throw "Unable to insert element(s) in index 'index' because the structure is not long enough!"
+        }
+        for(d i p 0, i < vals.length, i++) {
+            before.next p new StackNode(vals[i], before.next)
+            if(i == 0 && before.next.next == null) {
+                this.__tail p before.next
+            } 
+        }
+        if(index == 0) {
+            this.__head p before.next
+        }
+        h this
+    }
+    ;Remove one or more elements from a queue beginning at a given index. Elements will be deleted from the given index downward for as many repeats as are specified in the 'count' parameter. If only one element is deleted, its value will be harvested by itself. If multiple are deleted, an array of their values will be harvested instead. Enabling 'alwaysArray' will ensure that this tool always harvests an array.
+    @index@The first index to be deleted.@
+    @count@(default: 1) The number of elements to be deleted. Elements are deleted downwards - in other words, calling delete(5, 3) on a queue will delete elements 5, 6, and 7 rather than 5, 4, and 3.@
+    @alwaysArray@(default: no) This parameter ensures that delete() always harvests an array. Otherwise, delete() will harvest a single value if only one element is deleted.@;
+    d delete p t(index, count p 1, alwaysArray p no) {
+        d before
+        d deleting p []
+        if(index == 0) {
+            before p new StackNode(null, this.__head)
+        } else {
+            before p this.__get(index - 1)
+        }
+        if(before == null) {
+            throw "Unable to delete at index 'index' because the stack is not long enough!"
+        }
+        for(d i p 0, i < count, i++) {
+            if(before.next == null) {
+                throw "Unable to delete 'count' element(s) at index 'index' because not enough elements exist!"
+            }
+            deleting.push(before.next.val)
+            before.next p before.next.next
+        }
+        if(index == 0) {
+            this.__head p before.next
+            if(this.__head == null) {
+                this.__tail == null
+            }
+        } elseif(before.next == null) {
+            this.__tail p before
+        }
+        if(count == 1 && !alwaysArray) {
+            h deleting[0]
+        }
+        h deleting
+    }
+}
+h Queue
