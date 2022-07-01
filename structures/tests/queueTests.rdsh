@@ -1,6 +1,6 @@
 d Tests p import "../../Tests"
 h t() {
-    d queue p new Queue(1, 2, 3) # h 1 2 3 t #
+    d queue p new structures.Queue(1, 2, 3) # h 1 2 3 t #
     h new Tests(["enqueue", "dequeue", "insert", "insert head", "insert tail", "delete", "delete head", "delete tail", "tail"], 
     [
         t() {

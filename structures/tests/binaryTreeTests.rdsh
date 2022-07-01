@@ -1,6 +1,6 @@
 d Tests p import "../../Tests"
 h t() {
-    d tree p new BinaryTree(3, 5, 4, 1, 2) # 3(1(n, 2), 5(4, n)) #
+    d tree p new structures.BinaryTree(3, 5, 4, 1, 2) # 3(1(n, 2), 5(4, n)) #
     h new Tests(["head", "add", "search", "traverse", "min", "max", "invert", "length", "getArray", "delete no child", "delete one child", "delete two child", "delete head"], [
         t() {
             h tree.head == 3
