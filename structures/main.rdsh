@@ -12,4 +12,9 @@ h {
     ;A FIFO data structure that inherits from Stack/LinkedList. The primary difference is that queues store a 'tail' property, which allows the user to access both ends of the queue with low time complexity. Otherwise, everything is the same except that pushing to a queue adds to the tail while pushing to a stack adds to the head.
     @vals@Specify any number of values to be added to the queue as it is constructed. Values will be pushed one by one such that the last value specified becomes the tail of the queue.@;
     d Queue p import "Queue"
+    ;A unique data structure representing a two-dimensional table of values. Tables can be linked and nested within each other to produce well-organized and mutable datasets. Because tables store values internally within arrays, access time converges at O(1) but insertion and deletion are not available.
+    @width@The initial width of the table. This can be edited later using addCol().@
+    @height@The initial height of the table. This can be edited later using addRow().@
+    @default@The default value used to fill the table before any unique values are set.@;
+    d Table p import "Table"
 }

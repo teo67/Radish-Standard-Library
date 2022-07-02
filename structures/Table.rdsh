@@ -1,0 +1,204 @@
+d TableNode p class {
+    constructor p t(val) {
+        this.val p val
+    }
+}
+d Table p class {
+    ;A private value set during construction that is used to fill empty nodes when they are created using addRow() or addCol().;
+    d private __default
+    ;A private 2d array arranged in rows that stores every value in the table.;
+    d private __rows
+    constructor p t(width, height, default p null) {
+        this.__default p default
+        this.__rows p this.construct(height, t(y) {
+            h this.construct(width, t(x) {
+                h new TableNode(default)
+            })
+        })
+    }
+    ;Get the width of the table (number).;
+    d width {
+        h {
+            if(this.__rows.length == 0) {
+                h 0
+            }
+            h this.__rows[0].length
+        }
+    }
+    ;Get the height of the table (number).;
+    d height {
+        h {
+            h this.__rows.length
+        }
+    }
+    ;Get the area (width * height) of the table.;
+    d area {
+        h {
+            h this.width * this.height
+        }
+    }
+    ;A private helper tool used to generate arrays based on the table.
+    @len@The length of the array to be generated.@
+    @getDefault@A tool that takes one integer argument and returns a new value to be added to the array.@;
+    d private construct p t(len, getDefault) {
+        d r p []
+        for(d i p 0, i < len, i++) {
+            r[i] p getDefault(i)
+        }
+        h r
+    }
+    ;A private helper tool used to handle errors if the parameters passed in are out of bounds.
+    @x@The x position of the parameters being passed.@
+    @y@The y position of the parameters being passed.@;
+    d private validate p t(x, y) {
+        if(y >= this.height || x >= this.width || x < 0 || y < 0) {
+            throw "Invalid parameters ('x', 'y')! \'x\' should be in range [0, width ('this.width')) and y should be in range [0, height ('this.height'))."
+        }
+    }
+    ;Directly set a node in the table. While the tool is public, it should NOT be used outside of Radish's machinery, for there is no way to access nodes publicly and therefore no way to execute the tool correctly.
+    @x@The x position to be set.@
+    @y@The y position to be set.@
+    @node@The node to be implanted at (x, y).@;
+    d __set p t(x, y, node) {
+        this.validate(x, y)
+        this.__rows[y][x] p node
+        h this
+    }
+    ;Change a value within a table using its coordinates. Because of the inner node system being used, editing a value in a nested region of a table will edit all nested components that include the point at (x, y)!
+    @x@The x position to edit in the given table.@
+    @y@The y position to edit in the given table.@
+    @val@The new value to be set at (x, y).@;
+    d set p t(x, y, val) {
+        this.validate(x, y)
+        this.__rows[y][x].val p val
+        h this
+    }
+    ;Get the table value at coordinates (x, y), as long as it exists.
+    @x@The x position to retrieve.@
+    @y@The y position to retreive.@;
+    d get p t(x, y) {
+        this.validate(x, y)
+        h this.__rows[y][x].val
+    }
+    ;Append a new row to the bottom of the table. This tool uses the default value set when constructing the table and does not affect any nested tables.;
+    d addRow p t() {
+        this.__rows.push(this.construct(this.width, t(i) {
+            h new TableNode(this.__default)
+        }))
+        h this
+    }
+    ;Append a new column to the right side of the table. This tool uses the default value set when constructing the table and does not affect any nested tables.;
+    d addCol p t() {
+        for(d i p 0, i < this.height, i++) {
+            this.__rows[i].push(new TableNode(this.__default))
+        }
+        h this
+    }
+    ;Fill a rectangular area within the table with a given value.
+    @value@The new value to be used when editing the table.@
+    @x@The leftmost x position of the area to be filled.@
+    @y@The uppermost y position of the area to be filled.@
+    @width@The width of the area to be filled (default: 1).@
+    @height@The height of the area to be filled (default: 1).@;
+    d fillArea p t(value, x, y, width p 1, height p 1) {
+        for(d _y p y, _y < y + height, _y++) {
+            for(d _x p x, _x < x + width, _x++) {
+                this.set(_x, _y, value)
+            }
+        }
+        h this
+    }
+    ;Link a single node in the table to a node in another table such that editing that position in the future will affect both tables.
+    @x@The x position (in this table) of the value to be copied.@
+    @y@The y position (in this table) of the value to be copied.@
+    @other@The table to link the value to.@
+    @otherX@The x position in the other table that the value will be copied to (default: x).@
+    @otherY@The y position in the other table that the value will be copied to (default: y).@;
+    d link p t(x, y, other, otherX p x, otherY p y) {
+        this.validate(x, y)
+        other.__set(otherX, otherY, this.__rows[y][x])
+        h this
+    }
+    ;Nest this table within another table at a certain position, provided that the other table is large enough.
+    @table@The table to be linked to this table.@
+    @x@The x position where the leftmost column of this table will be inserted.@
+    @y@The y position where the uppermost row of this table will be inserted.@;
+    d nest p t(table, x, y) {
+        for(d _y p 0, _y < this.height, _y++) {
+            for(d _x p 0, _x < this.width, _x++) {
+                table.__set(x + _x, y + _y, this.__rows[_y][_x])
+            }
+        }
+        h this
+    }
+    ;Generate a new table based on a partial area of this table. The tables will be linked in the future such that editing rows within this table will affect the new table.
+    @x@The leftmost x position to begin copying.@
+    @y@The uppermost y position to begin copying.@
+    @width@The width of the area to be copied (default: 1).@
+    @height@The height of the area to be copied (default: 1).@;
+    d getArea p t(x, y, width p 1, height p 1) {
+        this.validate(x, y)
+        this.validate(x + width - 1, y + height - 1)
+        d n p new Table(width, height, this.__default)
+        for(d _y p 0, _y < height, _y++) {
+            for(d _x p 0, _x < width, _x++) {
+                d s p this.__rows[y + _y][x + _x]
+                n.__set(_x, _y, s)
+            }
+        }
+        h n
+    }
+    ;Get a row from the table based on its index. For example, the uppermost row of the table could be obtained by getRow(0).
+    @index@The index of the row to be retrieved.@;
+    d getRow p t(index) {
+        this.validate(0, index)
+        h this.construct(this.width, t(i) {
+            h this.__rows[index][i].val
+        })
+    }
+    ;Get a column from the table based on its index. For example, the leftmost column of the table could be obtained by getCol(0).
+    @index@The index of the column to be retrieved.@;
+    d getCol p t(index) {
+        this.validate(index, 0)
+        h this.construct(this.height, t(i) {
+            h this.__rows[i][index].val
+        })
+    }
+    ;Generate a 2d array representing this table, where each array within is a single row.;
+    d getRows p t() {
+        h this.construct(this.height, t(i) {
+            h this.getRow(i)
+        })
+    }
+    ;Generate a 2d array representing this table, where each array within is a single column.;
+    d getCols p t() {
+        h this.construct(this.width, t(i) {
+            h this.getCol(i)
+        })
+    }
+    ;Get a readable string representing this table - note that this tool harvests the generated string but does not actually print it to the console.
+    @numChars@The number of characters that each item takes up in the generated string. For example, print(3) might look like this: 9  10 1  2  77 . Default: 5.@;
+    d print p t(numChars p 5) {
+        d r p ""
+        for(d y p 0, y < this.height, y++) {
+            for(d x p 0, x < this.width, x++) {
+                d s p "'this.__rows[y][x].val'"
+                s += " " * (numChars - s.length)
+                r += s
+            }
+            r += "\n"
+        }
+        h r
+    }
+    ;Generate a copy of this table with the same dimensions and default value. Unlike tools such as nest() and getArea(), a table harvested using copy() will be completely unlinked from this one (excluding pointers set by the user, such as objects within the table).;
+    d copy p t() {
+        d n p new Table(this.width, this.height, this.__default)
+        for(d y p 0, y < this.height, y++) {
+            for(d x p 0, x < this.width, x++) {
+                n.set(x, y, this.__rows[y][x].val)
+            }
+        }
+        h n
+    }
+}
+h Table
