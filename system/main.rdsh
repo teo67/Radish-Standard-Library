@@ -1,0 +1,66 @@
+;An object used to read and edit the file system. For example, use system.readFile to get the contents of a file.;
+h {
+    ;Get the contents of a file as a string, provided that the file exists.
+    @file@The absolute path to the file.@;
+    d readFile p t(file) {
+        h FILEREAD(file)
+        h ""
+    }
+    ;Write a string to a file. If the file already exists, its previous contents will be deleted.
+    @file@The absolute path to the file.@
+    @text@The text to write to the given file.@;
+    d writeFile p t(file, text) {
+        h FILEWRITE(file, text)
+        h ""
+    }
+    ;Append text to the end of a file, provided that it exists.
+    @file@The absolute path to the file.@
+    @text@The text to add to the bottom of the given file.@;
+    d appendToFile p t(file, text) {
+        d r p FILEREAD(file)
+        h FILEWRITE(file, r + text)
+        h ""
+    }
+    ;Create a file, or do nothing if it already exists. This tool harvests truthy if the file was created and falsy if nothing happened.
+    @file@The absolute path to the file.@;
+    d createFile p t(file) {
+        h FILECREATE(file)
+        h yes
+    }
+    ;Delete a file, provided that it exists. This tool harvests the path to the file that was given.
+    @file@The absolute path to the file.@;
+    d deleteFile p t(file) {
+        h FILEDELETE(file)
+        h ""
+    }
+    ;Check whether a file exists in the file system.
+    @file@The absolute path to the file.@;
+    d fileExists p t(file) {
+        h FILEEXISTS(file)
+        h yes
+    }
+    ;Get the name(s) of every file and subdirectory within a given directory, provided that the directory exists. Harvests an array where the names of subdirectories appear before the names of files.
+    @dir@The absolute path to the directory.@;
+    d readDir p t(dir) {
+        h DIRECTORYREAD(dir)
+        h ""
+    }
+    ;Create a directory, or do nothing if it already exists. This tool harvests truthy if the directory was created and falsy if nothing happened.
+    @dir@The absolute path to the directory.@;
+    d createDir p t(dir) {
+        h DIRECTORYCREATE(dir)
+        h yes
+    }
+    ;Delete a directory, provided that it exists. This tool harvests the path to the directory that was given.
+    @dir@The absolute path to the directory.@;
+    d deleteDir p t(dir) {
+        h DIRECTORYDELETE(dir)
+        h ""
+    }
+    ;Check whether a directory exists in the file system.
+    @dir@The absolute path to the directory.@;
+    d directoryExists p t(dir) {
+        h DIRECTORYEXISTS(dir)
+        h yes
+    }
+}
