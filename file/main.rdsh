@@ -1,0 +1,10 @@
+h {
+    d read p t(file) {
+        h FILEREAD(PATH, file)
+        h ""
+    }
+    d write p t(file, text) {
+        h FILEWRITE(PATH, file, text)
+        h ""
+    }
+}

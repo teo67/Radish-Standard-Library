@@ -1,29 +1,48 @@
 d Heap p class {
+    ;An array storing all of the values in the heap. Note that while this array represents the tree structure of the heap, it is not completely sorted.;
+    d storage
     constructor p t(fill vals) {
         this.storage p []
         for(d i p 0, i < vals.length, i++) {
             this.push(vals[i])
         }
     }
+    ;A standard heap comparator function to organize a structure such that the head is the minimum.
+    @parent@The value of the parent node (lower).@
+    @child@The value of the child node (higher).@;
     d static min p t(parent, child) {
         h parent > child
     }
+    ;A standard heap comparator function to organize a structure such that the head is the maximum.
+    @parent@The value of the parent node (higher).@
+    @child@The value of the child node (lower).@;
     d static max p t(parent, child) {
         h parent < child
     }
+    ;The heap's comparator function that helps it determine when to swap nodes. This tool returns truthy if the parent and child should be swapped, and falsy otherwise.
+    @parent@The value of the parent node.@
+    @child@The value of the child node.@;
     d comparator p min
+    ;A private helper tool to get the parent index of a given index in the heap.
+    @i@The child index.@;
     d private __getParent p t(i) {
         if(i % 2 == 1) {
             i++
         }
         h i / 2 - 1
     }
+    ;A private helper tool to get the left child index of a given index in the heap.
+    @i@The parent index.@;
     d private __getLeftChild p t(i) {
         h 2 * i + 1
     }
+    ;A private helper tool to get the right child index of a given index in the heap.
+    @i@The parent index.@;
     d private __getRightChild p t(i) {
         h (1 + i) * 2
     }
+    ;Insert a value into the heap and reorganize the structure as necessary. This tool harvests the organized heap once completed.
+    @val@The value to be added to the heap.@;
     d push p t(val) {
         d i p this.storage.length
         d parent p this.__getParent(i)
@@ -37,6 +56,7 @@ d Heap p class {
         }
         h this
     }
+    ;Get the head of the heap, or the value that can be passed into comparator() as 'parent' along with any other value and harvest falsy.;
     d head {
         h {
             if(this.storage.length == 0) {
@@ -45,16 +65,19 @@ d Heap p class {
             h this.storage[0]
         }
     }
+    ;Get the number of values in the heap.;
     d size {
         h {
             h this.storage.length
         }
     }
+    ;Check whether the heap is empty using its 'storage' property.;
     d isEmpty {
         h {
             h this.storage.length == 0
         }
     }
+    ;Remove the head of the heap and harvest its value, provided that the head exists. This tool will reorganize the heap as necessary after the head is removed.;
     d pop p t() {
         if(this.storage.length == 0) {
             throw "Unable to pop from an empty heap!"
@@ -85,6 +108,7 @@ d Heap p class {
         }
         h s
     }
+    ;Completely rebuild the heap by clearing its data and re-pushing every value. This can be useful when the heap's comparator is changed and all values need to be re-ordered.;
     d rebuild p t() {
         d s p this.storage
         this.storage p []
@@ -93,6 +117,9 @@ d Heap p class {
         }
         h this
     }
+    ;Traverse the heap in a parent-left-right order. onEach will be called for every value found in the heap, and the tool harvests the entire heap once finished.
+    @onEach@A tool accepting one parameter, which is the value of the current viewing node.@
+    @root@The root to begin traversal at. It's recommended to leave this parameter out unless you have a solid understanding of the machinery behind Radish heaps.@;
     d traverse p t(onEach, root p 0) {
         if(root >= this.storage.length) {
             h this
@@ -101,6 +128,7 @@ d Heap p class {
         this.traverse(onEach, this.__getLeftChild(root))
         h this.traverse(onEach, this.__getRightChild(root))
     }
+    ;Get the 'lowest priority' item in the heap by traversing every node. This tool is NOT recommended for efficiency, and you should consider using a different data structure if you need easy access to both minimum and maximum (for example, try BinaryTree).;
     d getLeast p t() {
         d least p null
         this.traverse(t(val) {
