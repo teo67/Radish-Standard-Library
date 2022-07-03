@@ -91,5 +91,5 @@ h t() {
             copy.set(2, 2, 8)
             h table.get(2, 2) == 7 # not linked #
         }
-    ], 17).execute()
+    ]).execute()
 }

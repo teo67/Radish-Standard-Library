@@ -20,5 +20,5 @@ h t() {
         }, t() {
             h math.summation(6) == 21
         }
-    ], 8).execute()
+    ]).execute()
 }

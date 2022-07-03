@@ -1,12 +1,11 @@
 d Tests p class {
-    constructor p t(_caseNames p [], _cases p [], _len p 0) {
+    constructor p t(_caseNames p [], _cases p []) {
         this.caseNames p _caseNames
         this.cases p _cases
-        this.len p _len # not automated in order to avoid using stdlib #
     }
     d execute p t() {
         d good p yes
-        for(d i p 0, i < this.len, i++) {
+        for(d i p 0, i < this.caseNames.length, i++) {
             holler("starting 'this.caseNames[i]'...")
             if(this.cases[i]()) {
                 holler("'this.caseNames[i]' passed!")

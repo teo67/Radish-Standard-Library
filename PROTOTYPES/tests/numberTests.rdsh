@@ -15,5 +15,5 @@ h t() {
         }, t() {
             h num.exponent(2) == 64
         }
-    ], 6).execute()
+    ]).execute()
 }

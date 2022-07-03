@@ -6,5 +6,5 @@ h t() {
         }, t() {
             h yes.asNumber == 1
         }
-    ], 2).execute()
+    ]).execute()
 }

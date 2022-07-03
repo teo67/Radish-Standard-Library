@@ -1,0 +1,114 @@
+d Heap p class {
+    constructor p t(fill vals) {
+        this.storage p []
+        for(d i p 0, i < vals.length, i++) {
+            this.push(vals[i])
+        }
+    }
+    d static min p t(parent, child) {
+        h parent > child
+    }
+    d static max p t(parent, child) {
+        h parent < child
+    }
+    d comparator p min
+    d private __getParent p t(i) {
+        if(i % 2 == 1) {
+            i++
+        }
+        h i / 2 - 1
+    }
+    d private __getLeftChild p t(i) {
+        h 2 * i + 1
+    }
+    d private __getRightChild p t(i) {
+        h (1 + i) * 2
+    }
+    d push p t(val) {
+        d i p this.storage.length
+        d parent p this.__getParent(i)
+        this.storage.push(val)
+        while(parent >= 0 && this.comparator(this.storage[parent], this.storage[i])) {
+            d s p this.storage[parent]
+            this.storage[parent] p this.storage[i]
+            this.storage[i] p s
+            i p parent
+            parent p this.__getParent(i)
+        }
+        h this
+    }
+    d head {
+        h {
+            if(this.storage.length == 0) {
+                h null
+            }
+            h this.storage[0]
+        }
+    }
+    d size {
+        h {
+            h this.storage.length
+        }
+    }
+    d isEmpty {
+        h {
+            h this.storage.length == 0
+        }
+    }
+    d pop p t() {
+        if(this.storage.length == 0) {
+            throw "Unable to pop from an empty heap!"
+        }
+        if(this.storage.length == 1) {
+            h this.storage.pop()
+        }
+        d s p this.storage[0]
+        this.storage[0] p this.storage.pop()
+        d parent p 0
+        d done p no
+        while(!done) {
+            d left p this.__getLeftChild(parent)
+            d right p this.__getRightChild(parent)
+            d _parent p parent
+            if(left < this.storage.length && this.comparator(this.storage[parent], this.storage[left])) {
+                parent p left
+            } elseif(right < this.storage.length && this.comparator(this.storage[parent], this.storage[right])) {
+                parent p right
+            }
+            if(parent != _parent) {
+                d o p this.storage[parent]
+                this.storage[parent] p this.storage[_parent]
+                this.storage[_parent] p o
+            } else {
+                done p yes
+            }
+        }
+        h s
+    }
+    d rebuild p t() {
+        d s p this.storage
+        this.storage p []
+        for(d i p 0, i < s.length, i++) {
+            this.push(s[i])
+        }
+        h this
+    }
+    d traverse p t(onEach, root p 0) {
+        if(root >= this.storage.length) {
+            h this
+        }
+        onEach(this.storage[root])
+        this.traverse(onEach, this.__getLeftChild(root))
+        h this.traverse(onEach, this.__getRightChild(root))
+    }
+    d getLeast p t() {
+        d least p null
+        this.traverse(t(val) {
+            if(least == null || this.comparator(val, least)) {
+                least p val
+            }
+        })
+        h least
+    }
+}
+h Heap

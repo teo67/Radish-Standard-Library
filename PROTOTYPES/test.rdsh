@@ -10,5 +10,5 @@ d cases p [
 h t() {
     h new Tests([
     "arrays", "booleans", "functions", "numbers", "objects", "strings"
-    ], cases, 5).execute()
+    ], cases).execute()
 }

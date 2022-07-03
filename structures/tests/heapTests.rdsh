@@ -1,0 +1,37 @@
+d Tests p import "../../Tests"
+d Heap p import "../Heap"
+h t() {
+    d heap p new Heap(4, 2, 1)
+    h new Tests(["push", "head", "size", "isEmpty", "pop", "rebuild/comparator", "traverse", "getLeast"], [
+        t() {
+            # 1 4 2 #
+            heap.push(3) # 1 3 2 4 #
+            if(heap.storage[1] != 3 || heap.storage[3] != 4) {
+                h no
+            }
+            h heap.push(0).storage[1] == 1 # 0 1 2 3 4 #
+        }, t() {
+            h heap.head == 0
+        }, t() {
+            h heap.size == 5
+        }, t() {
+            h !heap.isEmpty 
+        }, t() {
+            if(heap.pop() != 0) { # 1 3 2 4 #
+                h no
+            }
+            h heap.head == 1 && heap.storage[1] == 3 && heap.storage[2] == 2 && heap.storage[3] == 4
+        }, t() {
+            heap.comparator p Heap.max # reverse it #
+            h heap.rebuild().head == 4 && heap.storage[1] == 3 && heap.storage[2] == 2 && heap.storage[3] == 1 # 4 3 2 1 #
+        }, t() {
+            d sum p 0
+            heap.traverse(t(val) {
+                sum += val
+            })
+            h sum == 10
+        }, t() {
+            h heap.getLeast() == 1
+        }
+    ]).execute()
+}

@@ -50,5 +50,5 @@ h t() {
             # 4(0(6, n), -1(n, 1(n, 5.5))) #
             h tree.search(6) && tree.search(1) && tree.search(5.5)
         }
-    ], 14).execute()
+    ]).execute()
 }

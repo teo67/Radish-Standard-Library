@@ -29,5 +29,5 @@ h t() {
             }, t() {
                 h testArray.reverse()[0] == 9
             }
-        ], 12).execute()
+        ]).execute()
     }
