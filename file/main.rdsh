@@ -1,10 +1,38 @@
 h {
     d read p t(file) {
-        h FILEREAD(PATH, file)
+        h FILEREAD(file)
         h ""
     }
     d write p t(file, text) {
-        h FILEWRITE(PATH, file, text)
+        h FILEWRITE(file, text)
         h ""
+    }
+    d create p t(file) {
+        h FILECREATE(file)
+        h yes
+    }
+    d delete p t(file) {
+        h FILEDELETE(file)
+        h ""
+    }
+    d exists p t(file) {
+        h FILEEXISTS(file)
+        h yes
+    }
+    d readDir p t(dir) {
+        h DIRECTORYREAD(dir)
+        h ""
+    }
+    d createDir p t(dir) {
+        h DIRECTORYCREATE(dir)
+        h yes
+    }
+    d deleteDir p t(dir) {
+        h DIRECTORYDELETE(dir)
+        h ""
+    }
+    d directoryExists p t(dir) {
+        h DIRECTORYEXISTS(dir)
+        h yes
     }
 }
