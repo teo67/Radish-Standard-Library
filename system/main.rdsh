@@ -1,5 +1,22 @@
 ;An object used to read and edit the file system. For example, use system.readFile to get the contents of a file.;
 h {
+    ;An options class to be used by system.editFile(). If append is set to a non-null value, its value is appended to the file's contents. Otherwise, if write is set to a non-null value, the file's contents are overwritten with its value. If deleteFile is truthy, the file is deleted afterwards.
+    @append@Edit the 'append' property to add to the contents of the file.@
+    @write@Edit the 'write' property to change the contents of the file.@
+    @deleteFile@Set to yes in order to delete the file.@;
+    d EditOptions p class {
+        ;If not null, its value will be appended to the file's contents.;
+        d append
+        ;If not null, the file's contents will be replaced with its value.;
+        d write
+        ;If truthy, the file will be deleted.;
+        d deleteFile
+        constructor p t(append p null, write p null, deleteFile p no) {
+            this.append p append
+            this.write p write
+            this.deleteFile p deleteFile
+        }
+    }
     ;Get the contents of a file as a string, provided that the file exists.
     @file@The absolute path to the file.@;
     d readFile p t(file) {
@@ -13,13 +30,22 @@ h {
         h FILEWRITE(file, text)
         h ""
     }
-    ;Append text to the end of a file, provided that it exists.
+    ;Edit a file while only opening it once. This is advantageous because it prevents errors around trying to read and write to the same file when it's already open.
     @file@The absolute path to the file.@
-    @text@The text to add to the bottom of the given file.@;
-    d appendToFile p t(file, text) {
-        d r p FILEREAD(file)
-        h FILEWRITE(file, r + text)
-        h ""
+    @read@Whether or not to read the contents of the file. If so, 'edit' will receive an argument containing the text in the file.@
+    @edit@A tool that takes up to one parameter, the contents of the file specified (not provided if 'read' is set to no). The tool harvests an object with three optional properties: append, write, and deleteFile. If append is not null, its value will be appended to the file's contents. Otherwise, if write is not null, the file's contents will be set to its value. If deleteFile is truthy, the file will be deleted.@;
+    d editFile p t(file, read, edit) {
+        DOFILE(file, read, edit)
+        h null
+    }
+    ;Add text to the end of a file while only opening it once. This tool has the same advantages as editFile() and does not spend time reading the contents of the given file.
+    @file@The absolute path to the file.@
+    @newtext@The text to be added to the end of the file (using ASCII encoding).@;
+    d appendToFile p t(file, newtext) {
+        DOFILE(file, no, t() {
+            h new EditOptions(newtext)
+        })
+        h null 
     }
     ;Create a file, or do nothing if it already exists. This tool harvests truthy if the file was created and falsy if nothing happened.
     @file@The absolute path to the file.@;
@@ -62,5 +88,12 @@ h {
     d directoryExists p t(dir) {
         h DIRECTORYEXISTS(dir)
         h yes
+    }
+    d getDir p t(path p "") {
+        d i p path.lastIndexOf("/")
+        if(i == -1) {
+            throw "The path \''path'\' is not in a valid directory!"
+        }
+        h path.substring(0, i)
     }
 }

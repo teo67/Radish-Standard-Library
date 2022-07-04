@@ -6,11 +6,22 @@ h {
             h 0 + 0
         }
     }
-    ;Find the 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
+    ;Find the first 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
     @input@The character (string with length == 1) to be searched for.@;
     d indexOf p t(input p "") {
         d len p this.length
         for(d i p 0, i < len, i++) {
+            if(this[i] == input) {
+                h i
+            }
+        }
+        h -1
+    }
+    ;Find the last 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
+    @input@The character (string with length == 1) to be searched for.@;
+    d lastIndexOf p t(input p "") {
+        d len p this.length
+        for(d i p len - 1, i >= 0, i--) {
             if(this[i] == input) {
                 h i
             }

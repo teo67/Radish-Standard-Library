@@ -20,11 +20,22 @@ h {
         }
         h this.delete(len - 1)
     }
-    ;Find the 0-based index of an item within an array. The index is found using a standard Radish equivalence check, which means that objects and arrays must be stored at the same reference to be equal.
+    ;Find the first 0-based index of an item within an array. The index is found using a standard Radish equivalence check, which means that objects and arrays must be stored at the same reference to be equal.
 Note: indexOf will return -1 if no item is found.
     @item@The item in the array to be searched for.@;
     d indexOf p t(item) {
         for(d i p 0, i < this.length, i++) {
+            if(this[i] == item) {
+                h i
+            }
+        }
+        h -1
+    }
+    ;Find the last 0-based index of an item within an array. The index is found using a standard Radish equivalence check, which means that objects and arrays must be stored at the same reference to be equal.
+Note: lastIndexOf will return -1 if no item is found.
+    @item@The item in the array to be searched for.@;
+    d lastIndexOf p t(item) {
+        for(d i p this.length - 1, i >= 0, i--) {
             if(this[i] == item) {
                 h i
             }

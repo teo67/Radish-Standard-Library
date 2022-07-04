@@ -29,13 +29,13 @@ h {
     ;A built-in object with useful math constants such as pi!;
     d constants p {
         ;The value obtained by dividing the circumference of a circle by its diameter.;
-        d pi p 3.1415926535897932384626
+        d pi p 3.141592653589793
         ;The value obtained by finding the limit as x approaches infinity of (1+(1/x))^x.;
-        d e p 2.718
+        d e p 2.7182818285
         ;Equivalent to root(2).;
-        d rootTwo p 1.414
+        d rootTwo p 1.4142135624
         ;Equivalent to root(3).;
-        d rootThree p 1.7
+        d rootThree p 1.7320508076
     }
     ;Find the natural logarithm of a given input, or a log with a different base if provided.
     @input@The input to the logarithm. For example, log(2) = ln2.@
@@ -70,4 +70,92 @@ h {
     ;Check whether a given integer is prime. This algorithm is not particularly cheap, but it caches results that can be generalized to other inputs in the future.
     @input@The number to be checked. For example, isPrime(3) harvests yes.@;
     d isPrime p import "isPrime"
+    d degreesToRadians p t(deg) {
+        h (deg / 360) * 2 * constants.pi
+    }
+    d radiansToDegrees p t(rad) {
+        h (rad * 360) / (2 * constants.pi)
+    }
+    ;An object storing the three basic trigonometric functions, as well as their multiplicative inverses and functional inverses (stored in math.a).;
+    d trig p {
+        ;Get the sine of a radian value.
+        @rad@An angle input measured in radians.@;
+        d sin p t(rad) {
+            h SIN(rad)
+            h -0
+        }
+        ;Get the cosine of a radian value.
+        @rad@An angle input measured in radians.@;
+        d cos p t(rad) {
+            h COS(rad)
+            h -0
+        }
+        ;Get the tangent of a radian value.
+        @rad@An angle input measured in radians where (rad % pi) != pi/2.@;
+        d tan p t(rad) {
+            h TAN(rad)
+            h -0
+        }
+        ;Get the cosecant (1/sin) of a radian value.
+        @rad@An angle input measured in radians where rad % pi != 0.@;
+        d csc p t(rad) {
+            h 1 / SIN(rad)
+            h -0
+        }
+        ;Get the secant (1/cos) of a radian value.
+        @rad@An angle input measured in radians where (rad % pi) != pi/2.@;
+        d sec p t(rad) {
+            h 1 / COS(rad)
+            h -0
+        }
+        ;Get the cotangent (1/tan) of a radian value.
+        @rad@An angle input measured in radians where rad % pi != 0.@;
+        d cot p t(rad) {
+            if(rad % constants.pi == constants.pi / 2) {
+                h 0 # special case #
+            }
+            h 1 / TAN(rad)
+        }
+        ;An object storing the functional inverses of the three basic trigonometric functions and their multiplicative inverses.;
+        d a p {
+            ;Get the arcsine (sin -1) of a scalar value.
+            @sca@A scalar input value within [-1, 1].@;
+            d sin p t(sca) {
+                h ASIN(sca)
+                h -0
+            }
+            ;Get the arccosine (cos -1) of a scalar value.
+            @sca@A scalar input value within [-1, 1].@;
+            d cos p t(sca) {
+                h ACOS(sca)
+                h -0
+            }
+            ;Get the arctangent (tan -1) of a scalar value.
+            @sca@A scalar input value.@;
+            d tan p t(sca) {
+                h ATAN(sca)
+                h -0
+            }
+            ;Get the arccosecant (sin -1) with respect to (1/x) of a scalar value.
+            @sca@A scalar input value within (-infinity, -1] U [1, infinity).@;
+            d csc p t(sca) {
+                h ASIN(1 / sca)
+                h -0
+            }
+            ;Get the arcsecant (cos -1) with respect to (1/x) of a scalar value.
+            @sca@A scalar input value within (-infinity, -1] U [1, infinity).@;
+            d sec p t(sca) {
+                h ACOS(1 / sca)
+                h -0
+            }
+            ;Get the arccotangent (tan -1) with respect to (1/x) of a scalar value.
+            @sca@A scalar input value.@;
+            d cot p t(sca) {
+                if(sca == 0) {
+                    h constants.pi / 2 # special case #
+                }
+                h ATAN(1 / sca)
+            }
+        }
+    }
 }

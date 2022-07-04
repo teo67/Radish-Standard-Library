@@ -2,7 +2,7 @@ d Tests p import "../../Tests"
 h t() {
     d testArray p [1, 3, 5, 7, 9]
         h new Tests([
-            "length", "push", "pop", "indexOf", "has", "first", "last", "clone", "deepClone", "insert", "remove", "reverse"
+            "length", "push", "pop", "indexOf", "lastIndexOf", "has", "first", "last", "clone", "deepClone", "insert", "remove", "reverse"
         ], [
             t() {
                 h testArray.length == 5
@@ -12,6 +12,8 @@ h t() {
                 h testArray.pop() == 11
             }, t() {
                 h testArray.indexOf(5) == 2
+            }, t() {
+                h testArray.lastIndexOf(5) == 2
             }, t() {
                 h testArray.has(5)
             }, t() {
