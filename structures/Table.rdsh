@@ -8,11 +8,11 @@ d Table p class {
     d private __default
     ;A private 2d array arranged in rows that stores every value in the table.;
     d private __rows
-    constructor p t(width, height, default p null) {
-        this.__default p default
+    constructor p t(width, height, _default p null) {
+        this.__default p _default
         this.__rows p this.construct(height, t(y) {
             h this.construct(width, t(x) {
-                h new TableNode(default)
+                h new TableNode(_default)
             })
         })
     }

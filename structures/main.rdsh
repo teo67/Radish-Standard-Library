@@ -15,7 +15,7 @@ h {
     ;A unique data structure representing a two-dimensional table of values. Tables can be linked and nested within each other to produce well-organized and mutable datasets. Because tables store values internally within arrays, access time converges at O(1) but insertion and deletion are not available.
     @width@The initial width of the table. This can be edited later using addCol().@
     @height@The initial height of the table. This can be edited later using addRow().@
-    @default@The default value used to fill the table before any unique values are set.@;
+    @_default@The default value used to fill the table before any unique values are set.@;
     d Table p import "Table"
     ;A data structure often used to implement priority queues under the hood. While heaps are structured as arrays under the hood, they are organized as a binary tree with a top-to-bottom rule rather than left-to-right. The default Radish heap is min, meaning that the head is always the minimum value. However, this can be altered by editing the 'comparator' property.
     @vals@Specify any number of values to be added to the heap as it is constructed. Values will be pushed one by one such that the first value initially becomes the head of the heap.@;
