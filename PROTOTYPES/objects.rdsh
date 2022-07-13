@@ -1,5 +1,5 @@
 h {
-    ;Get the value of any Radish object. x == x.getValue().;
+    ;Get the value of any Radish object. x = x.getValue().;
     d getValue p t() {
         h this
     }

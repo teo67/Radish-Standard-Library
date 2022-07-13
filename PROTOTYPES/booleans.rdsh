@@ -1,5 +1,5 @@
 h {
-    ;Get the opposite value of a boolean. boo.opposite == !boo.;
+    ;Get the opposite value of a boolean. boo.opposite = !boo.;
     d opposite {
         h {
             h !this

@@ -12,7 +12,7 @@ h {
     @toNearest@The interval (1 by default) to round by. For example, ceiling(12.5, 5) would return 15.@;
     d ceiling p t(input p 0, toNearest p 1) {
         d diff p input % toNearest
-        if(diff == 0) {
+        if(diff = 0) {
             h input
         }
         h input + toNearest - diff
@@ -115,7 +115,7 @@ h {
         ;Get the cotangent (1/tan) of a radian value.
         @rad@An angle input measured in radians where rad % pi != 0.@;
         d cot p t(rad) {
-            if(rad % constants.pi == constants.pi / 2) {
+            if(rad % constants.pi = constants.pi / 2) {
                 h 0 # special case #
             }
             h 1 / TAN(rad)
@@ -155,7 +155,7 @@ h {
             ;Get the arccotangent (tan -1) with respect to (1/x) of a scalar value.
             @sca@A scalar input value.@;
             d cot p t(sca) {
-                if(sca == 0) {
+                if(sca = 0) {
                     h constants.pi / 2 # special case #
                 }
                 h ATAN(1 / sca)
@@ -176,7 +176,7 @@ h {
         while(copy > 1) {
             for(d i p 0, i < usePrimes[0].length && usePrimes[0][i] <= copy, i++) {
                 d got p usePrimes[0][i]
-                if(copy % got == 0) {
+                if(copy % got = 0) {
                     copy /= got
                     factors[factors.length] p got
                 }
@@ -189,7 +189,7 @@ h {
     d getAllFactors p t(input) {
         d factors p []
         for(d i p 1, i ** 2 <= input, i++) {
-            if(input % i == 0) {
+            if(input % i = 0) {
                 factors[factors.length] p i
                 if(i ** 2 != input) {
                     factors[factors.length] p input / i
@@ -206,7 +206,7 @@ h {
         d factorB p getAllFactors(b)
         for(d i p factorA.length - 1, i >= 0, i--) {
             for(d j p factorB.length - 1, j >= 0, j--) {
-                if(factorA[i] == factorB[j]) {
+                if(factorA[i] = factorB[j]) {
                     h factorA[i]
                 }
             }

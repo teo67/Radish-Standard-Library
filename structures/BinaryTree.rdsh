@@ -27,7 +27,7 @@ d BinaryTree p class {
     ;Get the value of the tree's head if it exists, or null otherwise.;
     d head {
         h {
-            if(this.__head == null) {
+            if(this.__head = null) {
                 h null
             }
             h this.__head.val
@@ -38,21 +38,21 @@ d BinaryTree p class {
     d add p t(fill vals) {
         for(d i p 0, i < vals.length, i++) {
             d val p vals[i]
-            if(this.__head == null) {
+            if(this.__head = null) {
                 this.__head p new BinaryTreeNode(val)
                 continue
             }
             d current p this.__head
             while(yes) {
                 d res p this.comparator(val, current.val) * this.__inverted
-                if(res == 1) {
-                    if(current.right == null) {
+                if(res = 1) {
+                    if(current.right = null) {
                         current.right p new BinaryTreeNode(val)
                         cancel
                     }
                     current p current.right
                 } else {
-                    if(current.left == null) {
+                    if(current.left = null) {
                         current.left p new BinaryTreeNode(val)
                         cancel
                     }
@@ -67,11 +67,11 @@ d BinaryTree p class {
     d search p t(val) {
         d current p this.__head
         while(current != null) {
-            if(val == current.val) {
+            if(val = current.val) {
                 h yes
             }
             d res p this.comparator(val, current.val) * this.__inverted
-            if(res == 1) {
+            if(res = 1) {
                 current p current.right
             } else {
                 current p current.left
@@ -83,7 +83,7 @@ d BinaryTree p class {
     @onEach@The tool to be executed for every node found in the tree. It takes one parameter, which is the node itself.@
     @root@The root to begin traversing at.@;
     d private __traverse p t(onEach, root p this.__head) {
-        if(root == null) {
+        if(root = null) {
             h this
         }
         d r p root.right
@@ -99,7 +99,7 @@ d BinaryTree p class {
         })
     }
     d traverseParentLeftRight p t(onEach, root p this.__head) {
-        if(root == null) {
+        if(root = null) {
             h this
         }
         onEach(root.val)
@@ -108,7 +108,7 @@ d BinaryTree p class {
     ;Get the leftmost value stored in a binary tree (usually the minimum, unless the comparator has been changed manually). The optional parameter is only used in Radish's private machinery.
     @root@The root to begin traversal at.@;
     d leftmost p t(root p this.__head) {
-        if(root == null) {
+        if(root = null) {
             throw "Cannot find the leftmost value of a null root!"
         }
         d current p root
@@ -120,7 +120,7 @@ d BinaryTree p class {
     ;Get the rightmost value stored in a binary tree (usually the maximum, unless the comparator has been changed manually). The optional parameter is only used in Radish's private machinery.
     @root@The root to begin traversal at.@;
     d rightmost p t(root p this.__head) {
-        if(root == null) {
+        if(root = null) {
             throw "Cannot find the rightmost value of a null root!"
         }
         d current p root
@@ -160,22 +160,22 @@ d BinaryTree p class {
     @val@The value to be removed from the tree.@
     @root@The root to search in.@;
     d private __delete p t(val, root p this.__head) {
-        if (root == null) {
+        if (root = null) {
             throw "No value 'val' found to delete!"
         }
         d res p this.comparator(val, root.val) * this.__inverted
-        if(val == root.val) {
-            if (root.left == null && root.right == null) {
+        if(val = root.val) {
+            if (root.left = null && root.right = null) {
                 h null
-            } elseif (root.left == null) {
+            } elseif (root.left = null) {
                 h root.right
-            } elseif (root.right == null) {
+            } elseif (root.right = null) {
                 h root.left
             }
             d lm p this.leftmost(root.right)
             root.val p lm
             root.right p this.__delete(lm, root.right)
-        } elseif (res == -1) {
+        } elseif (res = -1) {
             root.left p this.__delete(val, root.left)
         } else {
             root.right p this.__delete(val, root.right)

@@ -7,22 +7,22 @@ h {
         }
     }
     ;Find the first 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
-    @input@The character (string with length == 1) to be searched for.@;
+    @input@The character (string with length = 1) to be searched for.@;
     d indexOf p t(input p "") {
         d len p this.length
         for(d i p 0, i < len, i++) {
-            if(this[i] == input) {
+            if(this[i] = input) {
                 h i
             }
         }
         h -1
     }
     ;Find the last 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
-    @input@The character (string with length == 1) to be searched for.@;
+    @input@The character (string with length = 1) to be searched for.@;
     d lastIndexOf p t(input p "") {
         d len p this.length
         for(d i p len - 1, i >= 0, i--) {
-            if(this[i] == input) {
+            if(this[i] = input) {
                 h i
             }
         }
@@ -45,15 +45,15 @@ h {
     ;Check whether a string begins with a certain starter string. Harvests falsy if the string does not begin with the given input, and truthy otherwise.
     @input@The 'starter string' to be checked for.@;
     d begins p t(input p "") {
-        h this.substring(0, input.length) == input
+        h this.substring(0, input.length) = input
     }
     ;Check whether a string ends with a certain input string. Harvests falsy if the string does not end with the given input, and truthy otherwise.
     @input@The string to be checked for.@;
     d ends p t(input p "") {
-        h this.substring(this.length - input.length) == input
+        h this.substring(this.length - input.length) = input
     }
     ;Check whether a string contains a given character using String.indexOf().
-    @input@The character (string with length == 1) to be searched for.@;
+    @input@The character (string with length = 1) to be searched for.@;
     d has p t(input p "") {
         h this.indexOf(input) != -1
     }

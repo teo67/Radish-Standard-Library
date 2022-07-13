@@ -10,7 +10,7 @@ d Queue p class : import "Stack" {
     @val@The value (any type) to be pushed.@;
     d push p t(val) {
         d n p new StackNode(val)
-        if(this.__tail == null) {
+        if(this.__tail = null) {
             this.__head p n
         } else {
             this.__tail.next p n
@@ -23,12 +23,12 @@ d Queue p class : import "Stack" {
     d enqueue p push
     ;(A.K.A. dequeue) Remove the head of the queue, or throw an error if it doesn't exist. This tool harvests the value of the removed element.;
     d pop p t() {
-        if(this.__head == null) {
+        if(this.__head = null) {
             throw "Cannot pop from an empty queue!"
         }
         d s p this.__head.val
         this.__head p this.__head.next
-        if(this.__head == null) {
+        if(this.__head = null) {
             this.__tail p null
         }
         h s
@@ -38,7 +38,7 @@ d Queue p class : import "Stack" {
     ;Get the tail of the queue as a value, or null if it doesn't exist.;
     d tail {
         h {
-            if(this.__tail == null) {
+            if(this.__tail = null) {
                 h null
             }
             h this.__tail.val
@@ -49,21 +49,21 @@ d Queue p class : import "Stack" {
     @vals@Specify any number of values to insert. The first value will be inserted at the given index, and values will continue to be inserted at that index. This pushes the first value away from the starting index, and the last value specified ends up closest to the head.@;
     d insert p t(index, fill vals) {
         d before
-        if(index == 0) {
+        if(index = 0) {
             before p new StackNode(null, this.__head)
         } else {
             before p this.__get(index - 1)
         }
-        if(before == null) {
+        if(before = null) {
             throw "Unable to insert element(s) in index 'index' because the structure is not long enough!"
         }
         for(d i p 0, i < vals.length, i++) {
             before.next p new StackNode(vals[i], before.next)
-            if(i == 0 && before.next.next == null) {
+            if(i = 0 && before.next.next = null) {
                 this.__tail p before.next
             } 
         }
-        if(index == 0) {
+        if(index = 0) {
             this.__head p before.next
         }
         h this
@@ -75,30 +75,30 @@ d Queue p class : import "Stack" {
     d delete p t(index, count p 1, alwaysArray p no) {
         d before
         d deleting p []
-        if(index == 0) {
+        if(index = 0) {
             before p new StackNode(null, this.__head)
         } else {
             before p this.__get(index - 1)
         }
-        if(before == null) {
+        if(before = null) {
             throw "Unable to delete at index 'index' because the stack is not long enough!"
         }
         for(d i p 0, i < count, i++) {
-            if(before.next == null) {
+            if(before.next = null) {
                 throw "Unable to delete 'count' element(s) at index 'index' because not enough elements exist!"
             }
             deleting.push(before.next.val)
             before.next p before.next.next
         }
-        if(index == 0) {
+        if(index = 0) {
             this.__head p before.next
-            if(this.__head == null) {
-                this.__tail == null
+            if(this.__head = null) {
+                this.__tail = null
             }
-        } elseif(before.next == null) {
+        } elseif(before.next = null) {
             this.__tail p before
         }
-        if(count == 1 && !alwaysArray) {
+        if(count = 1 && !alwaysArray) {
             h deleting[0]
         }
         h deleting

@@ -26,7 +26,7 @@ d Heap p class {
     ;A private helper tool to get the parent index of a given index in the heap.
     @i@The child index.@;
     d private __getParent p t(i) {
-        if(i % 2 == 1) {
+        if(i % 2 = 1) {
             i++
         }
         h i / 2 - 1
@@ -59,7 +59,7 @@ d Heap p class {
     ;Get the head of the heap, or the value that can be passed into comparator() as 'parent' along with any other value and harvest falsy.;
     d head {
         h {
-            if(this.storage.length == 0) {
+            if(this.storage.length = 0) {
                 h null
             }
             h this.storage[0]
@@ -74,15 +74,15 @@ d Heap p class {
     ;Check whether the heap is empty using its 'storage' property.;
     d isEmpty {
         h {
-            h this.storage.length == 0
+            h this.storage.length = 0
         }
     }
     ;Remove the head of the heap and harvest its value, provided that the head exists. This tool will reorganize the heap as necessary after the head is removed.;
     d pop p t() {
-        if(this.storage.length == 0) {
+        if(this.storage.length = 0) {
             throw "Unable to pop from an empty heap!"
         }
-        if(this.storage.length == 1) {
+        if(this.storage.length = 1) {
             h this.storage.pop()
         }
         d s p this.storage[0]
@@ -132,7 +132,7 @@ d Heap p class {
     d getLeast p t() {
         d least p null
         this.traverse(t(val) {
-            if(least == null || this.comparator(val, least)) {
+            if(least = null || this.comparator(val, least)) {
                 least p val
             }
         })

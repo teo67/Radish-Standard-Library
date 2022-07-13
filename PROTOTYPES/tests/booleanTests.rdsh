@@ -4,7 +4,7 @@ h t() {
         t() {
             h no.opposite
         }, t() {
-            h yes.asNumber == 1
+            h yes.asNumber = 1
         }
     ]).execute()
 }

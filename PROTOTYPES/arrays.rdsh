@@ -25,7 +25,7 @@ Note: indexOf will return -1 if no item is found.
     @item@The item in the array to be searched for.@;
     d indexOf p t(item) {
         for(d i p 0, i < this.length, i++) {
-            if(this[i] == item) {
+            if(this[i] = item) {
                 h i
             }
         }
@@ -36,7 +36,7 @@ Note: lastIndexOf will return -1 if no item is found.
     @item@The item in the array to be searched for.@;
     d lastIndexOf p t(item) {
         for(d i p this.length - 1, i >= 0, i--) {
-            if(this[i] == item) {
+            if(this[i] = item) {
                 h i
             }
         }
@@ -106,7 +106,7 @@ Note: lastIndexOf will return -1 if no item is found.
         for(d i p 0, i < len / 2, i++) {
             d onI p this[i]
             d onO p this[len - i - 1]
-            if(onO == onI) {
+            if(onO = onI) {
                 continue
             }
             this[i] p onO

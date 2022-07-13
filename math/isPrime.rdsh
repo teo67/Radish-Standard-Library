@@ -5,7 +5,7 @@ d isPrime p t(input p 2, search p yes) {
     if(input <= last) {
         if(search) {
             for(d i p 0, i < len, i++) {
-                if(primes[i] == input) {
+                if(primes[i] = input) {
                     h yes
                 }
             }
@@ -15,7 +15,7 @@ d isPrime p t(input p 2, search p yes) {
     for(d n p 1 + last, primes[len - 1] < input, n++) {
         d ip p yes
         for(d i p 0, i < len, i++) {
-            if(n % primes[i] == 0) {
+            if(n % primes[i] = 0) {
                 ip p no
                 cancel
             }
@@ -25,6 +25,6 @@ d isPrime p t(input p 2, search p yes) {
             len++
         }
     }
-    h primes[len - 1] == input
+    h primes[len - 1] = input
 } 
 h [primes, isPrime]

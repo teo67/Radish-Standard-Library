@@ -19,7 +19,7 @@ d Table p class {
     ;Get the width of the table (number).;
     d width {
         h {
-            if(this.__rows.length == 0) {
+            if(this.__rows.length = 0) {
                 h 0
             }
             h this.__rows[0].length

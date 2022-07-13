@@ -3,13 +3,13 @@ h t() {
     d str p "hello, world!"
     h new Tests(["length", "indexOf", "lastIndexOf", "substring", "begins", "ends", "has", "split"], [
         t() {
-            h str.length == 13
+            h str.length = 13
         }, t() {
-            h str.indexOf("l") == 2
+            h str.indexOf("l") = 2
         }, t() {
-            h str.lastIndexOf("l") == 10
+            h str.lastIndexOf("l") = 10
         }, t() {
-            h str.substring(4, 8) == "o, w"
+            h str.substring(4, 8) = "o, w"
         }, t() {
             h str.begins("hello")
         }, t() {
@@ -17,7 +17,7 @@ h t() {
         }, t() {
             h str.has("w")
         }, t() {
-            h str.split()[0] == "h"
+            h str.split()[0] = "h"
         }
     ]).execute()
 }

@@ -91,7 +91,7 @@ h {
     }
     d getDir p t(path p "") {
         d i p path.lastIndexOf("/")
-        if(i == -1) {
+        if(i = -1) {
             throw "The path \''path'\' is not in a valid directory!"
         }
         h path.substring(0, i)

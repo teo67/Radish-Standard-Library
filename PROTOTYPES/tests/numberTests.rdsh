@@ -3,17 +3,17 @@ h t() {
     d num p 8
     h new Tests(["add", "subtract", "multiply", "divide", "modulo", "exponent"], [
         t() {
-            h num.add(3) == 11
+            h num.add(3) = 11
         }, t() {
-            h num.subtract(3) == 5
+            h num.subtract(3) = 5
         }, t() {
-            h num.multiply(3) == 24
+            h num.multiply(3) = 24
         }, t() {
-            h num.divide(4) == 2
+            h num.divide(4) = 2
         }, t() {
-            h num.modulo(3) == 2
+            h num.modulo(3) = 2
         }, t() {
-            h num.exponent(2) == 64
+            h num.exponent(2) = 64
         }
     ]).execute()
 }
