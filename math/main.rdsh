@@ -1,3 +1,4 @@
+d usePrimes p import "isPrime"
 ;An object that provides core functionality for basic mathematical operations.;
 h {
     ;Round a number down to the nearest integer by default, or to the nearest custom interval if defined.
@@ -69,7 +70,10 @@ h {
     }
     ;Check whether a given integer is prime. This algorithm is not particularly cheap, but it caches results that can be generalized to other inputs in the future.
     @input@The number to be checked. For example, isPrime(3) harvests yes.@;
-    d isPrime p import "isPrime"
+    d isPrime p t(input) {
+        h usePrimes[1](input)
+        h yes
+    }
     d degreesToRadians p t(deg) {
         h (deg / 360) * 2 * constants.pi
     }
@@ -157,5 +161,71 @@ h {
                 h ATAN(1 / sca)
             }
         }
+    }
+    ;Get the absolute value of a given input, and harvest a nonnegative number.
+    @input@x, where the result is |x|.@;
+    d abs p t(input) {
+        h input < 0 ? -input, input
+    }
+    ;Get the full prime factor breakdown of a given number using the same cache as in isPrime(). This means that this tool will be faster if isPrime() has already been called, and vice versa.
+    @input@The input to factor. For example, 18 => 3 * 3 * 2 => [3, 3, 2].@;
+    d getPrimeFactors p t(input) {
+        usePrimes[1](input, no) # be sure to generate primes up to input #
+        d copy p input
+        d factors p []
+        while(copy > 1) {
+            for(d i p 0, i < usePrimes[0].length && usePrimes[0][i] <= copy, i++) {
+                d got p usePrimes[0][i]
+                if(copy % got == 0) {
+                    copy /= got
+                    factors[factors.length] p got
+                }
+            }
+        }
+        h factors
+    }
+    ;Get all possible factors of a given number as an array, ordered in pairs beginning with (1, n). For example, factoring 32 harvests [1, 32, 2, 16, 4, 8].
+    @input@The value to find factors of (numeric).@;
+    d getAllFactors p t(input) {
+        d factors p []
+        for(d i p 1, i ** 2 <= input, i++) {
+            if(input % i == 0) {
+                factors[factors.length] p i
+                if(i ** 2 != input) {
+                    factors[factors.length] p input / i
+                }
+            }
+        }
+        h factors
+    }
+    ;Find the greatest common denominator of two numbers by comparing their factors. This tool has relatively high time complexity and should be used sparingly (if at all).
+    @a@The first number to compare to the second number.@
+    @b@The second number to compare to the first number.@;
+    d greatestCommonDenominator p t(a, b) {
+        d factorA p getAllFactors(a)
+        d factorB p getAllFactors(b)
+        for(d i p factorA.length - 1, i >= 0, i--) {
+            for(d j p factorB.length - 1, j >= 0, j--) {
+                if(factorA[i] == factorB[j]) {
+                    h factorA[i]
+                }
+            }
+        }
+        h 1 # something went wrong by now #
+    }
+    ;Find the least common multiple of two numbers by iterating until an equivalent value is found.
+    @a@The first number to be compared to the second number.@
+    @b@The second number to be compared to the first number.@;
+    d leastCommonMultiple p t(a, b) {
+        d multA p a
+        d multB p b
+        while(multA != multB) {
+            if(multA < multB) {
+                multA += a
+            } else {
+                multB += b
+            }
+        }
+        h multA
     }
 }

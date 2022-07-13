@@ -1,11 +1,13 @@
 d primes p [2]
 d len p 1
-h t(input p 2) { 
+d isPrime p t(input p 2, search p yes) { 
     d last p primes[len - 1]
     if(input <= last) {
-        for(d i p 0, i < len, i++) {
-            if(primes[i] == input) {
-                h yes
+        if(search) {
+            for(d i p 0, i < len, i++) {
+                if(primes[i] == input) {
+                    h yes
+                }
             }
         }
         h no
@@ -25,3 +27,4 @@ h t(input p 2) {
     }
     h primes[len - 1] == input
 } 
+h [primes, isPrime]
