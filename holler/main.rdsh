@@ -1,5 +1,19 @@
-;Write any Radish value to the console using the standard C# Console.WriteLine() method. Holler travels recursively through arrays and objects, but only for a few layers (in order to avoid an infinite circular dependency chain).
-@input@The value to be printed using holler().@;
-h t(input) {
+d holler p t(input) {
     h OUTPUT(input)
 }
+;Write a Radish value to the console without printing a newline character afterwards.
+@input@The value to be printed using write().@;
+holler.write p t(input) {
+    h WRITE(input)
+}
+;Clear the console.;
+holler.clear p t() {
+    CLEAR()
+}
+;Prompt the user to enter text into the console, and harvest that text once the user presses enter/return.;
+holler.read p t() {
+    h READ()
+}
+;Write any Radish value to the console using the standard C# Console.WriteLine() method. Holler travels recursively through arrays and objects, but only for a few layers (in order to avoid an infinite circular dependency chain).
+@input@The value to be printed using holler().@;
+h holler
