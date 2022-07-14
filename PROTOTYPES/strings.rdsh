@@ -33,8 +33,8 @@ h {
     @finish@The 0-based index to stop reading at. The new string will read up to but will not include the character at the finish index. Example: "abcdef".substring(1, 4) -> "bcd".@;
     d substring p t(start p 0, finish p this.length) {
         d len p this.length
-        if(start < 0 || start >= len || finish < 0 || finish > len) {
-            throw "String.substring inputs are out of range! (0 <-> length - 1 for start, 0 <-> length for finish)"
+        if(start < 0 || start > len || finish < 0 || finish > len) {
+            throw "String.substring inputs are out of range! (0 <-> length for start, 0 <-> length for finish)"
         }
         d r p ""
         for(d i p start, i < finish, i++) {
@@ -58,12 +58,27 @@ h {
         h this.indexOf(input) != -1
     }
     ;Create an array from a string, where each character in the string is converted into a single item in the array.;
-    d split p t() {
+    d split p t(search p "") {
         d r p []
+        d current p ""
         d len p this.length
         for(d i p 0, i < len, i++) {
-            r[i] p this[i]
+            current += this[i]
+            if(current.ends(search)) {
+                r[r.length] p current.substring(0, current.length - search.length)
+                current p ""
+            }
         }
         h r
+    }
+    ;Replace all occurrences of a character in a string with another chara;
+    d replace p t(search, rep) {
+        d returning p ""
+        d len p this.length
+        for(d i p 0, i < len, i++) {
+            d res p this[i]
+            returning += res = search ? rep, res
+        }
+        h returning
     }
 }

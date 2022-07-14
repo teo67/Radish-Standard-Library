@@ -17,6 +17,7 @@ h t() {
         }, t() {
             h str.has("w")
         }, t() {
+            holler("abc def egh ijk".split(" "))
             h str.split()[0] = "h"
         }
     ]).execute()
