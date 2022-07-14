@@ -89,6 +89,8 @@ h {
         h DIRECTORYEXISTS(dir)
         h yes
     }
+    ;Get the root directory of another file or directory. Note that the if the path to the directory provided ends with a '/', this tool will simply remove the slash.
+    @path@The absolute path to the file or directory to be converted.@;
     d getDir p t(path p "") {
         d i p path.lastIndexOf("/")
         if(i = -1) {
