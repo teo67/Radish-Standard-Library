@@ -1,0 +1,13 @@
+d check p t(arr) {
+    for(d i p 0, i < arr.length - 1, i++) {
+        if(arr[i] > arr[i + 1]) {
+            h no
+        }
+    }
+    h yes
+}
+h t(arr) {
+    while(!check(arr)) {
+        
+    }
+}

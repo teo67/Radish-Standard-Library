@@ -1,0 +1,14 @@
+h t(arr) {
+    for(d i p 1, i < arr.length, i++) {
+        for(d j p i, j > 0, j--) {
+            if(arr[j] < arr[j - 1]) {
+                d saved p arr[j]
+                arr[j] p arr[j - 1]
+                arr[j - 1] p saved
+            } else {
+                cancel
+            }
+        }
+    }
+    h arr
+}

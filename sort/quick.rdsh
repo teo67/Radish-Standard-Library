@@ -1,0 +1,23 @@
+d quick p t(arr, low, high) {
+    if(low < high) {
+        d pivot p arr[high]
+        d i p low - 1
+        for(d j p low, j < high, j++) {
+            if(arr[j] < pivot) {
+                i++
+                d saved p arr[j]
+                arr[j] p arr[i]
+                arr[i] p saved
+            }
+        }
+        i++
+        arr[high] p arr[i]
+        arr[i] p pivot
+        quick(arr, low, i - 1)
+        quick(arr, i + 1, high)
+    }
+}
+h t(arr) {
+    quick(arr, 0, arr.length - 1)
+    h arr
+}

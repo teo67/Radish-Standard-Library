@@ -60,9 +60,9 @@ Note: lastIndexOf will return -1 if no item is found.
         }
     }
     ;Duplicate an array by appending all of its values to a new array. This copy is 'shallow', meaning that it will not create new reference points for objects and arrays within the original array. For a recursive copy tool, try Array.deepClone().;
-    d clone p t() {
+    d clone p t(start p 0, finish p this.length) {
         d a p []
-        for(d i p 0, i < this.length, i++) {
+        for(d i p start, i < finish, i++) {
             a.push(this[i])
         }
         h a

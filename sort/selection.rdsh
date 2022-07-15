@@ -1,0 +1,16 @@
+h t(arr) {
+    for(d i p 0, i < arr.length - 1, i++) {
+        d lowestI p i
+        for(d j p i + 1, j < arr.length, j++) {
+            if(arr[j] < arr[lowestI]) {
+                lowestI p j
+            }
+        }
+        if(lowestI != i) {
+            d saved p arr[i]
+            arr[i] p arr[lowestI]
+            arr[lowestI] p saved
+        }
+    }
+    h arr
+}

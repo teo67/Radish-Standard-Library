@@ -1,0 +1,15 @@
+h t(arr) {
+    d sorted p no
+    while(!sorted) {
+        sorted p yes
+        for(d i p 0, i < arr.length - 1, i++) {
+            if(arr[i] > arr[i + 1]) {
+                sorted p no
+                d saved p arr[i]
+                arr[i] p arr[i + 1]
+                arr[i + 1] p saved
+            }
+        }
+    }
+    h arr
+}

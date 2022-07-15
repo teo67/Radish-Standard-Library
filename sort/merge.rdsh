@@ -1,0 +1,39 @@
+d merge p t(arr) {
+    if(arr.length < 2) {
+        end
+    }
+    d mid p arr.length
+    if(mid % 2 = 1) {
+        mid--
+    }
+    mid /= 2
+    d left p arr.copy(0, mid)
+    d right p arr.copy(mid, arr.length)
+    merge(left)
+    merge(right)
+    d leftI p 0
+    d rightI p 0
+    d i p 0
+    while(leftI < left.length && rightI < right.length) {
+        if(left[leftI] < right[rightI]) {
+            arr[i] p left[leftI]
+            leftI++
+        } else {
+            arr[i] p right[rightI]
+            rightI++
+        }
+        i++
+    }
+    while(leftI < left.length) {
+        arr[i] p left[leftI]
+        leftI++
+        i++
+    }
+    while(rightI < right.length) {
+        arr[i] p right[rightI]
+        rightI++
+        i++
+    }
+    h arr
+}
+h merge
