@@ -229,15 +229,14 @@ h {
         h multA
     }
     ;A private array storing the seeds to be used for pseudorandom number generation.;
-    d private __seeds p [0, 0]
-    ;Generate a number???;
+    d private __seeds p [1, 0]
+    ;Generate a random number between 0 and 1, exclusive of 1. This is done using a formula known as xorshift128+, which is pseudorandom but generates numbers in a range from 0 <-> (2^65 - 2).;
     d random p t() { # using xorshift128+ #
-        d s1 p this.__seeds[0]
-        d s0 p this.__seeds[1]
-        d result p s0 + s1
-        this.__seeds[0] p s0
-        s1 ^= s1 << 23
-        this.__seeds[1] p s1 ^ s0 ^ (s1 >> 18) ^ (s0 >> 5)
-        h result
+        d s0 p this.__seeds[0]
+        d s1 p this.__seeds[1]
+        d returning p s0 + s1
+        this.__seeds[1] p XOR128SHIFTPLUS(s0, s1)
+        this.__seeds[0] p s1
+        h returning / 36893488147419103231
     }
 }

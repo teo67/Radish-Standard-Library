@@ -1,3 +1,4 @@
+d math p import "../math/main.rdsh"
 d check p t(arr) {
     for(d i p 0, i < arr.length - 1, i++) {
         if(arr[i] > arr[i + 1]) {
@@ -8,6 +9,12 @@ d check p t(arr) {
 }
 h t(arr) {
     while(!check(arr)) {
-        
+        for(d i p 0, i < arr.length, i++) {
+            d rand p math.floor(math.random() * arr.length)
+            d saved p arr[i]
+            arr[i] p arr[rand]
+            arr[rand] p saved
+        }
     }
+    h arr
 }

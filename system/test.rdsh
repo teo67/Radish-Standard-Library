@@ -1,0 +1,38 @@
+d Tests p import "../Tests"
+h t() {
+    d before p system.getDir(PATH)
+    d path p before + "/tester.txt"
+    h new Tests(["write", "edit", "append", "read", "exists", "create", "delete", "direxists", "createdir", "deletedir", "readdir", "getdir"], [
+        t() {
+            system.writeFile(path, "banana")
+        }, t() {
+            system.editFile(path, yes, t(read) {
+                h new system.EditOptions(null, read.replace("n", "t"))
+            })
+        }, t() {
+            system.appendToFile(path, "b")
+        }, t() {
+            h system.readFile(path) == "batatab"
+        }, t() {
+            h system.fileExists(path) && !system.fileExists(path + "1")
+        }, t() {
+            system.createFile(path + "o")
+            h system.fileExists(path + "o")
+        }, t() {
+            system.deleteFile(path + "o")
+            h !system.fileExists(path + "o")
+        }, t() {
+            h system.directoryExists(before) && !system.directoryExists(before + "/a")
+        }, t() {
+            system.createDir(before + "/temp")
+            h system.directoryExists(before + "/temp")
+        }, t() {
+            system.deleteDir(before + "/temp")
+            h !system.directoryExists(before + "/temp")
+        }, t() {
+            holler(system.readDir(before))
+        }, t() {
+            h system.getDir(PATH) == before # can't really test this one, depends on installation #
+        }
+    ])
+}

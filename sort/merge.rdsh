@@ -7,8 +7,8 @@ d merge p t(arr) {
         mid--
     }
     mid /= 2
-    d left p arr.copy(0, mid)
-    d right p arr.copy(mid, arr.length)
+    d left p arr.clone(0, mid)
+    d right p arr.clone(mid, arr.length)
     merge(left)
     merge(right)
     d leftI p 0
