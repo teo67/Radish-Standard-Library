@@ -2,9 +2,10 @@ d Tests p import "Tests"
 d cases p [
     import "holler/test", 
     import "math/test",
-    import "PROTOTYPES/test", 
+    import "PROTOTYPES/test",
+    import "sort/test",
     import "structures/test",
-    import "sort/test"
+    import "system/test"
 ]
-d test p new Tests(["holler", "math", "prototypes", "structures", "sort"], cases)
+d test p new Tests(["holler", "math", "prototypes", "sort", "structures", "system"], cases)
 test.execute()
