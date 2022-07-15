@@ -19,7 +19,7 @@ h t() {
         }, t() {
             h str.split()[0] = "h"
         }, t() {
-            h str.replace("o", "u") == "hellu, wurld!"
+            h str.replace("o", "u") = "hellu, wurld!"
         }
     ]).execute()
 }
