@@ -1,0 +1,132 @@
+d Vector p class {
+    ;An array containing each coordinate in the vector. Radish vectors may exist for any integer number of dimensions.;
+    d coords
+    constructor p t(coords p []) {
+        this.coords p coords
+    }
+    ;Create a vector by passing in individual coordinates instead of using an array. This tool is to be used as a shortcut to new Vector(...).
+    @coords@Specify any number of coordinates to be added to the vector.@;
+    d static create p t(fill coords) {
+        h new Vector(coords)
+    }
+    ;A private helper tool to combine vectors. Used in other tools such as add and subtract.
+    @vec@The vector to iterate over.@
+    @res@The resulting array to be edited using __iterate.@
+    @fun@The combiner function that allows res to be edited. This takes two arguments, one for the current value in the array, and one for the current value in the new vector, and harvests a new value for the array.@;
+    d private __iterate p t(vec, res, fun) {
+        for(d i p 0, i < vec.coords, i++) {
+            while(res.length <= i) {
+                res[res.length] p 0
+            }
+            res[i] p fun(res[i], vec.coords[i])
+        }
+    }
+    ;Combine any number of vectors using addition. See addTo() for a non-static implementation of add().
+    @vecs@Specify any number of vectors to be iteratively added together.@;
+    d static add p t(fill vecs) {
+        d res p []
+        each(other of vecs) {
+            this.__iterate(other, res, t(resi, cordi) {
+                h resi + cordi
+            })
+        }
+        h new Vector(res)
+    }
+    ;Add a vector to any number of other vectors and harvest the result. Note that this tool does not edit any pre-existing vectors. See add() for a static implementation of addTo().
+    @others@Specify any number of vectors to be added to the current vector.@;
+    d addTo p t(fill others) {
+        d res p add(others)
+        this.__iterate(this, res.coords, t(resi, cordi) {
+            h resi + cordi
+        })
+        h res
+    }
+    ;Subtract another vector from the current vector and harvest the result, without editing either vector.
+    @vec@The vector to be iteratively subtracted from this vector.@;
+    d subtract p t(vec) {
+        d res p []
+        this.__iterate(this, res, t(resi, cordi) {
+            h resi + cordi
+        })
+        this.__iterate(vec, res, t(resi, cordi) {
+            h resi - cordi
+        })
+        h new Vector(res)
+    }
+    ;A static helper tool to combine any number of vectors using multiplication. Note that this tool receives an array as input and also harvests an array rather than a vector.
+    @vecs@An array of vectors to be combined using multiplication.@;
+    d static __multiply p t(vecs) {
+        d res p []
+        each(vec of vecs) {
+            this.__iterate(vec, res, t(resi, cordi) {
+                h resi * cordi
+            })
+        }
+        h res
+    }
+    ;Get the dot product of any number of vectors and harvest a scalar value.
+    @vecs@Specify any number of vectors to be combined using the dot product.@;
+    d static dotProduct p t(fill vecs) {
+        d res p Vector.multiply(vecs)
+        d sum p 0
+        each(coord of res) {
+            sum += coord
+        }
+        h sum
+    }
+    ;A non-static implementation of dotProduct(). This tool will take the dot product of this vector along with any number of other vectors and harvest a scalar value as a result.
+    @other@Specify any number of other vectors to be dotted with this vector.@;
+    d dot p t(fill others) {
+        d res p Vector.multiply(others)
+        this.__iterate(this, res, t(resi, cordi) {
+            h resi * cordi
+        })
+        d sum p 0
+        each(coord of res) {
+            sum += coord
+        }
+        h sum
+    }
+    ;Multiply the current vector by a scalar quantity and harvest the result. Note that this tool will create a new vector without editing the original.
+    @scalar@A scalar (single, non-vector) value to multiply every value in this vector by.@;
+    d multiplyByScalar p t(scalar) {
+        d res p []
+        each(coord of this.coords) {
+            res[res.length] p coord * scalar
+        }
+        h new Vector(res)
+    }
+    ;Get the length of a vector using the quadratic formula.;
+    d length {
+        h {
+            d sum p 0
+            each(coord of this.coords) {
+                sum += coord ** 2
+            }
+            h math.root(sum)
+        }
+    }
+    ;Statically find the angle between two vectors in radians using their dot product and respective lengths. Note that this tool depends on other math tools to operate.
+    @vecA@A vector that can be joined to vecB to create an angle.@
+    @vecB@A vector that can be joined to vecA to create an angle.@;
+    d static angleBetween p t(vecA, vecB) {
+        h math.trig.a.cos(vecA.dot(vecB) / (vecA.length * vecB.length))
+    }
+    ;Find the cross product of two vectors and harvest the result as a vector. Note that both vectors must be three-dimensional to find the cross product, as otherwise the tool is useless.
+    @vecA@A vector that will be perpendicular to the resulting vector.@
+    @vecB@A second vector that will also be perpendcicular to the resulting vector.@;
+    d static crossProduct p t(vecA, vecB) {
+        if(vecA.coords.length != 3 || vecB.coords.length != 3) {
+            holler("The cross product can only be performed on two three-dimensional vectors!")
+        }
+        d as p vecA.coords
+        d bs p vecB.coords
+        h Vector.create(as[1] * bs[2] - as[2] * bs[1], as[2] * bs[0] - as[0] * bs[2], as[0] * bs[1] - as[1] * bs[0])
+    }
+    ;Combine this vector with another using cross product. Note that both vectors must be three-dimensional for the tool to function property (see Vector.crossProduct()).
+    @other@The second vector to be combined with this one using the cross product.@;
+    d cross p t(other) {
+        h Vector.crossProduct(this, other)
+    }
+}
+h Vector

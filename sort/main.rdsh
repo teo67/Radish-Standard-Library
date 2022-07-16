@@ -1,8 +1,21 @@
+;An object storing various sorting algorithms to optimize speed for different types of arrays.;
 h {
+    ;Sort an array by randomly generating permutations until the values are in ascending order. Not to be used in production, as it's incredibly slow.
+    @arr@The array to be sorted using bogosort.@;
     d bogo p import "bogo"
+    ;Sort an array by continually swapping adjacent elements until all values are in ascending order.
+    @arr@The array to be sorted using bubblesort.@;
     d bubble p import "bubble"
+    ;Sort an array by swapping the position of each element one by one such that they end up in the correct position. The array becomes sorted in ascending order.
+    @arr@The array to be sorted using insertion.@;
     d insertion p import "insertion"
+    ;Sort an array by recursively splitting it in half and then joining the halves using a merge algorithm. The result is an array sorted in ascending order.
+    @arr@The array to be sorted using mergesort.@;
     d merge p import "merge"
+    ;Sort an array by pivoting around the last element recursively and splitting all other elements around the pivot by value. The resulting array will be in ascending order.
+    @arr@The array to be sorted using quicksort.@;
     d quick p import "quick"
+    ;Sort an array by iteratively finding the lowest element and swapping it into the correct index. The resulting array will be in ascending order.
+    @arr@The array to be sorted using selection.@;
     d selection p import "selection"
 }
