@@ -1,7 +1,7 @@
 d Tests p import "../Tests"
 h t() {
     h new Tests([
-        "ceiling", "factorial", "floor", "isPrime", "log", "root", "round", "summation"
+        "ceiling", "factorial", "floor", "isPrime", "log", "root", "round", "summation", "degreesToRadians", "radiansToDegrees", "trig", "abs", "prime factors", "all factors", "gcd", "lcm"
     ], [
         t() {
             h math.ceiling(4, 5) = 5
@@ -19,6 +19,24 @@ h t() {
             h math.round(4, 5) = 5
         }, t() {
             h math.summation(6) = 21
+        }, t() {
+            h math.degreesToRadians(180) = math.constants.pi
+        }, t() {
+            h math.radiansToDegrees(math.constants.pi) = 180
+        }, t() {
+            h math.trig.cos(math.constants.pi) = -1
+        }, t() {
+            h math.abs(-1) = 1
+        }, t() {
+            d res p math.getPrimeFactors(24) # 2 2 2 3 #
+            h res.has(2) && res.has(3)
+        }, t() {
+            d res p math.getAllFactors(24) # 1 24 2 12 3 8 4 6 #
+            h res.has(2) && res.has(3) && res.has(6) && res.has(24) # ... etc #
+        }, t() {
+            h math.greatestCommonDenominator(18, 24) = 6
+        }, t() {
+            h math.leastCommonMultiple(18, 24) = 72
         }
     ]).execute()
 }

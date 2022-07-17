@@ -205,14 +205,18 @@ h {
     d greatestCommonDenominator p t(a, b) {
         d factorA p getAllFactors(a)
         d factorB p getAllFactors(b)
+        d max p 1
         for(d i p factorA.length - 1, i >= 0, i--) {
             for(d j p factorB.length - 1, j >= 0, j--) {
                 if(factorA[i] = factorB[j]) {
-                    h factorA[i]
+                    if(factorA[i] > max) {
+                        max p factorA[i]
+                    }
+                    cancel
                 }
             }
         }
-        h 1 # something went wrong by now #
+        h max # something went wrong by now #
     }
     ;Find the least common multiple of two numbers by iterating until an equivalent value is found.
     @a@The first number to be compared to the second number.@
@@ -241,7 +245,4 @@ h {
         h returning / 36893488147419103231
         h -0
     }
-    ;A class used to combine and manipulate vectors using common operations. Radish vectors can occupy any integer number of dimensions
-    @coords@An array of coordinates used to create the vector. For another form of constructor, check out Vector.create().@;
-    d Vector p import "Vector"
 }

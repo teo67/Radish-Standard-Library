@@ -1,0 +1,14 @@
+;An object for converting Radish values to and from JSON so that they can be stored in files for later use.;
+h {
+    ;Convert a Radish value into JSON format and harvest a string as a result.
+    @input@The Radish value (any type works) to be converted.@;
+    d to p t(input) {
+        h TOJSON(input)
+        h ""
+    }
+    ;Convert a JSON string to a Radish value and harvest the result.
+    @input@A string formatted as JSON to be converted into Radish.@;
+    d from p t(input) {
+        h FROMJSON(input)
+    }
+}

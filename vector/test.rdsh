@@ -1,0 +1,25 @@
+d Tests p import "../Tests"
+h t() {
+    h new Tests(["add", "subtract", "dot", "multiplyByScalar", "length", "angle", "cross"], [
+        t() {
+            d res p vector.add([1, 2, 3], [0, 1, 0], [4, 2, 7])
+            h res[0] = 5 && res[1] = 5 && res[2] = 10
+        }, t() {
+            d res p vector.subtract([1, 2, 3], [3, 2, 1])
+            h res[0] = -2 && res[1] = 0 && res[2] = 2
+        }, t() {
+            holler(vector.dot([7, 2, 4], [6, 2, 2]) )
+            h vector.dot([7, 2, 4], [6, 2, 2]) = 54
+        }, t() {
+            d res p vector.multiplyByScalar([7, 2, 4], 10)
+            h res[0] = 70 && res[1] = 20 && res[2] = 40
+        }, t() {
+            h vector.length([3, 4]) = 5
+        }, t() {
+            h vector.angle([0, 1], [0, -1]) = math.constants.pi
+        }, t() {
+            d res p vector.cross([1, 3, 5], [2, 4, 6])
+            h res[0] = -2 && res[1] = 4 && res[2] = -2
+        }
+    ]).execute()
+}

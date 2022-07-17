@@ -1,0 +1,90 @@
+;An object used to combine and manipulate vectors using common operations. Radish vectors can occupy any integer number of dimensions;
+h {
+    ;A private helper tool to combine vectors. Used in other tools such as add and subtract.
+    @vec@The vector to iterate over.@
+    @res@The resulting array to be edited using __iterate.@
+    @fun@The combiner function that allows res to be edited. This takes two arguments, one for the current value in the array, and one for the current value in the new vector, and harvests a new value for the array.@
+    @def@The default value for the resulting array (defaults to 0).@;
+    d private __iterate p t(vec, res, fun, def p 0) {
+        for(d i p 0, i < vec.length, i++) {
+            while(res.length <= i) {
+                res[res.length] p def
+            }
+            res[i] p fun(res[i], vec[i])
+        }
+    }
+    ;Combine any number of vectors using addition.
+    @vecs@Specify any number of vectors to be iteratively added together.@;
+    d add p t(fill vecs) {
+        d res p []
+        each(other of vecs) {
+            this.__iterate(other, res, t(resi, cordi) {
+                h resi + cordi
+            })
+        }
+        h res
+    }
+    ;Subtract one vector from another and harvest the result, without editing either vector.
+    @vecA@The first vector in the operation (a - b).@
+    @vecB@The second vector in the operation (a - b).@;
+    d subtract p t(vecA, vecB) {
+        d res p []
+        this.__iterate(vecA, res, t(resi, cordi) {
+            h resi + cordi
+        })
+        this.__iterate(vecB, res, t(resi, cordi) {
+            h resi - cordi
+        })
+        h res
+    }
+    ;Get the dot product of any number of vectors and harvest a scalar value.
+    @vecs@Specify any number of vectors to be combined using the dot product.@;
+    d dot p t(fill vecs) {
+        d res p []
+        each(vec of vecs) {
+            this.__iterate(vec, res, t(resi, cordi) {
+                h resi * cordi
+            }, 1)
+        }
+        d sum p 0
+        each(coord of res) {
+            sum += coord
+        }
+        h sum
+    }
+    ;Multiply a vector by a scalar quantity and harvest the result. Note that this tool will create a new vector without editing the original.
+    @vec@The vector to be multiplied by a scalar.@
+    @scalar@A scalar (single, non-vector) value to multiply every value in the vector by.@;
+    d multiplyByScalar p t(vec, scalar) {
+        d res p []
+        each(coord of vec) {
+            res[res.length] p coord * scalar
+        }
+        h res
+    }
+    ;Get the length of a vector using the quadratic formula.
+    @vec@The vector to find the length of.@;
+    d length p t(vec) {
+        d sum p 0
+        each(coord of vec) {
+            sum += coord ** 2
+        }
+        h sum ** 0.5
+    }
+    ;Find the angle between two vectors in radians using their dot product and respective lengths.
+    @vecA@A vector that can be joined to vecB to create an angle.@
+    @vecB@A vector that can be joined to vecA to create an angle.@;
+    d angle p t(vecA, vecB) {
+        h ACOS(this.dot(vecA, vecB) / (this.length(vecA) * this.length(vecB)))
+        h -0
+    }
+    ;Find the cross product of two vectors and harvest the result as a vector. Note that both vectors must be three-dimensional to find the cross product, as otherwise the tool is useless.
+    @vecA@A vector that will be perpendicular to the resulting vector.@
+    @vecB@A second vector that will also be perpendcicular to the resulting vector.@;
+    d cross p t(vecA, vecB) {
+        if(vecA.length != 3 || vecB.length != 3) {
+            holler("The cross product can only be performed on two three-dimensional vectors!")
+        }
+        h [vecA[1] * vecB[2] - vecA[2] * vecB[1], vecA[2] * vecB[0] - vecA[0] * vecB[2], vecA[0] * vecB[1] - vecA[1] * vecB[0]]
+    }
+}
