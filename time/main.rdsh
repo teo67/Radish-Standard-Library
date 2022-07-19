@@ -1,5 +1,6 @@
 h {
-    d private __zones p {
+    ;An object storing a giant list of time zones and their associated offsets from UTC. These can be used to convert local times across time zones.;
+    d zones p {
         ;Alpha Time (UTC+1);d A p (;Irish Standard Time (UTC+1);d IST p (;British Daylight Saving Time (UTC+1);d BDST p (;Central European Time (UTC+1);d CET p (;West Africa Time (UTC+1);d WAT p (;Western Sahara Summer Time (UTC+1);d WST p (;Western European Summer Time (UTC+1);d WEST p (;Western European Daylight Time (UTC+1);d WEDT p 1)))))))
         ;Central European Summer Time (UTC+2);d CEST p (;Central European Daylight Time (UTC+2);d CEDT p (;European Central Summer Time (UTC+2);d ECST p (;Eastern European Time (UTC+2);d EET p (;Bravo Time (UTC+2);d B p (;Central Africa Time (UTC+2);d CAT p (;South Africa Standard Time (UTC+2);d SAST p (;West Africa Summer Time (UTC+2);d WAST p 2)))))))
         ;Arabia Standard Time (UTC+3);d AST p (;Charlie Time (UTC+3);d C p (;Eastern Africa Time (UTC+3);d EAT p (;Eastern European Summer Time (UTC+3);d EEST p (;Eastern European Daylight Time (UTC+3);d EEDT p (;Further Eastern European Time (UTC+3);d FET p (;Israel Daylight Time (UTC+3);d IDT p (;Moscow Standard Time (UTC+3);d MSK p (;Moscow Time (UTC+3);d MCK p (;Syowa Time (UTC+0);d SYOT p (;Turkey Time (UTC+3);d TRT p 3))))))))))
@@ -12,34 +13,89 @@ h {
         ;Yakutsk Summer Time (UTC+10);d YAKST p (;Vladivostok Time (UTC+10);d VLAT p (;Papua New Guinea Time (UTC+10);d PGT p (;Kilo Time (UTC+10);d K p (;Chuuk Time (UTC+10);d CHUT p (;Australian Eastern Standard Time (UTC+10);d AEST p (;Australian Eastern Time (UTC+10);d AET p (;Chamorro Standard Time (UTC+10);d CHST p (;Dumont-d'Urville Time (UTC+10);d DDUT p (;Yap Time (UTC+10);d YAPT p 10)))))))))
         ;Vladivostok Summer Time (UTC+11);d VLAST p (;Sakhalin Time (UTC+11);d SAKT p (;Pohnpei Standard Time (UTC+11);d PONT p (;New Caledonia Time (UTC+11);d NCT p (;Kosrae Time (UTC+11);d KOST p (;Australian Eastern Daylight Time (UTC+11);d AEDT p (;Eastern Daylight Time (UTC+11);d EDT p (;Eastern Daylight Savings Time (UTC+11);d EDST p (;Lima Time (UTC+11);d L p (;Lord Howe Daylight Time (UTC+11);d LHDT p (;Magadan Time (UTC+11);d MAGT p (;Norfolk Time (UTC+11);d NFT p (;Solomon Islands Time (UTC+11);d SBT p (;Srednekolymsk Time (UTC+11);d SRET p (;Vanuatu Time (UTC+11);d VUT p (;Efate Time (UTC+11);d EFATE p 11)))))))))))))))
         ;Wallis and Futuna Time (UTC+12);d WFT p (;Wake Time (UTC+12);d WAKT p (;Tuvalu Time (UTC+12);d TVT p (;Kamchatka Summer Time (UTC+12);d PETST p (;Norfolk Daylight Time (UTC+12);d NFDT p (;Mike Time (UTC+12);d M p (;Fiji Time (UTC+12);d FJT p (;Anadyr Summer Time (UTC+12);d ANAST p (;Anadyr Time (UTC+12);d ANAT p (;Gilbert Island Time (UTC+12);d GILT p (;Magadan Summer Time (UTC+12);d MAGST p (;Marshall Islands Time (UTC+12);d MHT p (;Nauru Time (UTC+12);d NRT p (;New Zealand Standard Time (UTC+12);d NZST p (;Kamchatka Time (UTC+12);d PETT p 12))))))))))))))
-        ;ABC DEF Time (UTC+0);d N p (;ABC DEF Time (UTC+0);d EGT p (;ABC DEF Time (UTC+0);d CVT p (;ABC DEF Time (UTC+0);d AZOT p -1)))
-        ;ABC DEF Time (UTC+0);d WGST p (;ABC DEF Time (UTC+0);d UYST p (;ABC DEF Time (UTC+0);d PMDT p (;ABC DEF Time (UTC+0);d O p (;ABC DEF Time (UTC+0);d FNT p (;ABC DEF Time (UTC+0);d BRST p -2)))))
-        ;ABC DEF Time (UTC+0);d PYST p (;ABC DEF Time (UTC+0);d P p (;ABC DEF Time (UTC+0);d FKST p (;ABC DEF Time (UTC+0);d FKDT p (;ABC DEF Time (UTC+0);d CLST p (;ABC DEF Time (UTC+0);d CLDT p (;ABC DEF Time (UTC+0);d BRT p (;ABC DEF Time (UTC+0);d BT p (;ABC DEF Time (UTC+0);d AMST p (;ABC DEF Time (UTC+0);d HAA p (;ABC DEF Time (UTC+0);d ART p (;ABC DEF Time (UTC+0);d GFT p (;ABC DEF Time (UTC+0);d PMST p (;ABC DEF Time (UTC+0);d ROTT p (;ABC DEF Time (UTC+0);d SRT p (;ABC DEF Time (UTC+0);d WGT p (;ABC DEF Time (UTC+0);d WARST p (;ABC DEF Time (UTC+0);d UYT p -3)))))))))))))))))
-        ;ABC DEF Time (UTC+0);d VET p (;ABC DEF Time (UTC+0);d HLV p (;ABC DEF Time (UTC+0);d Q p (;ABC DEF Time (UTC+0);d GYT p (;ABC DEF Time (UTC+0);d FKT p (;ABC DEF Time (UTC+0);d NAEDT p (;ABC DEF Time (UTC+0);d HAE p (;ABC DEF Time (UTC+0);d CLT p (;ABC DEF Time (UTC+0);d CIDST p (;ABC DEF Time (UTC+0);d CDT p (;ABC DEF Time (UTC+0);d BOT p (;ABC DEF Time (UTC+0);d AT p (;ABC DEF Time (UTC+0);d HNA p -4))))))))))))
-        ;ABC DEF Time (UTC+0);d R p (;ABC DEF Time (UTC+0);d PET p (;ABC DEF Time (UTC+0);d ET p (;ABC DEF Time (UTC+0);d EST p (;ABC DEF Time (UTC+0);d NAEST p (;ABC DEF Time (UTC+0);d HNE p (;ABC DEF Time (UTC+0);d ECT p (;ABC DEF Time (UTC+0);d EASST p (;ABC DEF Time (UTC+0);d EADT p (;ABC DEF Time (UTC+0);d COT p (;ABC DEF Time (UTC+0);d CIST p (;ABC DEF Time (UTC+0);d CIT p (;ABC DEF Time (UTC+0);d NACDT p (;ABC DEF Time (UTC+0);d HAC p (;ABC DEF Time (UTC+0);d ACT p -5))))))))))))))
-        ;ABC DEF Time (UTC+0);d S p (;ABC DEF Time (UTC+0);d MDT p (;ABC DEF Time (UTC+0);d MDST p (;ABC DEF Time (UTC+0);d NAMDT p (;ABC DEF Time (UTC+0);d HAR p (;ABC DEF Time (UTC+0);d GALT p (;ABC DEF Time (UTC+0);d EAST p (;ABC DEF Time (UTC+0);d CT p (;ABC DEF Time (UTC+0);d NACST p (;ABC DEF Time (UTC+0);d HNC p -6)))))))))
-        ;ABC DEF Time (UTC+0);d T p (;ABC DEF Time (UTC+0);d PDT p (;ABC DEF Time (UTC+0);d PDST p (;ABC DEF Time (UTC+0);d NAPDT p (;ABC DEF Time (UTC+0);d HAP p (;ABC DEF Time (UTC+0);d MT p (;ABC DEF Time (UTC+0);d MST p (;ABC DEF Time (UTC+0);d NAMST p (;ABC DEF Time (UTC+0);d HNR p -7))))))))
-        ;ABC DEF Time (UTC+0);d U p (;ABC DEF Time (UTC+0);d PST p (;ABC DEF Time (UTC+0);d NAPST p (;ABC DEF Time (UTC+0);d HNP p (;ABC DEF Time (UTC+0);d AKDT p (;ABC DEF Time (UTC+0);d ADST p (;ABC DEF Time (UTC+0);d PT p -8))))))
-        ;ABC DEF Time (UTC+0);d V p (;ABC DEF Time (UTC+0);d HDT p (;ABC DEF Time (UTC+0);d HADT p (;ABC DEF Time (UTC+0);d GAMT p (;ABC DEF Time (UTC+0);d AKST p -9))))
-        ;ABC DEF Time (UTC+0);d W p (;ABC DEF Time (UTC+0);d TAHT p (;ABC DEF Time (UTC+0);d HST p (;ABC DEF Time (UTC+0);d HAST p (;ABC DEF Time (UTC+0);d CKT p -10))))
-        ;ABC DEF Time (UTC+0);d X p (;ABC DEF Time (UTC+0);d SST p (;ABC DEF Time (UTC+0);d NUT p -11))
-        ;ABC DEF Time (UTC+0);d Y p (;ABC DEF Time (UTC+0);d AOE p -12)
-        ;ABC DEF Time (UTC+0);d ACDT p (;ABC DEF Time (UTC+0);d CDST p (;ABC DEF Time (UTC+0);d LHST p 10.5))
-        ;ABC DEF Time (UTC+0);d ACST p 9.5
-        ;ABC DEF Time (UTC+0);d ACWST p 8.75
-        ;ABC DEF Time (UTC+0);d AFT p (;ABC DEF Time (UTC+0);d IRDT p 4.5)
-        ;ABC DEF Time (UTC+0);d AZOST p (;ABC DEF Time (UTC+0);d AZODT p (;ABC DEF Time (UTC+0);d Z p (;ABC DEF Time (UTC+0);d WT p (;ABC DEF Time (UTC+0);d WET p (;ABC DEF Time (UTC+0);d WEZ p (;ABC DEF Time (UTC+0);d GMT p (;ABC DEF Time (UTC+0);d GT p (;ABC DEF Time (UTC+0);d UTC p (;ABC DEF Time (UTC+0);d EGST p 0)))))))))
-        ;ABC DEF Time (UTC+0);d CCT p (;ABC DEF Time (UTC+0);d MMT p 6.5)
-        ;ABC DEF Time (UTC+0);d CHADT p 13.75
-        ;ABC DEF Time (UTC+0);d CHAST p 12.75
-        ;ABC DEF Time (UTC+0);d FJST p (;ABC DEF Time (UTC+0);d FJDT p (;ABC DEF Time (UTC+0);d ST p (;ABC DEF Time (UTC+0);d TOT p (;ABC DEF Time (UTC+0);d TKT p (;ABC DEF Time (UTC+0);d PHOT p (;ABC DEF Time (UTC+0);d NZDT p 13))))))
-        ;ABC DEF Time (UTC+0);d IRST p 3.5
-        ;ABC DEF Time (UTC+0);d IT p 5.5
-        ;ABC DEF Time (UTC+0);d LINT p (;ABC DEF Time (UTC+0);d TOST p 14)
-        ;ABC DEF Time (UTC+0);d MART p -9.5
-        ;ABC DEF Time (UTC+0);d NDT p (;ABC DEF Time (UTC+0);d HAT p -2.5)
-        ;ABC DEF Time (UTC+0);d NPT p 5.75
-        ;ABC DEF Time (UTC+0);d NST p (;ABC DEF Time (UTC+0);d HNT p -3.5)
-        ;ABC DEF Time (UTC+0);d PYT p 8.5
+        ;November Time (UTC-1);d N p (;East Greenland Time (UTC-1);d EGT p (;Cape Verde Time (UTC-1);d CVT p (;Azores Time (UTC-1);d AZOT p -1)))
+        ;Western Greenland Summer Time (UTC-2);d WGST p (;Uruguay Summer Time (UTC-2);d UYST p (;Pierre & Miquelon Daylight Time (UTC-2);d PMDT p (;Oscar Time (UTC-2);d O p (;Fernando de Noronha Tim (UTC-2);d FNT p (;Brasilia Summer Time (UTC-2);d BRST p -2)))))
+        ;Paraguay Summer Time (UTC-3);d PYST p (;Papa Time (UTC-3);d P p (;Falkland Islands Summer Time (UTC-3);d FKST p (;Falkland Islands Daylight Time (UTC-3);d FKDT p (;Chile Summer Time (UTC-3);d CLST p (;Chile Daylight Time (UTC-3);d CLDT p (;Brasilia Time (UTC-3);d BRT p (;Brazil Time (UTC-3);d BT p (;Amazon Summer Time (UTC-3);d AMST p (;Argentina Time (UTC-3);d ART p (;French Guiana Time (UTC-3);d GFT p (;Pierre & Miquelon Standard Time (UTC-3);d PMST p (;Rothera Time (UTC-3);d ROTT p (;Suriname Time (UTC-3);d SRT p (;West Greenland Time (UTC-3);d WGT p (;West Argentine Summer Time (UTC-3);d WARST p (;Uruguay Time (UTC-3);d UYT p -3))))))))))))))))
+        ;Venezuelan Standard Time (UTC-4);d VET p (;Quebec Time (UTC-4);d Q p (;Guyana Time (UTC-4);d GYT p (;Falkland Island Time (UTC-4);d FKT p (;North American Eastern Daylight Time (UTC-4);d NAEDT p (;Chile Standard Time (UTC-4);d CLT p (;Cayman Islands Daylight Savings Time (UTC-4);d CIDST p (;Cuba Daylight Time (UTC-4);d CDT p (;Bolivia Time (UTC-4);d BOT p (;Atlantic Time (UTC-4);d AT p -4)))))))))
+        ;Romeo Time (UTC-5);d R p (;Peru Time (UTC-5);d PET p (;Eastern Time (UTC-5);d ET p (;Eastern Standard Time (UTC-5);d EST p (;North American Eastern Standard Time (UTC-5);d NAEST p (;Ecuador Time (UTC-5);d ECT p (;Easter Island Summer Time (UTC-5);d EASST p (;Easter Island Daylight Time (UTC-5);d EADT p (;Colombia Time (UTC-5);d COT p (;Cayman Islands Standard Time (UTC-5);d CIST p (;Cayman Islands Time (UTC-5);d CIT p (;North American Central Daylight Time (UTC-5);d NACDT p (;Acre Time (UTC-5);d ACT p -5))))))))))))
+        ;Sierra Time (UTC-6);d S p (;Mountain Daylight Time (UTC-6);d MDT p (;Mountain Daylight Savings Time (UTC-6);d MDST p (;North American Mountain Daylight Time (UTC-6);d NAMDT p (;Galapagos Time (UTC-6);d GALT p (;Easter Island Standard Time (UTC-6);d EAST p (;Central Time (UTC-6);d CT p (;North American Central Standard Time (UTC-6);d NACST p -6)))))))
+        ;Tango Time (UTC-7);d T p (;Pacific Daylight Time (UTC-7);d PDT p (;Pacific Daylight Savings Time (UTC-7);d PDST p (;North American Pacific Daylight Time (UTC-7);d NAPDT p (;Mountain Time (UTC-7);d MT p (;Mountain Standard Time (UTC-7);d MST p (;North American Mountain Standard Time (UTC-7);d NAMST p -7))))))
+        ;Uniform Time (UTC-8);d U p (;Pacific Standard Time (UTC-8);d PST p (;North American Pacific Standard Time (UTC-8);d NAPST p (;Alaska Daylight Time (UTC-8);d AKDT p (;Alasks Daylight Savings Time (UTC-8);d ADST p (;Pacific Time (UTC-8);d PT p -8)))))
+        ;Victor Time (UTC-9);d V p (;Hawaii-Aleutian Daylight Time (UTC-9);d HDT p (;Hawaii Daylight Time (UTC-9);d HADT p (;Gambier Time (UTC-9);d GAMT p (;Alaska Standard Time (UTC-9);d AKST p -9))))
+        ;Whiskey Time (UTC-10);d W p (;Tahiti Time (UTC-10);d TAHT p (;Hawaii Standard Time (UTC-10);d HST p (;Hawaii-Aleutian Standard Time (UTC-10);d HAST p (;Cook Island Time (UTC-10);d CKT p -10))))
+        ;X-Ray Time (UTC-11);d X p (;Samoa Standard Time (UTC-11);d SST p (;Niue Time (UTC-11);d NUT p -11))
+        ;Yankee Time (UTC-12);d Y p (;Anywhere On Earth Time (UTC-12);d AOE p -12)
+        ;Australian Central Daylight Time (UTC+10.5);d ACDT p (;Central Daylight Savings Time (UTC+10.5);d CDST p (;Lord Howe Standard Time (UTC+10.5);d LHST p 10.5))
+        ;Australian Central Standard Time (UTC+9.5);d ACST p 9.5
+        ;Australian Central Western Standard Time (UTC+8.75);d ACWST p 8.75
+        ;Afghanistan Time (UTC+4.5);d AFT p (;Iran Daylight Time (UTC+4.5);d IRDT p 4.5)
+        ;Azores Summer Time (UTC+0);d AZOST p (;Azores Daylight Time (UTC+0);d AZODT p (;Zulu Time (UTC+0);d Z p (;Western Sahara Standard Time (UTC+0);d WT p (;Western European Time (UTC+0);d WET p (;Greenwich Mean Time (UTC+0);d GMT p (;Greenwich Time (UTC+0);d GT p (;Coordinated Universal Time (UTC+0);d UTC p (;Eastern Greenland Summer Time (UTC+0);d EGST p 0))))))))
+        ;Cocos Islands Time (UTC+6.5);d CCT p (;Myanmar Time (UTC+6.5);d MMT p 6.5)
+        ;Chatham Island Daylight Time (UTC+13.75);d CHADT p 13.75
+        ;Chatham Island Standard Time (UTC+12.75);d CHAST p 12.75
+        ;Fiji Summer Time (UTC+13);d FJST p (;Fiji Daylight Time (UTC+13);d FJDT p (;Samoa Time (UTC+13);d ST p (;Tonga Time (UTC+13);d TOT p (;Tokelau Time (UTC+13);d TKT p (;Phoenix Island Time (UTC+13);d PHOT p (;New Zealand Daylight Time (UTC+13);d NZDT p 13))))))
+        ;Iran Standard Time (UTC+3.5);d IRST p 3.5
+        ;India Time (UTC+5.5);d IT p 5.5
+        ;Line Islands Time (UTC+14);d LINT p (;Tonga Summer Time (UTC+14);d TOST p 14)
+        ;Marquesas Time (UTC-9.5);d MART p -9.5
+        ;Newfoundland Daylight Time (UTC-2.5);d NDT p -2.5
+        ;Nepal Time (UTC+5.75);d NPT p 5.75
+        ;Newfoundland Standard Time (UTC-3.5);d NST p -3.5
+        ;Pyongyang Time (UTC+8.5);d PYT p 8.5
     }
+    ;Convert a time (in milliseconds) from one time zone to another. Note that all times retrieved using other built-in tools will be in UTC.
+    @input@The time to be converted, in milliseconds.@
+    @startZone@The time zone that the input time is in: for example, zones.UTC.@
+    @targetZone@The time zone that the input time should be converted to: for example, zones.PST.@;
+    d convert p t(input, targetZone p 0, startZone p 0) {
+        h input + ((targetZone - startZone) * 3600000)
+    }
+    ;Get the current time in UTC in milliseconds, or for a different time zone if specified.
+    @zone@The time zone to retrieve, for example: zones.FJST.@;
+    d now p t(zone p 0) {
+        h NOW() + (zone * 3600000)
+        h -0
+    }
+    ;Get the current year according to the Gregorian calendar, or retrieve the year based on a different time if specified.
+    @time@The time to get the year from, in milliseconds (defaults to the current time at UTC).@;
+    d years p t(time p NOW()) {
+        h YEAR(time)
+        h -0
+    } 
+    ;Get the current month according to the Gregorian calendar, or retrieve the month based on a different time if specified. Note that months are 0-indexed, so February corresponds to 1.
+    @time@The time to get the month from, in milliseconds (defaults to the current time at UTC).@;
+    d months p t(time p NOW()) {
+        h MONTH(time)
+        h -0
+    } 
+    ;Get the current day according to the Gregorian calendar, or retrieve the day based on a different time if specified. Note that days are 0-indexed, ranging from 0-29 or 0-30 depending on the month.
+    @time@The time to get the day from, in milliseconds (defaults to the current time at UTC).@;
+    d days p t(time p NOW()) {
+        h DAY(time)
+        h -0
+    } 
+    ;Get the current hour, from 0-23, at UTC.
+    @time@The time to get the hour from, in milliseconds (defaults to the current time at UTC).@;
+    d hours p t(time p NOW()) {
+        h HOUR(time)
+        h -0
+    } 
+    ;Get the current minute, from 0-59, at UTC.
+    @time@The time to get the minute from, in milliseconds (defaults to the current time at UTC).@;
+    d minutes p t(time p NOW()) {
+        h MINUTE(time)
+        h -0
+    } 
+    ;Get the current second, from 0-59, at UTC.
+    @time@The time to get the second from, in milliseconds (defaults to the current time at UTC).@;
+    d seconds p t(time p NOW()) {
+        h SECOND(time)
+        h -0
+    } 
+    ;Get the current millisecond, from 0-999, at UTC.
+    @time@The time to get the millisecond from, in milliseconds (defaults to the current time at UTC).@;
+    d milliseconds p t(time p NOW()) {
+        h MILLISECOND(time)
+        h -0
+    } 
 }

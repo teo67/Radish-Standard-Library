@@ -92,4 +92,25 @@ h {
         }
         h returning
     }
+    ;Repeat a string a given integer number of times and harvest the result.
+    @numTimes@The number of times to repeat the string (integer).@;
+    d repeat p t(numTimes) {
+        d returning p ""
+        for(d i p 0, i < numTimes, i++) {
+            returning += this
+        }
+        h returning
+    }
+    ;Add a repeated character to the left of a string and harvest a string with the desired length in total.
+    @character@The char (string with length = 1) to add to the left of the string.@
+    @targetLength@The final length of the string. The character will be added to the left until this length is attained.@;
+    d padLeft p t(character, targetLength) {
+        h character.repeat(targetLength - this.length) + this
+    }
+    ;Add a repeated character to the right of a string and harvest a string with the desired length in total.
+    @character@The char (string with length = 1) to add to the right of the string.@
+    @targetLength@The final length of the string. The character will be added to the right until this length is attained.@;
+    d padRight p t(character, targetLength) {
+        h this + character.repeat(targetLength - this.length)
+    }
 }
