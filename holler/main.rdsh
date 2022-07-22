@@ -14,6 +14,10 @@ holler.clear p t() {
 holler.read p t() {
     h READ()
 }
+;Harvest the next character typed into the console and prevent it from being printed to the console as usual.;
+holler.next p t() {
+    h NEXT()
+}
 ;Write any Radish value to the console using the standard C# Console.WriteLine() method. Holler travels recursively through arrays and objects, but only for a few layers (in order to avoid an infinite circular dependency chain).
 @input@The value to be printed using holler().@;
 h holler

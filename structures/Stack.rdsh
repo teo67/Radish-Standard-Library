@@ -1,7 +1,7 @@
 d StackNode p import "StackNode"
 d Stack p class {
-    ;A private node that is only accessed within the structure's machinery.;
-    d protected __head
+    ;A helper node that is only accessed within the structure's machinery.;
+    d __head
     constructor p t(fill vals) {
         this.__head p null
         for(d i p 0, i < vals.length, i++) {
@@ -25,7 +25,7 @@ d Stack p class {
     }
     ;A private tool used as a helper for other tools such as get() and indexOf().
     @onEach@A tool that takes one input, the current viewing value, and harvests a boolean.@;
-    d protected through p t(onEach) {
+    d private through p t(onEach) {
         d current p this.__head
         while(current != null) {
             if(onEach(current)) {

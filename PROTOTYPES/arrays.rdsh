@@ -67,11 +67,7 @@ Note: lastIndexOf will return -1 if no item is found.
         }
         h a
     }
-    ;Recursively duplicate an array, creating new references for every object and array within. The harvested result is a new array that is not tethered in any way to the original.;
-    d deepClone p t() {
-        # coming soon (requires type checking) #
-        h yes
-    }
+    
     ;Insert a new value at any point in an array, and harvest the updated array. This method can be quite time-expensive, and users should consider transferring data to linked lists if they use Array.insert() extensively.
     @adding@The value to be added to the array.@
     @index@The index where the value should be inserted. For example, [0, 1, 2, 3].insert(4, 2) -> [0, 1, 4, 2, 3]. Range: {index <- Z | 0 <= index <= arr.length}.@;

@@ -6,10 +6,10 @@ d BinaryTreeNode p class {
     }
 }
 d BinaryTree p class {
-    ;A private node that is only accessed within the tree's machinery.;
-    d private __head
-    ;A private value that helps the tree keep track of whether it's currently inverted.;
-    d private __inverted
+    ;A helper node that is only accessed within the tree's machinery.;
+    d __head
+    ;A value that helps the tree keep track of whether it's currently inverted.;
+    d __inverted
     constructor p t(fill vals) {
         this.__head p null
         this.__inverted p 1
