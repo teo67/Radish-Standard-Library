@@ -1,6 +1,5 @@
 d usePrimes p import "isPrime"
-;An object that provides core functionality for basic mathematical operations.;
-h {
+d math p {
     ;Round a number down to the nearest integer by default, or to the nearest custom interval if defined.
     @input@The number to be floored.@
     @toNearest@The interval (1 by default) to round by. For example, floor(12.5, 5) would return 10.@;
@@ -234,9 +233,9 @@ h {
         h multA
     }
     ;A private array storing the seeds to be used for pseudorandom number generation.;
-    d private __seeds p [12398136598, 3405873919]
-    ;Generate a random number between 0 and 1, exclusive of 1. This is done using a formula known as xorshift128+, which is pseudorandom but generates numbers in a range from 0 <-> (2^65 - 2).;
-    d random p t() { # using xorshift128+ #
+    d private __seeds p [NOW() % 18446744073709551615, NOW() % 18446744073709551615]
+    ;Generate a random nonnegative integer between 0 and 2^64 - 1. This is done using a formula known as xorshift128+, which is pseudorandom but generates numbers in a range from 0 <-> (2^65 - 2).;
+    d randInt p t() { # using xorshift128+ #
         d s0 p this.__seeds[0]
         d s1 p this.__seeds[1]
         d returning p s0 + s1
@@ -245,7 +244,16 @@ h {
         }
         this.__seeds[1] p XOR128SHIFTPLUS(s0, s1)
         this.__seeds[0] p s1
-        h returning / 18446744073709551616
+        h returning
         h -0
     }
-}   
+    ;Generate a random floating point value between 0 and 1, exclusive of one. See math.randInt() for more details.;
+    d random p t() {
+        h this.randInt() / 18446744073709551616
+    }
+}  
+for d i p 0, i < 10, i++ {
+    math.random() # get some initial randomness #
+}
+;An object that provides core functionality for basic mathematical operations.;
+h math

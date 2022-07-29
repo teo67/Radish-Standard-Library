@@ -1,0 +1,5 @@
+;Execute a Radish script formatted as a string! Note that the script will run outside of the current scope, without access to declared variables. This tool will return the value harvested by the script, or null otherwise.
+@input@A string contained Radish code to be executed using the interpreter.@;
+h t(input) {
+    h EXECUTE(input)
+}
