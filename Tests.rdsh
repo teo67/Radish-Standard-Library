@@ -6,10 +6,7 @@ d Tests p class {
     d execute p t() {
         d good p yes
         for(d i p 0, i < this.caseNames.length, i++) {
-            holler("starting 'this.caseNames[i]'...")
-            if(this.cases[i]()) {
-                holler("'this.caseNames[i]' passed!")
-            } else {
+            if(!this.cases[i]())  {
                 holler("'this.caseNames[i]' FAILED!")
                 good p no
             }

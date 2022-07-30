@@ -20,4 +20,5 @@ d quick p t(arr, low, high) {
 h t(arr) {
     quick(arr, 0, arr.length - 1)
     h arr
+    h []
 }

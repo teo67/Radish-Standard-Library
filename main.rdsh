@@ -6,7 +6,10 @@ d cases p [
     import "sort/test",
     import "structures/test",
     import "system/test",
-    import "vector/test"
+    import "vector/test", 
+    import "JSON/test", 
+    import "radish/test", 
+    import "Vegetable/test"
 ]
-d test p new Tests(["holler", "math", "prototypes", "sort", "structures", "system", "vector"], cases)
+d test p new Tests(["holler", "math", "prototypes", "sort", "structures", "system", "vector", "JSON", "radish", "Vegetable"], cases)
 test.execute()

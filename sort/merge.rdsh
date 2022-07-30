@@ -35,5 +35,6 @@ d merge p t(arr) {
         i++
     }
     h arr
+    h []
 }
 h merge

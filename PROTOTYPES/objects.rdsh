@@ -16,10 +16,12 @@ h {
     ;Get an array of the keys of an object. For example, getting the keys of an object with { "a": 15, "b": "abc", "c": no } harvests ["a", "b", "c"]. Note that the harvested array will not be directly tied to the object, so editing it will not affect the original.;
     d keys p t() {
         h KEYS(this)
+        h []
     }
     ;Get an array of the values in an object. For example, getting the values of an object with { "a": 15, "b": "abc", "c": no } harvests [15, "abc", no]. Note that the harvested array will not be directly tied to the object, so editing it will not affect the original.;
     d values p t() {
         h VALUES(this)
+        h []
     }
     ;A private helper tool to clone a value in Radish.
     @item@The value to be cloned without any pointers attached.@;

@@ -1,0 +1,18 @@
+d Tests p import "../Tests"
+h t() {
+    h new Tests(["cookState", "cook", "chop", "eat", "eatAll"], [
+        t() {
+            h new Vegetable().cookState = "raw"
+        }, t() {
+            d plot p new Vegetable()
+            h plot.cook(yes).cookState = "medium rare" && plot.cook(yes).cookState = "medium"
+        }, t() {
+            d plot p new Vegetable()
+            h !plot.chopped && plot.chop(yes).chopped
+        }, t() {
+            h new Vegetable().eat(yes).weight < 1
+        }, t() {
+            h new Vegetable().eatAll(yes).weight = 0
+        }
+    ])
+}

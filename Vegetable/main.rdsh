@@ -1,0 +1,105 @@
+d random p import "../math/random"
+d cookStates p ["raw", "medium rare", "medium", "done", "well done", "burnt"]
+;A (useless) class used to store and mutate different amounts of vegetables.
+@name@The type of vegetable to be stored, as a string. Defaults to radish.@
+@weight@The amount of vegetable, with no units.@;
+h class {
+    ;The type of vegetable, as a string.;
+    d name
+    ;The amount of vegetable stored (unitless).;
+    d weight
+    ;A private integer used to find how cooked the vegetable is.;
+    d __cookState
+    ;A boolean storing whether the vegetable has been chopped.;
+    d chopped
+    constructor p t(name p "radish", weight p 1) {
+        this.name p name
+        this.weight p weight
+        this.__cookState p 0
+        this.chopped p no
+    }
+    ;Check the cook state of the vegetable (for example: medium rare).;
+    d cookState {
+        h {
+            h cookStates[this.__cookState]
+        }
+    }
+    ;Cook the vegetable, unless it's already burnt.
+    @suppress@If set to true, this tool will not holler anything (defaults to falsy).@;
+    d cook p t(suppress p no) {
+        if this.__cookState >= cookStates.length - 1 {
+            if !suppress {
+                OUTPUT("The 'this.name' is already 'cookStates[cookStates.length - 1]'!")
+            }
+        } else {
+            this.__cookState++
+            if !suppress {
+                OUTPUT("The 'this.name' has been cooked and is now 'this.cookState'!")
+            }
+        }
+        h this
+    }
+    ;Chop the vegetable, unless it has already been chopped. Note a small chance of losing part of the portion.
+    @suppress@If set to true, this tool will not holler anything (defaults to falsy).@;
+    d chop p t(suppress p no) {
+        if this.chopped {
+            if !suppress {
+                OUTPUT("You try to chop the 'this.name' even more, but it\'s already chopped!")
+            }
+        } else {
+            this.chopped p yes
+            if !suppress {
+                OUTPUT("Okay, the 'this.name' has been chopped!")
+            }
+            if random() / 18446744073709551616 <= 0.1 {
+                this.weight *= 0.8
+                if !suppress {
+                    OUTPUT("... but some of it fell off the table. There is only 'this.weight' 'this.name' left!")
+                }
+            }
+        }
+        h this
+    }
+    ;Eat a random portion of the vegetable, distributed evenly by tenths.
+    @suppress@If set to true, this tool will not holler anything (defaults to falsy).@;
+    d eat p t(suppress p no) {
+        d res p (random() / 18446744073709551616) * 10
+        res -= res % 1
+        res /= 10
+        this.weight *= res
+        if !suppress {
+            OUTPUT("You ate '(1 - res) * 100'% of the 'this.name', and now 'this.weight' is left!")
+        }
+        h this
+    }
+    ;Eat all of the vegetable such that the weight becomes zero.
+    @suppress@If set to true, this tool will not holler anything (defaults to falsy).@;
+    d eatAll p t(suppress p no) {
+        this.weight p 0
+        if !suppress {
+            OUTPUT("You ate all of the 'this.name'!")
+        }
+        h this
+    }
+    d serve p t() {
+        d res p "Anyone order 'this.weight' 'this.chopped ? "chopped", "unchopped"' 'this.name'? "
+        switch this.cookState {
+            case "raw"
+            res += "It\'s still raw..."
+            cancel
+            case "medium rare"
+            case "medium"
+            res += "It has been cooked to 'this.cookState'!"
+            cancel
+            case "done"
+            res += "It\'s already done!"
+            cancel
+            case "well done"
+            res += "Wow, it\'s well done!"
+            cancel
+            case "burnt"
+            res += "Ew, it\'s burnt..."
+        }
+        OUTPUT(res)
+    }
+}

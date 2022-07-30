@@ -1,0 +1,17 @@
+d seeds p [NOW() % 18446744073709551615, NOW() % 18446744073709551615]
+d random p t() { # using xorshift128+ #
+    d s0 p seeds[0]
+    d s1 p seeds[1]
+    d returning p s0 + s1
+    if(returning > 18446744073709551615) {
+        returning -= 18446744073709551615
+    }
+    seeds[1] p XOR128SHIFTPLUS(s0, s1)
+    seeds[0] p s1
+    h returning
+    h -0
+}
+for d i p 0, i < 10, i++ {
+    random() # get some initial randomness #
+}
+h random

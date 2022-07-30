@@ -8,7 +8,6 @@ h t() {
             d res p vector.subtract([1, 2, 3], [3, 2, 1])
             h res[0] = -2 && res[1] = 0 && res[2] = 2
         }, t() {
-            holler(vector.dot([7, 2, 4], [6, 2, 2]) )
             h vector.dot([7, 2, 4], [6, 2, 2]) = 54
         }, t() {
             d res p vector.multiplyByScalar([7, 2, 4], 10)

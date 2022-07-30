@@ -1,8 +1,31 @@
 d Tests p import "../../Tests"
 h t() {
-    h new Tests(["getValue"], [
+    d testObj p {
+        d a p 123
+        d b p 456
+        d c p []
+        d f p t() {
+            h "abc"
+        }
+    }
+    h new Tests(["getValue", "delete", "get", "keys", "values", "deepClone"], [
         t() {
             h yes.getValue()
+        }, t() {
+            h testObj.delete("a") = 123
+        }, t() {
+            h testObj.get("g") = null
+        }, t() {
+            d keys p testObj.keys()
+            h keys[0] = "b" && keys[1] = "c" && keys[2] = "f"
+        }, t() {
+            d values p testObj.values()
+            h values[0] = 456 && values[1].length = 0 && values[2]() = "abc"
+        }, t() {
+            d clone p testObj.deepClone()
+            clone.c.push(1)
+            testObj.c.push(2)
+            h clone.c.length = 1 && testObj.c.length = 1 && clone.c[0] = 1 && testObj.c[0] = 2
         }
     ]).execute()
 }

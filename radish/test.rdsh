@@ -1,0 +1,3 @@
+h t() {
+    h radish("d a p 3 d b p 4 h -a * b") = -12 && radish("h t() {h 2 ** 5}")() = 32
+}
