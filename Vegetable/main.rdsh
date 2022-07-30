@@ -81,6 +81,7 @@ h class {
         }
         h this
     }
+    ;Serve your vegetable and print the result!;
     d serve p t() {
         d res p "Anyone order 'this.weight' 'this.chopped ? "chopped", "unchopped"' 'this.name'? "
         switch this.cookState {
