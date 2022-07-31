@@ -65,10 +65,9 @@ h class {
     d eat p t(suppress p no) {
         d res p (random() / 18446744073709551616) * 10
         res -= res % 1
-        res /= 10
-        this.weight *= res
+        this.weight *= res / 10
         if !suppress {
-            OUTPUT("You ate '(1 - res) * 100'% of the 'this.name', and now 'this.weight' is left!")
+            OUTPUT("You ate '(10 - res) * 10'% of the 'this.name', and now 'this.weight' is left!")
         }
         h this
     }
@@ -102,5 +101,6 @@ h class {
             res += "Ew, it\'s burnt..."
         }
         OUTPUT(res)
+        h this
     }
 }
