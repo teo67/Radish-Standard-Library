@@ -1,5 +1,0 @@
-h {
-    t(source, target) {
-        GENERATEQR(source, target)
-    } => generate
-}

@@ -1,0 +1,5 @@
+h {
+    t(source, target, size p 1) {
+        GENERATEQR(source, target, size)
+    } => generateQR
+}
