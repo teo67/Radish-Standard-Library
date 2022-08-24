@@ -2,4 +2,10 @@ h {
     t(source, target, size p 1) {
         GENERATEQR(source, target, size)
     } => generateQR
+    t(width, height, bpp, usePallette p no) {
+        h GENERATEBMP(width, height, bpp, usePallette)
+    } => generateBMP
+    t(source, out) {
+        RENDERBMP(source, out)
+    } => renderBMP
 }
