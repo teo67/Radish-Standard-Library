@@ -8,4 +8,10 @@ h {
     t(source, out) {
         RENDERBMP(source, out)
     } => renderBMP
+    t(text, func) {
+        h ITERATEBMP(text, func)
+    } => iterateBMP
+    t(source, palletteNumber, r, g, b) {
+        h EDITPALLETTE(source, palletteNumber, r, g, b)
+    } => editPallette
 }
