@@ -20,4 +20,7 @@ h {
     t(source, x1, y1, x2, y2, color) {
         h DRAWLINE(source, x1, y1, x2, y2, color)
     } => drawLine
+    t(source, x, y, w, _h, color, fillIt p yes) {
+        h DRAWELLIPSE(source, x, y, w, _h, color, fillIt)
+    } => drawEllipse
 }
