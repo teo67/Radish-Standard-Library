@@ -26,4 +26,10 @@ h {
     t(source, x, y, color) {
         h DRAWPOINT(source, x, y, color)
     } => drawPoint
+    t(source, xs, ys, color) {
+        h FILLTRIANGLE(source, xs, ys, color)
+    } => fillTriangle
+    t(source) {
+        PRINTBMP(source)
+    } => printBMP
 }
