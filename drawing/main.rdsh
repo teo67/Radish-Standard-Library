@@ -1,4 +1,4 @@
-h {
+# h {
     t(source, target, size p 1) {
         GENERATEQR(source, target, size)
     } => generateQR
@@ -32,4 +32,79 @@ h {
     t(source) {
         PRINTBMP(source)
     } => printBMP
+} #
+h {
+    d RGB p class {
+        d r
+        d g 
+        d b
+        constructor p t(r, g, b) {
+            this.r p r
+            this.g p g
+            this.b p b
+        }
+    }
+    d Pallette p class {
+        d __data
+        d __bpp
+        constructor p t(bitsPerPixel) {
+            if(![1, 2, 4, 8, 16, 24].has(bitsPerPixel)) {
+                throw "'bitsPerPixel' is not a valid bit amount for a bitmap color pallette! Available values are 1, 2, 4, 8, 16, and 24."
+            }
+            this.__data p []
+            this.__bpp p bitsPerPixel
+        }
+        d set p t(index, rgb) {
+            if index < 0 || index >= 2 ** this.__bpp {
+                throw "The index 'index' is out of range for a pallette with 'this.__bpp' bits!"
+            }
+            this.__data[index] p rgb
+            h this
+        }
+        d clear p t() {
+            this.__data p []
+        }
+    }
+    d Drawing p class {
+        d __data
+        d pallette
+        constructor p t(width, height, pallette p null, bitsPerPixel p null) {
+            d bpp p 24
+            if bitsPerPixel != null {
+                if pallette != null and pallette.__bpp != bitsPerPixel {
+                    throw "The amount of bits in the pallette should match the amount of bits in the drawing!"
+                }
+                if ![1, 2, 4, 8, 16, 24].has(bitsPerPixel) {
+                    throw "'bitsPerPixel' is not a valid bit amount for a bitmap color pallette! Available values are 1, 2, 4, 8, 16, and 24."
+                }
+                bpp p bitsPerPixel
+            } elseif pallette != null {
+                bpp p pallette.__bpp
+            }
+            this.pallette p pallette
+            this.__data p GENERATEBMP(width, height, bpp, pallette != null)
+        }
+        d static generateQR p t(text, moduleSize p 20) {
+            h ({
+                GENERATEQR(text, moduleSize) => __data
+                (new Pallette(1)).set(0, new RGB(0, 0, 0)).set(1, new RGB(255, 255, 255)) => pallette
+            } after Drawing)
+        }
+        d private __updatePallette p t() {
+            if this.pallette != null {
+                for d i p 0, i < 2 ** this.pallette.__bpp, i++ {
+                    d res p this.pallette.get(i)
+                    if res = null {
+                        EDITPALLETTE(this.__data, i, 0, 0, 0)
+                    } else {
+                        EDITPALLETTE(this.__data, i, res.r, res.g, res.b)
+                    }
+                }
+            }
+        }
+        d render p t(out) {
+            this.__updatePallette()
+            RENDERBMP(this.__data, out)
+        }
+    }
 }
