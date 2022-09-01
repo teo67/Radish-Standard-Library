@@ -1,40 +1,5 @@
-# h {
-    t(source, target, size p 1) {
-        GENERATEQR(source, target, size)
-    } => generateQR
-    t(width, height, bpp, usePallette p no) {
-        h GENERATEBMP(width, height, bpp, usePallette)
-    } => generateBMP
-    t(source, out) {
-        RENDERBMP(source, out)
-    } => renderBMP
-    t(text, func) {
-        h ITERATEBMP(text, func)
-    } => iterateBMP
-    t(source, palletteNumber, r, g, b) {
-        h EDITPALLETTE(source, palletteNumber, r, g, b)
-    } => editPallette
-    t(source, x, y, w, _h, color, fillIt p yes) {
-        h DRAWRECTANGLE(source, x, y, w, _h, color, fillIt)
-    } => drawRectangle
-    t(source, x1, y1, x2, y2, color) {
-        h DRAWLINE(source, x1, y1, x2, y2, color)
-    } => drawLine
-    t(source, x, y, w, _h, color, fillIt p yes) {
-        h DRAWELLIPSE(source, x, y, w, _h, color, fillIt)
-    } => drawEllipse
-    t(source, x, y, color) {
-        h DRAWPOINT(source, x, y, color)
-    } => drawPoint
-    t(source, xs, ys, color) {
-        h FILLTRIANGLE(source, xs, ys, color)
-    } => fillTriangle
-    t(source) {
-        PRINTBMP(source)
-    } => printBMP
-} #
-h {
-    d RGB p class {
+d Drawing p class {
+    d static RGB p class {
         d r
         d g 
         d b
@@ -44,7 +9,7 @@ h {
             this.b p b
         }
     }
-    d Pallette p class {
+    d static Pallette p class {
         d __data
         d __bpp
         constructor p t(bitsPerPixel) {
@@ -65,46 +30,85 @@ h {
             this.__data p []
         }
     }
-    d Drawing p class {
-        d __data
-        d pallette
-        constructor p t(width, height, pallette p null, bitsPerPixel p null) {
-            d bpp p 24
-            if bitsPerPixel != null {
-                if pallette != null and pallette.__bpp != bitsPerPixel {
-                    throw "The amount of bits in the pallette should match the amount of bits in the drawing!"
-                }
-                if ![1, 2, 4, 8, 16, 24].has(bitsPerPixel) {
-                    throw "'bitsPerPixel' is not a valid bit amount for a bitmap color pallette! Available values are 1, 2, 4, 8, 16, and 24."
-                }
-                bpp p bitsPerPixel
-            } elseif pallette != null {
-                bpp p pallette.__bpp
+    d __data
+    d pallette
+    constructor p t(width, height, pallette p null, bitsPerPixel p null) {
+        d bpp p 24
+        if bitsPerPixel != null {
+            if pallette != null and pallette.__bpp != bitsPerPixel {
+                throw "The amount of bits in the pallette should match the amount of bits in the drawing!"
             }
-            this.pallette p pallette
-            this.__data p GENERATEBMP(width, height, bpp, pallette != null)
+            if ![1, 2, 4, 8, 16, 24].has(bitsPerPixel) {
+                throw "'bitsPerPixel' is not a valid bit amount for a bitmap color pallette! Available values are 1, 2, 4, 8, 16, and 24."
+            }
+            bpp p bitsPerPixel
+        } elseif pallette != null {
+            bpp p pallette.__bpp
         }
-        d static generateQR p t(text, moduleSize p 20) {
-            h ({
-                GENERATEQR(text, moduleSize) => __data
-                (new Pallette(1)).set(0, new RGB(0, 0, 0)).set(1, new RGB(255, 255, 255)) => pallette
-            } after Drawing)
-        }
-        d private __updatePallette p t() {
-            if this.pallette != null {
-                for d i p 0, i < 2 ** this.pallette.__bpp, i++ {
-                    d res p this.pallette.get(i)
-                    if res = null {
-                        EDITPALLETTE(this.__data, i, 0, 0, 0)
-                    } else {
-                        EDITPALLETTE(this.__data, i, res.r, res.g, res.b)
-                    }
+        this.pallette p pallette
+        this.__data p GENERATEBMP(width, height, bpp, pallette != null)
+    }
+    d static generateQR p t(text, moduleSize p 20) {
+        h {
+            GENERATEQR(text, moduleSize) => __data
+            (new Drawing.Pallette(1)).set(0, new Drawing.RGB(0, 0, 0)).set(1, new Drawing.RGB(255, 255, 255)) => pallette
+        } after Drawing.prototype
+    }
+    d private __updatePallette p t() {
+        if this.pallette != null {
+            for d i p 0, i < 2 ** this.pallette.__bpp, i++ {
+                d res p this.pallette.__data.get(i)
+                if res = null {
+                    this.__data p EDITPALLETTE(this.__data, i, 0, 0, 0)
+                } else {
+                    this.__data p EDITPALLETTE(this.__data, i, res.r, res.g, res.b)
                 }
             }
-        }
-        d render p t(out) {
-            this.__updatePallette()
-            RENDERBMP(this.__data, out)
         }
     }
+    d render p t(out) {
+        this.__updatePallette()
+        RENDERBMP(this.__data, out)
+        h this
+    }
+    d iterateOver p t(function) {
+        this.__data p ITERATEBMP(this.__data, function)
+        h this
+    }
+    d rectangle p t(x, y, width, height, color, rfill p yes) {
+        this.__data p DRAWRECTANGLE(this.__data, x, y, width, height, color, rfill)
+        h this
+    }
+    d ellipse p t(x, y, width, height, color, efill p yes) {
+        this.__data p DRAWELLIPSE(this.__data, x, y, width, height, color, efill)
+        h this
+    }
+    d line p t(x1, y1, x2, y2, color) {
+        this.__data p DRAWLINE(this.__data, x1, y1, x2, y2, color)
+        h this
+    }
+    d point p t(x, y, color) {
+        this.__data p DRAWPOINT(this.__data, x, y, color)
+        h this
+    }
+    d polygon p t(xs, ys, color, pfill p yes) {
+        if pfill {
+            this.__data p FILLTRIANGLE(this.__data, xs, ys, color)
+        } else {
+            xs.length => len
+            if len != ys.length {
+                throw "The number of x coordinates do not match the number of y coordinates!"
+            }
+            for 0 => i, i < len, i++ {
+                i = len - 1 ? 0, i + 1 => next
+                this.__data p DRAWLINE(this.__data, xs[i], ys[i], xs[next], ys[next], color)
+            }
+        }
+        h this
+    }
+    d printRaw p t() {
+        PRINTBMP(this.__data)
+        h this
+    }
 }
+h Drawing
