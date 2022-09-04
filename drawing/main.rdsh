@@ -79,8 +79,8 @@ d Drawing p class {
         this.__data p DRAWRECTANGLE(this.__data, x, y, width, height, color, rfill)
         h this
     }
-    d ellipse p t(x, y, width, height, color, efill p yes) {
-        this.__data p DRAWELLIPSE(this.__data, x, y, width, height, color, efill)
+    d ellipse p t(x, y, width, height, color, efill p yes, thetaStart p 0, thetaEnd p 3.1415) {
+        this.__data p DRAWELLIPSE(this.__data, x, y, width, height, color, efill, thetaStart, thetaEnd)
         h this
     }
     d line p t(x1, y1, x2, y2, color) {
