@@ -1,12 +1,7 @@
 d Drawing p class {
     d static RGB p class {
-        d r
-        d g 
-        d b
         constructor p t(r, g, b) {
-            this.r p r
-            this.g p g
-            this.b p b
+            h r + g * 256 + b * 65536
         }
     }
     d static Pallette p class {
@@ -61,7 +56,12 @@ d Drawing p class {
                 if res = null {
                     this.__data p EDITPALLETTE(this.__data, i, 0, 0, 0)
                 } else {
-                    this.__data p EDITPALLETTE(this.__data, i, res.r, res.g, res.b)
+                    d b p (res - res % 65536)
+                    d g p (res - b) - (res - b) % 256
+                    d r p res - g - b
+                    b /= 65536
+                    g /= 256
+                    this.__data p EDITPALLETTE(this.__data, i, r, g, b)
                 }
             }
         }

@@ -5,10 +5,11 @@ d cases p [
     import "tests/functionTests",
     import "tests/numberTests", 
     import "tests/objectTests", 
-    import "tests/stringTests" 
+    import "tests/stringTests",
+    import "tests/polyTests"
 ]
 h t() {
     h new Tests([
-    "arrays", "booleans", "functions", "numbers", "objects", "strings"
+    "arrays", "booleans", "functions", "numbers", "objects", "strings", "polys"
     ], cases).execute()
 }

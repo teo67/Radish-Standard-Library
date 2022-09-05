@@ -1,0 +1,20 @@
+d Tests p import "../../Tests"
+h t() {
+    h new Tests(["number", "string", "boolean", "asArray", "asObject", "addString", "multiplyString"], [
+        t() {
+            h ("yes", 34, yes).number() = 34
+        }, t() {
+            h (2378, "hello world").string() = "hello world"
+        }, t() {
+            h ("aaa", 01, yes).boolean()
+        }, t() {
+            h ("abracadabra", 553).toArray()[1] = "abracadabra"
+        }, t() {
+            h ("abracadabra", 553, yes).toObject().boolean
+        }, t() {
+            h ("hello, ", 24).addString("world") = "hello, world"
+        }, t() {
+            h ("o", 23, yes).multiplyString(4) = "oooo"
+        }
+    ]).execute()
+}

@@ -5,11 +5,12 @@ d cases p [
     import "PROTOTYPES/test",
     import "sort/test",
     import "structures/test",
-    import "system/test",
+    #import "system/test",# # disabled because file use speed #
     import "vector/test", 
     import "JSON/test", 
     import "radish/test", 
     import "Vegetable/test"
+    # no drawing tests for obvious reasons #
 ]
-d test p new Tests(["holler", "math", "prototypes", "sort", "structures", "system", "vector", "JSON", "radish", "Vegetable"], cases)
+d test p new Tests(["holler", "math", "prototypes", "sort", "structures", #"system", #"vector", "JSON", "radish", "Vegetable"], cases)
 test.execute()
