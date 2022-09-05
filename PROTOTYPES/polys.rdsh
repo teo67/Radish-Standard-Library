@@ -5,7 +5,7 @@ h {
     }
     ;Get the numerical component of a poly-value (defaults to 0 if not set).;
     d number p t() {
-        h this + 0
+        h 0 + this
     }
     ;Get the string component of a poly-value (defaults to an empty string if not set).;
     d string p t() {
@@ -13,7 +13,7 @@ h {
     }
     ;Convert a poly-value to an array, with number at index 0, string at 1, and boolean at 2.;
     d toArray p t() {
-        h [this + 0, "'this'", not!this]
+        h [0 + this, "'this'", not!this]
     }
     ;Convert a poly-value to an object, such that the "number" property, "string" property, and "boolean" property are occupied with their respective values.;
     d toObject p t() {
