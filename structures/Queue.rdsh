@@ -1,7 +1,7 @@
 d StackNode p import "StackNode"
 d Queue p class after import "Stack" {
     ;A helper node representing the end of the queue (the most recently added values).;
-    d __tail
+    d private __tail
     constructor p t(fill vals) {
         this.__tail p null
         super.call(vals, this)

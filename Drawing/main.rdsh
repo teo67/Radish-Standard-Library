@@ -430,9 +430,10 @@ d Drawing p class {
         }
         d clear p t() {
             this.__data p []
+            h this
         }
     }
-    d __data
+    d private __data
     d pallette
     constructor p t(width, height, pallette p null, bitsPerPixel p null) {
         d bpp p 24
@@ -452,11 +453,11 @@ d Drawing p class {
     }
     d static generateQR p t(text, moduleSize p 20) {
         h {
-            GENERATEQR(text, moduleSize) => __data
+            d private __data p GENERATEQR(text, moduleSize)
             (new Drawing.Pallette(1)).set(0, new Drawing.RGB(0, 0, 0)).set(1, new Drawing.RGB(255, 255, 255)) => pallette
         } after Drawing.prototype
     }
-    d private __updatePallette p t() {
+    d protected __updatePallette p t() {
         if this.pallette != null {
             for d i p 0, i < 2 ** this.pallette.__bpp, i++ {
                 d res p this.pallette.__data.get(i)

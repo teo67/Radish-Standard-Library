@@ -46,12 +46,12 @@ h {
             ret p {} cancel
         }
         each(prop of item.keys()) {
-            ret[prop] p this.cloneItem(item[prop])
+            ret[prop] p cloneItem(item[prop])
         }
         h ret
     }
     ;Recursively duplicate an array, creating new references for every object and array within. The harvested result is a new array that is not tethered in any way to the original.;
     d deepClone p t() {
-        h this.cloneItem(this)
+        h cloneItem(this)
     }
 }

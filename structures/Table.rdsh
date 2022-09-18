@@ -5,13 +5,13 @@ d TableNode p class {
 }
 d Table p class {
     ;A helper value set during construction that is used to fill empty nodes when they are created using addRow() or addCol().;
-    d __default
+    d private __default
     ;A 2d array arranged in rows that stores every value in the table.;
-    d __rows
+    d private __rows
     constructor p t(width, height, _default p null) {
         this.__default p _default
-        this.__rows p this.__construct(height, t(y) {
-            h this.__construct(width, t(x) {
+        this.__rows p __construct(height, t(y) {
+            h __construct(width, t(x) {
                 h new TableNode(_default)
             })
         })
@@ -50,7 +50,7 @@ d Table p class {
     ;A private helper tool used to handle errors if the parameters passed in are out of bounds.
     @x@The x position of the parameters being passed.@
     @y@The y position of the parameters being passed.@;
-    d private __validate p t(x, y) {
+    d protected __validate p t(x, y) {
         if(y >= this.height || x >= this.width || x < 0 || y < 0) {
             throw "Invalid parameters ('x', 'y')! \'x\' should be in range [0, width ('this.width')) and y should be in range [0, height ('this.height'))."
         }
@@ -82,7 +82,7 @@ d Table p class {
     }
     ;Append a new row to the bottom of the table. This tool uses the default value set when constructing the table and does not affect any nested tables.;
     d addRow p t() {
-        this.__rows.push(this.__construct(this.width, t(i) {
+        this.__rows.push(__construct(this.width, t(i) {
             h new TableNode(this.__default)
         }))
         h this
@@ -152,7 +152,7 @@ d Table p class {
     @index@The index of the row to be retrieved.@;
     d getRow p t(index) {
         this.__validate(0, index)
-        h this.__construct(this.width, t(i) {
+        h __construct(this.width, t(i) {
             h this.__rows[index][i].val
         })
     }
@@ -160,19 +160,19 @@ d Table p class {
     @index@The index of the column to be retrieved.@;
     d getCol p t(index) {
         this.__validate(index, 0)
-        h this.__construct(this.height, t(i) {
+        h __construct(this.height, t(i) {
             h this.__rows[i][index].val
         })
     }
     ;Generate a 2d array representing this table, where each array within is a single row.;
     d getRows p t() {
-        h this.__construct(this.height, t(i) {
+        h __construct(this.height, t(i) {
             h this.getRow(i)
         })
     }
     ;Generate a 2d array representing this table, where each array within is a single column.;
     d getCols p t() {
-        h this.__construct(this.width, t(i) {
+        h __construct(this.width, t(i) {
             h this.getCol(i)
         })
     }

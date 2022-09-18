@@ -7,9 +7,9 @@ d BinaryTreeNode p class {
 }
 d BinaryTree p class {
     ;A helper node that is only accessed within the tree's machinery.;
-    d __head
+    d private __head
     ;A value that helps the tree keep track of whether it's currently inverted.;
-    d __inverted
+    d private __inverted
     constructor p t(fill vals) {
         this.__head p null
         this.__inverted p 1
@@ -82,21 +82,21 @@ d BinaryTree p class {
     ;A private helper tool to be used by traverse(), along with some other functions. See BinaryTree.traverse for more information.
     @onEach@The tool to be executed for every node found in the tree. It takes one parameter, which is the node itself.@
     @root@The root to begin traversing at.@;
-    d private __traverse p t(onEach, root p this.__head) {
+    d private __traverse p t(onEach, root) {
         if(root = null) {
             h this
         }
         d r p root.right
-        this.__traverse(onEach, root.left)
+        __traverse(onEach, root.left)
         onEach(root)
-        h this.__traverse(onEach, r)
+        h __traverse(onEach, r)
     }
     ;Sweep across a binary tree in a left-parent-right order, such that nodes are inspected from least to greatest. The onEach parameter is called for every node.
     @onEach@The tool to be executed for every node found in the tree. It takes one parameter, which is the value of the node.@;
     d traverse p t(onEach) {
-        h this.__traverse(t(root) {
+        h __traverse(t(root) {
             onEach(root.val)
-        })
+        }, this.__head)
     }
     d traverseParentLeftRight p t(onEach, root p this.__head) {
         if(root = null) {
@@ -132,11 +132,11 @@ d BinaryTree p class {
     ;Invert a binary tree such that every pair of left and right pointers are swapped. Note that this tool will alter binary tree search and add functions to account for the difference.;
     d invert p t() {
         this.__inverted *= -1
-        h this.__traverse(t(root) {
+        h __traverse(t(root) {
             d s p root.left
             root.left p root.right
             root.right p s
-        })
+        }, this.__head)
     }
     ;Get the length of the binary tree by traversing every node. Note that this can be quite time-expensive depending on the size of the tree.;
     d length {
@@ -159,7 +159,7 @@ d BinaryTree p class {
     ;A private helper tool to be used by delete().
     @val@The value to be removed from the tree.@
     @root@The root to search in.@;
-    d private __delete p t(val, root p this.__head) {
+    d protected __delete p t(val, root p this.__head) {
         if (root = null) {
             throw "No value 'val' found to delete!"
         }

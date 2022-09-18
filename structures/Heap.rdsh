@@ -45,14 +45,14 @@ d Heap p class {
     @val@The value to be added to the heap.@;
     d push p t(val) {
         d i p this.storage.length
-        d parent p this.__getParent(i)
+        d parent p __getParent(i)
         this.storage.push(val)
         while(parent >= 0 && this.comparator(this.storage[parent], this.storage[i])) {
             d s p this.storage[parent]
             this.storage[parent] p this.storage[i]
             this.storage[i] p s
             i p parent
-            parent p this.__getParent(i)
+            parent p __getParent(i)
         }
         h this
     }
@@ -90,8 +90,8 @@ d Heap p class {
         d parent p 0
         d done p no
         while(!done) {
-            d left p this.__getLeftChild(parent)
-            d right p this.__getRightChild(parent)
+            d left p __getLeftChild(parent)
+            d right p __getRightChild(parent)
             d _parent p parent
             if(left < this.storage.length && this.comparator(this.storage[parent], this.storage[left])) {
                 parent p left
@@ -125,8 +125,8 @@ d Heap p class {
             h this
         }
         onEach(this.storage[root])
-        this.traverse(onEach, this.__getLeftChild(root))
-        h this.traverse(onEach, this.__getRightChild(root))
+        this.traverse(onEach, __getLeftChild(root))
+        h this.traverse(onEach, __getRightChild(root))
     }
     ;Get the 'lowest priority' item in the heap by traversing every node. This tool is NOT recommended for efficiency, and you should consider using a different data structure if you need easy access to both minimum and maximum (for example, try BinaryTree).;
     d getLeast p t() {

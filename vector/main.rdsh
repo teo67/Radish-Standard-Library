@@ -18,7 +18,7 @@ h {
     d add p t(fill vecs) {
         d res p []
         each(other of vecs) {
-            this.__iterate(other, res, t(resi, cordi) {
+            __iterate(other, res, t(resi, cordi) {
                 h resi + cordi
             })
         }
@@ -29,10 +29,10 @@ h {
     @vecB@The second vector in the operation (a - b).@;
     d subtract p t(vecA, vecB) {
         d res p []
-        this.__iterate(vecA, res, t(resi, cordi) {
+        __iterate(vecA, res, t(resi, cordi) {
             h resi + cordi
         })
-        this.__iterate(vecB, res, t(resi, cordi) {
+        __iterate(vecB, res, t(resi, cordi) {
             h resi - cordi
         })
         h res
@@ -42,7 +42,7 @@ h {
     d dot p t(fill vecs) {
         d res p []
         each(vec of vecs) {
-            this.__iterate(vec, res, t(resi, cordi) {
+            __iterate(vec, res, t(resi, cordi) {
                 h resi * cordi
             }, 1)
         }
