@@ -454,7 +454,7 @@ d Drawing p class {
     d static generateQR p t(text, moduleSize p 20) {
         h {
             d private __data p GENERATEQR(text, moduleSize)
-            (new Drawing.Pallette(1)).set(0, new Drawing.RGB(0, 0, 0)).set(1, new Drawing.RGB(255, 255, 255)) => pallette
+            new Drawing.Pallette(1).set(0, new Drawing.RGB(0, 0, 0)).set(1, new Drawing.RGB(255, 255, 255)) => pallette
         } after Drawing.prototype
     }
     d protected __updatePallette p t() {
