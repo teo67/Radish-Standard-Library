@@ -405,22 +405,38 @@ letters[" "] p empty
 letters["\n"] p empty
 letters["\t"] p empty
 letters["\r"] p empty
+;A class that allows for the rendering of bitmap (.BMP) images. Drawings may be edited and rendered at any time, and are often associated with a pallette if the bitsPerPixel value is low enough.
+@width@The width of the image, in pixels.@
+@height@The height of the image, in pixels.@
+@pallette@The color pallette of the image (optional). For more information pallettes, see the Drawing.Pallette class.@
+@bitsPerPixel@The number of bits to represent one pixel - either 1, 4, 8, 16, or 24. If no value is provided, this defaults to 24. For 1, 4, or 8 bits, a pallette must be provided to define what those bits represent. For 16 bits, 5 are used for each of the red, green, and blue components. For 24 bits, standard RGB is used (see the Drawing.RGB class).@;
 d Drawing p class {
+    ;A class used to construct numerical RGB values based on individual components. These are useful for defining pallettes and for shading in areas in a 24-bit image.
+    @r@The red component of the RGB value.@
+    @g@The green component of the RGB value.@
+    @b@The blue component of the RGB value.@;
     d static RGB p class {
         constructor p t(r, g, b) {
             h ROUND(r) + ROUND(g) * 256 + ROUND(b) * 65536
         }
     }
+    ;A class used to construct color pallettes that can be used by images to key numbers to RGB values.
+    @bitsPerPixel@The number of bits per pixel to be used by images using this pallette (in other words, up to 2 ** bitsPerPixel colors may be stored).@;
     d static Pallette p class {
+        ;An array of RGB values to be used by drawings that use this pallette.;
         d __data
+        ;A numerical value storing the bits-per-pixel of this pallette.;
         d __bpp
         constructor p t(bitsPerPixel) {
-            if(![1, 2, 4, 8, 16, 24].has(bitsPerPixel)) {
-                throw "'bitsPerPixel' is not a valid bit amount for a bitmap color pallette! Available values are 1, 2, 4, 8, 16, and 24."
+            if(![1, 4, 8, 16, 24].has(bitsPerPixel)) {
+                throw "'bitsPerPixel' is not a valid bit amount for a bitmap color pallette! Available values are 1, 4, 8, 16, and 24."
             }
             this.__data p []
             this.__bpp p bitsPerPixel
         }
+        ;Set a certain index of this pallette to a given RGB value. Make sure the index is within 2 ** bitsPerPixel!
+        @index@The index of the pallette to store the color. For example, set(0, ...) would allocate the color ... to space 0.@
+        @rgb@The RGB value that should be stored at the given index. See the Drawing.RGB class to create RGB values.@;
         d set p t(index, rgb) {
             if index < 0 || index >= 2 ** this.__bpp {
                 throw "The index 'index' is out of range for a pallette with 'this.__bpp' bits!"
@@ -428,12 +444,15 @@ d Drawing p class {
             this.__data[index] p rgb
             h this
         }
+        ;Completely reset the pallette data such that all entries are deleted.;
         d clear p t() {
             this.__data p []
             h this
         }
     }
+    ;A private field storing raw data for the drawing that has been converted from a byte array to a Radish string (not human-readable).;
     d private __data
+    ;The pallette that this drawing uses (necessary for 1, 4, and 8 bits per pixel).;
     d pallette
     constructor p t(width, height, pallette p null, bitsPerPixel p null) {
         d bpp p 24
@@ -441,8 +460,8 @@ d Drawing p class {
             if pallette != null and pallette.__bpp != bitsPerPixel {
                 throw "The amount of bits in the pallette should match the amount of bits in the drawing!"
             }
-            if ![1, 2, 4, 8, 16, 24].has(bitsPerPixel) {
-                throw "'bitsPerPixel' is not a valid bit amount for a bitmap color pallette! Available values are 1, 2, 4, 8, 16, and 24."
+            if ![1, 4, 8, 16, 24].has(bitsPerPixel) {
+                throw "'bitsPerPixel' is not a valid bit amount for a bitmap color pallette! Available values are 1, 4, 8, 16, and 24."
             }
             bpp p bitsPerPixel
         } elseif pallette != null {
@@ -451,12 +470,16 @@ d Drawing p class {
         this.pallette p pallette
         this.__data p GENERATEBMP(width, height, bpp, pallette != null)
     }
+    ;Generate a QR code and store it in a single drawing. This algorithm will convert text using Latin encoding into bytes, which are then transformed into a QR, with size based on amount of data. If the data is too large for one QR code, multiple are generated and stored in one image.
+    @text@The text to be converted into a QR code.@
+    @moduleSize@The number of pixels per square on the QR code.@;
     d static generateQR p t(text, moduleSize p 20) {
         h {
             d private __data p GENERATEQR(text, moduleSize)
             new Drawing.Pallette(1).set(0, new Drawing.RGB(0, 0, 0)).set(1, new Drawing.RGB(255, 255, 255)) => pallette
         } after Drawing.prototype
     }
+    ;A private method used to update the drawing's pallette before it is rendered. This is necessary because pallettes may change after they are created, and drawings are dynamically linked to pallettes.;
     d protected __updatePallette p t() {
         if this.pallette != null {
             for d i p 0, i < 2 ** this.pallette.__bpp, i++ {
@@ -474,15 +497,27 @@ d Drawing p class {
             }
         }
     }
+    ;Render the drawing to a given file. Radish drawings are always rendered using the .BMP file format.
+    @out@The name of the file to be created or edited to include the drawing. If this string does not already end with .bmp, the extension will be added automatically.@;
     d render p t(out) {
         this.__updatePallette()
         RENDERBMP(this.__data, out)
         h this
     }
+    ;Iterate over ever pixel in the drawing, read it, and run a function to edit that pixel accordingly. This tool is useful when transforming an entire drawing, but it's not very time-efficient.
+    @function@A tool that takes in three parameters: the x position, the y position, and the current color value of the viewing pixel. This tool should return a number that represents the new value of the viewing pixel, and it is run for every pixel in the drawing.@;
     d iterateOver p t(function) {
         this.__data p ITERATEBMP(this.__data, function)
         h this
     }
+    ;Draw a rectangle at a given position with given dimensions, a given dynamic color, and an optional adjusted line width.
+    @x@The x position of the top left corner of the rectangle.@
+    @y@The y position of the top left corner of the rectangle.@
+    @width@The width of the rectangle, in pixels.@
+    @height@The height of the rectangle, in pixels.@
+    @color@The color of the rectangle. Note that this parameter may be a simple number or a tool - if it is a number, that color will be applied to every applicable pixel. If it is a tool, it will take two parameters - x and y - and return a numerical value. This tool will be run individually for each pixel and colors will be applied according to the return values.@
+    @rfill@Whether the rectangle should be filled in. Defaults to yes.@
+    @lineWidth@The width of the lines on the edges of the rectangle. This does not apply if the rectangle is filled in.@;
     d rectangle p t(x, y, width, height, color, rfill p yes, lineWidth p 1) {
         if not rfill and lineWidth < 0.5 {
             h this
@@ -498,10 +533,26 @@ d Drawing p class {
         }
         h this
     }
+    ;Draw an ellipse at a given position with given dimensions, a given dynamic colorm, and optional angles to start or stop drawing.
+    @x@The x position of the center of the ellipse.@
+    @y@The y position of the center of the ellipse.@
+    @width@The total width of the ellipse, in pixels.@
+    @height@The total height of the ellipse, in pixels.@
+    @color@The color of the ellipse. Note that this parameter may be a simple number or a tool - if it is a number, that color will be applied to every applicable pixel. If it is a tool, it will take two parameters - x and y - and return a numerical value. This tool will be run individually for each pixel and colors will be applied according to the return values.@
+    @efill@Whether the ellipse should be filled in. Defaults to yes.@
+    @thetaStart@The starting angle to begin drawing the ellipse - defaults to 0. If the ellipse is filled in and a full circle is not drawn, the filled area will be between the curve drawn and the line between points at thetaStart and thetaEnd.@
+    @thetaEnd@The ending angle to stop drawing the ellipse - defaults to 0 (if thetaStart equals thetaEnd, a full circle is drawn). If the ellipse is filled in and a full circle is not drawn, the filled area will be between the curve drawn and the line between points at thetaStart and thetaEnd.@;
     d ellipse p t(x, y, width, height, color, efill p yes, thetaStart p 0, thetaEnd p 0) {
         this.__data p DRAWELLIPSE(this.__data, x, y, width, height, color, efill, thetaStart, thetaEnd)
         h this
     }
+    ;Draw a line at a given position with a given color and an optional width.
+    @x1@The x position of the starting point on the line.@
+    @y1@The y position of the starting point on the line.@
+    @x2@The x position of the ending point on the line.@
+    @y2@The y position of the ending point on the line.@
+    @color@The color of the line. Note that this parameter may be a simple number or a tool - if it is a number, that color will be applied to every applicable pixel. If it is a tool, it will take two parameters - x and y - and return a numerical value. This tool will be run individually for each pixel and colors will be applied according to the return values.@
+    @width@The width of the line, in pixels. Defaults to 1 if not specified.@;
     d line p t(x1, y1, x2, y2, color, width p 1) {
         if width < 0.5 {
             h this
@@ -524,6 +575,11 @@ d Drawing p class {
         }
         h this
     }
+    ;Draw a point at a given position with a given dynamic color and an optional width.
+    @x@The x position of the point.@
+    @y@The y position of the point.@
+    @color@The color of the point. Note that this parameter may be a simple number or a tool - if it is a number, that color will be applied to every applicable pixel. If it is a tool, it will take two parameters - x and y - and return a numerical value. This tool will be run individually for each pixel and colors will be applied according to the return values.@
+    @width@The width of the point. Defaults to 1 if not specified.@;
     d point p t(x, y, color, width p 1) {
         if width < 0.5 {
             h this
@@ -536,6 +592,11 @@ d Drawing p class {
         }
         h this
     }
+    ;Draw a closed polygon connecting any number of points, with a given dynamic color.
+    @xs@An array of x values for each point on the polygon.@
+    @ys@An array of y values for each point on the polygon. These should be in the same order as the x values, such that each pair corresponds to a single point.@
+    @color@The color of the polygon. Note that this parameter may be a simple number or a tool - if it is a number, that color will be applied to every applicable pixel. If it is a tool, it will take two parameters - x and y - and return a numerical value. This tool will be run individually for each pixel and colors will be applied according to the return values.@
+    @pfill@Whether to fill in the polygon. If this argument is not supplied, it will default to yes.@;
     d polygon p t(xs, ys, color, pfill p yes) {
         if pfill {
             this.__data p FILLTRIANGLE(this.__data, xs, ys, color)
@@ -551,10 +612,18 @@ d Drawing p class {
         }
         h this
     }
+    ;Print each byte in the data of this drawing. The output will not be very human-readable, and it's only used for debugging in development.;
     d printRaw p t() {
         PRINTBMP(this.__data)
         h this
     }
+    ;Draw a character at a given position with a given font size, color, and line width.
+    @character@The character to be drawn. Most characters are supported.@
+    @x@The x position of the left of the character.@
+    @y@The y position of the bottom of the character. Note that the 'bottom' corresponds to the bottom of the first unit - in other words, the bottom of a lowercase p is at the bottom of the loop, not below the lower line.@
+    @fontSize@The width of the letter. This also corresponds to the height per unit - in other words, if a lowercase l is rendered with fontSize 5, it will actually be 10 units tall.@
+    @color@The color of the letter. Note that this parameter may be a simple number or a tool - if it is a number, that color will be applied to every applicable pixel. If it is a tool, it will take two parameters - x and y - and return a numerical value. This tool will be run individually for each pixel and colors will be applied according to the return values.@
+    @strokeWidth@The width of each line in the letter, in pixels. Defaults to 1.@;
     d letter p t(character, x, y, fontSize, color, strokeWidth p 1) {
         d res p letters.get(character)
         if res = null {
@@ -563,6 +632,16 @@ d Drawing p class {
         res(this, x, y, fontSize, color, strokeWidth)
         h this
     }
+    ;Render a string of text on the drawing at a certain position.
+    @characters@The string of characters to be drawn. Most characters are supported.@
+    @x@The x position of the left of the first letter.@
+    @y@The y position of the bottom of the first unit of the first letter (see Drawing.letter() for more details).@
+    @fontSize@The width of each letter, or the height of each unit of each letter.@
+    @color@The color of the string. Note that this parameter may be a simple number or a tool - if it is a number, that color will be applied to every applicable pixel. If it is a tool, it will take two parameters - x and y - and return a numerical value. This tool will be run individually for each pixel and colors will be applied according to the return values.@
+    @strokeWidth@The line width of each line in each letter of the string. Defaults to 1.@
+    @lineLength@The number of characters per line when the string is rendered. By default, new lines are only added when a \n appears in the text.@
+    @xspacing@The total width of the space that is allocated to each letter, in pixels. Defaults to twice the width of the actual letter.@
+    @yspacing@The total height of the space that is allocated to each letter, in pixels. Defaults to 3.5 times the font size of each letter.@;
     d string p t(characters, x, y, fontSize, color, strokeWidth p 1, lineLength p -1, xspacing p 2 * fontSize, yspacing p 3.5 * fontSize) {
         d tempx p x
         d tempy p y
