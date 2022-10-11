@@ -1,14 +1,7 @@
-h {
+
     ;Get the opposite value of a boolean. boo.opposite = !boo.;
-    d opposite {
-        h {
-            h !this
-        }
-    }
+    Boolean.opposite p yes
+    DEFINEPROPERTY(Boolean, "opposite", null, t !this)
     ;Get the value of a boolean as a number: yes -> 1, no -> 0.;
-    d asNumber {
-        h {
-            h 0 + this
-        }
-    }
-}
+    Boolean.asNumber p 0
+    DEFINEPROPERTY(Boolean, "asNumber", null, t 0 + this)

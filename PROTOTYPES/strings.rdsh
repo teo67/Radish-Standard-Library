@@ -1,14 +1,10 @@
-h {
+
     ;Get the length of a string as a number.;
-    d length {
-        h {
-            h STRLEN(this)
-            h 0 + 0
-        }
-    }
+    String.length p 0
+    DEFINEPROPERTY(String, "length", null, t STRLEN(this))
     ;Find the first 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
     @input@The character (string with length = 1) to be searched for.@;
-    d indexOf p t(input p "") {
+    String.indexOf p t(input p "") {
         d len p this.length
         for(d i p 0, i < len, i++) {
             if(this[i] = input) {
@@ -19,7 +15,7 @@ h {
     }
     ;Find the last 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
     @input@The character (string with length = 1) to be searched for.@;
-    d lastIndexOf p t(input p "") {
+    String.lastIndexOf p t(input p "") {
         d len p this.length
         for(d i p len - 1, i >= 0, i--) {
             if(this[i] = input) {
@@ -31,7 +27,7 @@ h {
     ;Create a string from part of another string by copying character by character, and harvest the new string.
     @start@The 0-based index to start reading at. For example, "abc".substring(1) -> "bc".@
     @finish@The 0-based index to stop reading at. The new string will read up to but will not include the character at the finish index. Example: "abcdef".substring(1, 4) -> "bcd".@;
-    d substring p t(start p 0, finish p this.length) {
+    String.substring p t(start p 0, finish p this.length) {
         d len p this.length
         if(start < 0 || start > len || finish < 0 || finish > len) {
             throw "String.substring inputs ('start', 'finish') are out of range for length 'len'! (0 <-> length for start, 0 <-> length for finish)"
@@ -44,7 +40,7 @@ h {
     }
     ;Check whether a string begins with a certain starter string. Harvests falsy if the string does not begin with the given input, and truthy otherwise.
     @input@The 'starter string' to be checked for.@;
-    d begins p t(input p "") {
+    String.begins p t(input p "") {
         d res p input.length
         if(res > this.length) {
             h no
@@ -53,7 +49,7 @@ h {
     }
     ;Check whether a string ends with a certain input string. Harvests falsy if the string does not end with the given input, and truthy otherwise.
     @input@The string to be checked for.@;
-    d ends p t(input p "") {
+    String.ends p t(input p "") {
         d res p this.length - input.length
         if(res < 0) {
             h no
@@ -62,12 +58,12 @@ h {
     }
     ;Check whether a string contains a given character using String.indexOf().
     @input@The character (string with length = 1) to be searched for.@;
-    d has p t(input p "") {
+    String.has p t(input p "") {
         h this.indexOf(input) != -1
     }
     ;Create an array from a string, where each character in the string is converted into a single item in the array.
     @search@The string to split by (defaults to an empty string). A new element will be added to the resulting array whenever the search string is found, and the search string will not be included in the new element.@;
-    d split p t(search p "") {
+    String.split p t(search p "") {
         d r p []
         d current p ""
         d len p this.length
@@ -83,7 +79,7 @@ h {
     ;Replace all occurrences of a character in a string with another character.
     @search@The character to search for (string with length = 1).@
     @rep@The character to replace every search character with (string with length = 1).@;
-    d replace p t(search, rep) {
+    String.replace p t(search, rep) {
         d returning p ""
         d len p this.length
         for(d i p 0, i < len, i++) {
@@ -95,16 +91,16 @@ h {
     ;Add a repeated character to the left of a string and harvest a string with the desired length in total.
     @character@The char (string with length = 1) to add to the left of the string.@
     @targetLength@The final length of the string. The character will be added to the left until this length is attained.@;
-    d padLeft p t(character, targetLength) {
+    String.padLeft p t(character, targetLength) {
         h character.repeat(targetLength - this.length) + this
     }
     ;Add a repeated character to the right of a string and harvest a string with the desired length in total.
     @character@The char (string with length = 1) to add to the right of the string.@
     @targetLength@The final length of the string. The character will be added to the right until this length is attained.@;
-    d padRight p t(character, targetLength) {
+    String.padRight p t(character, targetLength) {
         h this + character.repeat(targetLength - this.length)
     }
-    d private __key p {
+    d __key p {
         d a p "A"
         d b p "B"
         d c p "C"
@@ -132,7 +128,7 @@ h {
         d y p "Y"
         d z p "Z"
     }   
-    d private __reverseKey p {
+    d __reverseKey p {
         d A p "a"
         d B p "b"
         d C p "c"
@@ -160,7 +156,7 @@ h {
         d Y p "y"
         d Z p "z"
     }
-    d uppercase p t() {
+    String.uppercase p t() {
         d r p ""
         for d i p 0, i < this.length, i++ {
             d res p __key.get(this[i])
@@ -168,7 +164,7 @@ h {
         }
         h r
     }
-    d lowercase p t() {
+    String.lowercase p t() {
         d r p ""
         for d i p 0, i < this.length, i++ {
             d res p __reverseKey.get(this[i])
@@ -176,4 +172,3 @@ h {
         }
         h r
     }
-}

@@ -1,7 +1,6 @@
-h {
+
     ;Execute a function in Radish by passing in an array of arguments. The array will be dissected such that each item becomes a single argument in the function call.
     @args@The array of arguments to be passed in to the function.@;
-    d call p t(args p [], _this p null) {
+    Function.call p t(args p [], _this p null) {
         h CALL(this, args, _this)
     }
-}

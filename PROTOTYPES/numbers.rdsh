@@ -1,32 +1,31 @@
-h {
+
     ;Add a number to another number, and harvest the result.
     @other@The number to be combined using addition. Example: (4).add(3) -> 4 + 3 -> 7.@;
-    d add p t(other p 0) {
+    Number.add p t(other p 0) {
         h this + other
     }
     ;Subtract a number from another number, and harvest the result.
     @other@The number to be combined using subtraction. Example: (4).subtract(3) -> 4 - 3 -> 1.@;
-    d subtract p t(other p 0) {
+    Number.subtract p t(other p 0) {
         h this - other
     }
     ;Multiply a number by another number, and harvest the result.
     @other@The number to be combined using multiplication. Example: (4).multiply(3) -> 4 * 3 -> 12.@;
-    d multiply p t(other p 1) {
+    Number.multiply p t(other p 1) {
         h this * other
     }
     ;Divide a number by another number, and harvest the result.
     @other@The number to be combined using division. Example: (4).divide(3) -> 4 / 3 -> ~1.33.@;
-    d divide p t(other p 1) {
+    Number.divide p t(other p 1) {
         h this / other
     }
     ;Take the modulus of one number by another, and harvest the result.
     @other@The number to be combined using modulus. Example: (4).modulo(3) -> 4 % 3 -> 1.@;
-    d modulo p t(other p 1) {
+    Number.modulo p t(other p 1) {
         h this % other
     }
     ;Take one number to the power of another number, and harvest the result.
     @other@The number to be combined using exponentiation. Example: (4).exponent(3) -> 4 ** 3 -> 64.@;
-    d exponent p t(other p 1) {
+    Number.exponent p t(other p 1) {
         h this ** other
     }
-}

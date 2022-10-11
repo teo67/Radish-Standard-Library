@@ -1,22 +1,22 @@
-h {
+
     ;Get the boolean component of a poly-value (defaults to false if not set).;
-    d boolean p t() {
+    Poly.boolean p t() {
         h not!this
     }
     ;Get the numerical component of a poly-value (defaults to 0 if not set).;
-    d number p t() {
+    Poly.number p t() {
         h 0 + this
     }
     ;Get the string component of a poly-value (defaults to an empty string if not set).;
-    d string p t() {
+    Poly.string p t() {
         h "'this'"
     }
     ;Convert a poly-value to an array, with number at index 0, string at 1, and boolean at 2.;
-    d toArray p t() {
+    Poly.toArray p t() {
         h [0 + this, "'this'", not!this]
     }
     ;Convert a poly-value to an object, such that the "number" property, "string" property, and "boolean" property are occupied with their respective values.;
-    d toObject p t() {
+    Poly.toObject p t() {
         h {
             d number p this + 0
             d string p "'this'"
@@ -25,12 +25,11 @@ h {
     }
     ;Concatenate the string component of a poly-value with another string. This operator is supplied because + defaults to numerical addition. This method returns a string.
     @adding@The string to add to the end of the poly-value.@;
-    d addString p t(adding) {
+    Poly.addString p t(adding) {
         h POLYADDSTRING(this, adding)
     }
     ;Multiply the string component of a poly-value by a number. This operator is supplied because * defaults to numerical multiplication. This method returns a string.
     @multiplier@The number of times to repeat the poly-value's string component.@;
-    d multiplyString p t(multiplier) {
+    Poly.multiplyString p t(multiplier) {
         h POLYMULTIPLYSTRING(this, multiplier)
     }
-}

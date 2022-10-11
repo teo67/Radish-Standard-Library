@@ -1,19 +1,14 @@
-h {
     ;Get the length of an array. Note that this will count any additional object parameters that have been added to the array.;
-    d length {
-        h {
-            h ARRLEN(this)
-            h 0 + 0
-        }
-    }
+    Array.length p 0
+    DEFINEPROPERTY(Array, "length", null, t ARRLEN(this))
     ;Append a value to the end of an array. arr.push(x) is equivalent to arr[arr.length] p x, and both are acceptable statements.
     @input@The value to be pushed to the given array.@;
-    d push p t(input) {
+    Array.push p t(input) {
         this[this.length] p input
         h this
     }
     ;Remove and harvest the last value of an array. arr.pop() is equivalent to arr.remove(arr.length - 1), and both are acceptable statements.;
-    d pop p t() {
+    Array.pop p t() {
         d len p this.length
         if(len < 1) {
             throw "Cannot pop from an empty array!"
@@ -23,7 +18,7 @@ h {
     ;Find the first 0-based index of an item within an array. The index is found using a standard Radish equivalence check, which means that objects and arrays must be stored at the same reference to be equal.
 Note: indexOf will return -1 if no item is found.
     @item@The item in the array to be searched for.@;
-    d indexOf p t(item) {
+    Array.indexOf p t(item) {
         for(d i p 0, i < this.length, i++) {
             if(this[i] = item) {
                 h i
@@ -34,7 +29,7 @@ Note: indexOf will return -1 if no item is found.
     ;Find the last 0-based index of an item within an array. The index is found using a standard Radish equivalence check, which means that objects and arrays must be stored at the same reference to be equal.
 Note: lastIndexOf will return -1 if no item is found.
     @item@The item in the array to be searched for.@;
-    d lastIndexOf p t(item) {
+    Array.lastIndexOf p t(item) {
         for(d i p this.length - 1, i >= 0, i--) {
             if(this[i] = item) {
                 h i
@@ -44,23 +39,18 @@ Note: lastIndexOf will return -1 if no item is found.
     }
     ;Check whether an array contains an item via Array.indexOf under the hood. This tool will harvest falsy if the item is not present in the array.
     @item@The item in the array to be searched for.@;
-    d has p t(item) {
+    Array.has p t(item) {
         h this.indexOf(item) != -1
     }
     ;Get the first item of an array, or arr[0].;
-    d first {
-        h {
-            h this[0]
-        }
-    }
+    Array.first p null
+    DEFINEPROPERTY(Array, "first", null, t this[0])
     ;Get the last item of an array, or arr[arr.length - 1].;
-    d last {
-        h {
-            h this[this.length - 1]
-        }
-    }
+    Array.last p null
+    DEFINEPROPERTY(Array, "last", null, t this[this.length - 1])
+
     ;Duplicate an array by appending all of its values to a new array. This copy is 'shallow', meaning that it will not create new reference points for objects and arrays within the original array. For a recursive copy tool, try Array.deepClone().;
-    d clone p t(start p 0, finish p this.length) {
+    Array.clone p t(start p 0, finish p this.length) {
         d a p []
         for(d i p start, i < finish, i++) {
             a.push(this[i])
@@ -71,7 +61,7 @@ Note: lastIndexOf will return -1 if no item is found.
     ;Insert a new value at any point in an array, and harvest the updated array. This method can be quite time-expensive, and users should consider transferring data to linked lists if they use Array.insert() extensively.
     @adding@The value to be added to the array.@
     @index@The index where the value should be inserted. For example, [0, 1, 2, 3].insert(4, 2) -> [0, 1, 4, 2, 3]. Range: {index <- Z | 0 <= index <= arr.length}.@;
-    d insert p t(adding, index p 0) {
+    Array.insert p t(adding, index p 0) {
         d len p this.length
         if(len < index || index < 0) {
             throw "Invalid insert index argument! It should be in range (0 <-> length of array)."
@@ -84,7 +74,7 @@ Note: lastIndexOf will return -1 if no item is found.
     }
     ;Delete a value at any point in an array, and harvest the deleted value. This method can be quite time-expensive, and users should consider transferring data to linked lists if they use Array.delete() extensively.
     @index@The index where the value should be deleted. For example, [0, 1, 2, 3].delete(2) -> [0, 1, 3]. Range: {index <- Z | 0 <= index < arr.length}.@;
-    d remove p t(index p 0) {
+    Array.remove p t(index p 0) {
         d len p this.length
         if(index >= len || index < 0) {
             throw "Invalid remove index argument! It should be in range (0 <-> length of array - 1)."
@@ -97,7 +87,7 @@ Note: lastIndexOf will return -1 if no item is found.
         h s
     }
     ;Arrange the contents of an array in reverse order, and harvest the updated array. Note: this method edits the original array rather than making a copy.;
-    d reverse p t() {
+    Array.reverse p t() {
         d len p this.length
         for(d i p 0, i < len / 2, i++) {
             d onI p this[i]
@@ -113,7 +103,7 @@ Note: lastIndexOf will return -1 if no item is found.
     ;Combine all values in an array into one single value using a provided function. This tool harvests the same type harvested by tool f.
     @i@The initial value of the combined result. For example, taking the sum of an array would require an i value of 0.@
     @f@A function used to combine the current combined value and the next value in the array. F takes two inputs (first for the current count, second for the next array value) and returns an updated value for the count.@;
-    d combine p t(i, f) {
+    Array.combine p t(i, f) {
         d n p i
         each e of this {
             n p f(n, e)
@@ -122,7 +112,7 @@ Note: lastIndexOf will return -1 if no item is found.
     }
     ;Generate a new array with only some values of the parent. This tool will harvest a new array without editing the original.
     @f@A tool that takes one parameter, the current value in the array, and harvests a boolean. If f harvests truthy, the new value will be added to the copy.@;
-    d filter p t(f) {
+    Array.filter p t(f) {
         d r p []
         each e of this {
             if f(e) {
@@ -133,11 +123,10 @@ Note: lastIndexOf will return -1 if no item is found.
     }
     ;Create a new array with modified values of the original. Each value in the original array will be translated by function f and pushed to the harvested array without editing the parent.
     @f@A tool that takes one parameter, the current value in the array, and harvests any value. The harvested value will be added to the new array.@;
-    d map p t(f) {
+    Array.map p t(f) {
         d r p []
         each e of this {
             r.push(f(e))
         }
         h r
     }
-}

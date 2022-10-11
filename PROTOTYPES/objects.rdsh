@@ -1,31 +1,38 @@
-h {
+# object methods #
+    ;Define a getter/setter property for an object outside of its home scope. This method will completely override any value previously assigned to the given key and replace it with a plant\harvest function.
+    @key@The name of the property to change (string).@
+    @planter@The (optional) plant function for this property that will be run whenever a value is assigned to it.@
+    @harvester@The (optional) harvest function for this property that will be run whenever its value is read.@;
+    Object.defineProperty p t(key, planter p null, harvester p null) {
+        h DEFINEPROPERTY(this, key, planter, harvester)
+    }
     ;Get the value of any Radish object. x = x.getValue().;
-    d getValue p t() {
+    Object.getValue p t() {
         h this
     }
     ;Remove an item from an object by searching for its key. This will directly remove the value from memory, similar to 'uproot x' or 'x:y'.
     @key@The key of the value to be deleted.@;
-    d delete p t(key p "") {
+    Object.delete p t(key p "") {
         h DELETE(this, key)
     }
     ;Safely get an item in an object by its key, harvesting null if the key is not found. Note that bracket or dot syntax will throw an error if the property doesn't exist, unlike Object.get().
     @key@The key of the value to be retrieved.@;
-    d get p t(key) {
+    Object.get p t(key) {
         h OBJGET(this, key)
     }
     ;Get an array of the keys of an object. For example, getting the keys of an object with { "a": 15, "b": "abc", "c": no } harvests ["a", "b", "c"]. Note that the harvested array will not be directly tied to the object, so editing it will not affect the original.;
-    d keys p t() {
+    Object.keys p t() {
         h KEYS(this)
         h []
     }
     ;Get an array of the values in an object. For example, getting the values of an object with { "a": 15, "b": "abc", "c": no } harvests [15, "abc", no]. Note that the harvested array will not be directly tied to the object, so editing it will not affect the original.;
-    d values p t() {
+    Object.values p t() {
         h VALUES(this)
         h []
     }
     ;A private helper tool to clone a value in Radish.
     @item@The value to be cloned without any pointers attached.@;
-    d private cloneItem p t(item) {
+    d cloneItem p t(item) {
         d res p type item
         if(res = null) {
             h null
@@ -51,7 +58,6 @@ h {
         h ret
     }
     ;Recursively duplicate an array, creating new references for every object and array within. The harvested result is a new array that is not tethered in any way to the original.;
-    d deepClone p t() {
+    Object.deepClone p t() {
         h cloneItem(this)
     }
-}
