@@ -405,11 +405,7 @@ letters[" "] p empty
 letters["\n"] p empty
 letters["\t"] p empty
 letters["\r"] p empty
-;A class that allows for the rendering of bitmap (.BMP) images. Drawings may be edited and rendered at any time, and are often associated with a pallette if the bitsPerPixel value is low enough.
-@width@The width of the image, in pixels.@
-@height@The height of the image, in pixels.@
-@pallette@The color pallette of the image (optional). For more information pallettes, see the Drawing.Pallette class.@
-@bitsPerPixel@The number of bits to represent one pixel - either 1, 4, 8, 16, or 24. If no value is provided, this defaults to 24. For 1, 4, or 8 bits, a pallette must be provided to define what those bits represent. For 16 bits, 5 are used for each of the red, green, and blue components. For 24 bits, standard RGB is used (see the Drawing.RGB class).@;
+
 d Drawing p class {
     ;A class used to construct numerical RGB values based on individual components. These are useful for defining pallettes and for shading in areas in a 24-bit image.
     @r@The red component of the RGB value.@
@@ -660,4 +656,9 @@ d Drawing p class {
         h this
     }
 }
+;A class that allows for the rendering of bitmap (.BMP) images. Drawings may be edited and rendered at any time, and are often associated with a pallette if the bitsPerPixel value is low enough.
+@width@The width of the image, in pixels.@
+@height@The height of the image, in pixels.@
+@pallette@The color pallette of the image (optional). For more information pallettes, see the Drawing.Pallette class.@
+@bitsPerPixel@The number of bits to represent one pixel - either 1, 4, 8, 16, or 24. If no value is provided, this defaults to 24. For 1, 4, or 8 bits, a pallette must be provided to define what those bits represent. For 16 bits, 5 are used for each of the red, green, and blue components. For 24 bits, standard RGB is used (see the Drawing.RGB class).@;
 h Drawing
