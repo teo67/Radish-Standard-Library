@@ -1,195 +1,195 @@
-d letters p {
-    d a p t(drawing, x, y, size, color, w) {
+d letters p {}
+    letters["a"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size / 2 + 0.5, size, size / 2, color, no, w)
         drawing.line(x, y - size + 1, x + size - 1, y - size + 1, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y - size / 2 + 0.5, color, w)
     }
-    d b p t(drawing, x, y, size, color, w) {
+    letters["b"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size + 1, size, size, color, no, w)
         drawing.line(x, y - size * 2 + 1, x, y - size, color, w)
     }
-    d c p t(drawing, x, y, size, color, w) {
+    letters["c"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x, y - size + 1, x + size - 1, y - size + 1, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
     }
-    d e p t(drawing, x, y, size, color, w) {
+    letters["e"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size + 1, size, size / 2, color, no, w)
         drawing.line(x, y - size / 2 + 0.5, x, y, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
     }
-    d f p t(drawing, x, y, size, color, w) {
+    letters["f"] p t(drawing, x, y, size, color, w) {
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size / 2 - 0.5, y, color, w)
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y - size + 1, x + size - 1, y - size + 1, color, w)
     }
-    d g p t(drawing, x, y, size, color, w) {
+    letters["g"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size + 1, size, size, color, no, w)
         drawing.line(x + size - 1, y, x + size - 1, y + size, color, w)
         drawing.line(x, y + size, x + size - 1, y + size, color, w)
     }
-    d i p t(drawing, x, y, size, color, w) {
+    letters["i"] p t(drawing, x, y, size, color, w) {
         drawing.line(x + size / 2 - 0.5, y - size + 1, x + size / 2 - 0.5, y, color, w)
         drawing.point(x + size / 2 - 0.5, y - size * 1.5 + 0.5, color, w)
     }
-    d j p t(drawing, x, y, size, color, w) {
+    letters["j"] p t(drawing, x, y, size, color, w) {
         drawing.line(x + size / 2 - 0.5, y - size + 1, x + size / 2 - 0.5, y + size, color, w)
         drawing.line(x, y + size, x + size / 2 - 0.5, y + size, color, w)
         drawing.line(x, y + 1, x, y + size, color, w)
         drawing.point(x + size / 2 - 0.5, y - size * 1.5 + 0.5, color, w)
     }
-    d k p t(drawing, x, y, size, color, w) {
+    letters["k"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y - size / 2 + 0.5, x + size - 1, y - size + 1, color, w)
         drawing.line(x, y - size / 2 + 0.5, x + size - 1, y, color, w)
     }
-    d l p t(drawing, x, y, size, color, w) {
+    letters["l"] p t(drawing, x, y, size, color, w) {
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size / 2 - 0.5, y, color, w)
     }
-    d m p t(drawing, x, y, size, color, w) {
+    letters["m"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size + 1, x + size - 1, y - size + 1, color, w)
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x + size / 2 - 0.5, y - size + 1, x + size / 2 - 0.5, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y, color, w)
     }
-    d n p t(drawing, x, y, size, color, w) {
+    letters["n"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size + 1, x + size - 1, y - size + 1, color, w)
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y, color, w)
     }
-    d o p t(drawing, x, y, size, color, w) {
+    letters["o"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size + 1, size, size, color, no, w)
     }
-    d q p t(drawing, x, y, size, color, w) {
+    letters["q"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size + 1, size, size, color, no, w)
         drawing.line(x + size - 1, y, x + size - 1, y + size, color, w)
     }
-    d r p t(drawing, x, y, size, color, w) {
+    letters["r"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x, y - size + 1, x + size - 1, y - size + 1, color, w)
     }
-    d s p t(drawing, x, y, size, color, w) {
+    letters["s"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size + 1, x + size - 1, y - size + 1, color, w)
         drawing.line(x, y - size / 2 + 0.5, x + size - 1, y - size / 2 + 0.5, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
         drawing.line(x, y - size + 1, x, y - size / 2 + 0.5, color, w)
         drawing.line(x + size - 1, y - size / 2 + 0.5, x + size - 1, y, color, w)
     }
-    d u p t(drawing, x, y, size, color, w) {
+    letters["u"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y, x + size - 1, y, color, w)
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y, color, w)
     }
-    d v p t(drawing, x, y, size, color, w) {
+    letters["v"] p t(drawing, x, y, size, color, w) {
         drawing.line(x + size / 2 - 0.5, y, x, y - size + 1, color, w)
         drawing.line(x + size / 2 - 0.5, y, x + size - 1, y - size + 1, color, w)
     }
-    d w p t(drawing, x, y, size, color, w) {
+    letters["w"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y, x + size - 1, y, color, w)
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x + size / 2 - 0.5, y - size + 1, x + size / 2 - 0.5, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y, color, w)
     }
-    d x p t(drawing, x, y, size, color, w) {
+    letters["x"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size + 1, x + size - 1, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x, y, color, w)
     }
-    d y p t(drawing, x, y, size, color, w) {
+    letters["y"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y + size, color, w)
         drawing.line(x, y + size, x + size - 1, y + size, color, w)
     }
-    d z p t(drawing, x, y, size, color, w) {
+    letters["z"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size + 1, x + size - 1, y - size + 1, color, w)
         drawing.line(x, y - size / 2 + 0.5, x + size - 1, y - size / 2 + 0.5, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y - size / 2 + 0.5, color, w)
         drawing.line(x, y - size / 2 + 0.5, x, y, color, w)
     }
-    d A p t(drawing, x, y, size, color, w) {
+    letters["A"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size * 2 + 1, size, size, color, no, w)
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y, color, w)
     }
-    d B p t(drawing, x, y, size, color, w) {
+    letters["B"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size * 2 + 1, size / 2, size, color, no, w)
         drawing.rectangle(x, y - size + 1, size, size, color, no, w)
     }
-    d C p t(drawing, x, y, size, color, w) {
+    letters["C"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
     }
-    d D p t(drawing, x, y, size, color, w) {
+    letters["D"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size, color, w)
         drawing.line(x, y, x + size - 1, y - size + 1, color, w)
     }
-    d E p t(drawing, x, y, size, color, w) {
+    letters["E"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y - size, x + size - 1, y - size, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
     }
-    d F p t(drawing, x, y, size, color, w) {
+    letters["F"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y - size, x + size - 1, y - size, color, w)
     }
-    d G p t(drawing, x, y, size, color, w) {
+    letters["G"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
         drawing.line(x + size - 1, y - size + 1, x + size - 1, y, color, w)
         drawing.line(x + size / 2 - 0.5, y - size + 1, x + size - 1, y - size + 1, color, w)
     }
-    d H p t(drawing, x, y, size, color, w) {
+    letters["H"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x + size - 1, y - size * 2 + 1, x + size - 1, y, color, w)
         drawing.line(x, y - size, x + size - 1, y - size, color, w)
     }
-    d I p t(drawing, x, y, size, color, w) {
+    letters["I"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size / 2 - 0.5, y, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
     }
-    d J p t(drawing, x, y, size, color, w) {
+    letters["J"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size / 2 - 0.5, y, color, w)
         drawing.line(x, y, x + size / 2 - 0.5, y, color, w)
         drawing.line(x, y - size + 1, x, y, color, w)
     }
-    d K p t(drawing, x, y, size, color, w) {
+    letters["K"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y - size, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y - size, x + size - 1, y, color, w)
     }
-    d L p t(drawing, x, y, size, color, w) {
+    letters["L"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
     }
-    d M p t(drawing, x, y, size, color, w) {
+    letters["M"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size / 2 - 0.5, y, color, w)
         drawing.line(x + size - 1, y - size * 2 + 1, x + size - 1, y, color, w)
     }
-    d N p t(drawing, x, y, size, color, w) {
+    letters["N"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size / 2 - 0.5, y - size * 2 + 1, color, w)
         drawing.line(x + size / 2 - 0.5, y, x + size - 1, y, color, w)
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size / 2 - 0.5, y, color, w)
         drawing.line(x + size - 1, y - size * 2 + 1, x + size - 1, y, color, w)
     }
-    d O p t(drawing, x, y, size, color, w) {
+    letters["O"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size * 2 + 1, size, size * 2, color, no, w)
     }
-    d P p t(drawing, x, y, size, color, w) {
+    letters["P"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size * 2 + 1, size, size, color, no, w)
         drawing.line(x, y - size + 1, x, y, color, w)
     }
-    d Q p t(drawing, x, y, size, color, w) {
+    letters["Q"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y, x + size / 2 - 0.5, y, color, w)
@@ -197,53 +197,52 @@ d letters p {
         drawing.line(x + size / 2 - 0.5, y, x + size - 1, y - size / 2 + 0.5, color, w)
         drawing.line(x + size / 2 - 0.5, y - size / 2 + 0.5, x + size - 1, y, color, w)
     }
-    d R p t(drawing, x, y, size, color, w) {
+    letters["R"] p t(drawing, x, y, size, color, w) {
         drawing.rectangle(x, y - size * 2 + 1, size, size + 1, color, no, w)
         drawing.line(x, y - size + 1, x, y, color, w)
         drawing.line(x, y - size + 1, x + size - 1, y, color, w)
     }
-    d S p t(drawing, x, y, size, color, w) {
+    letters["S"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x, y - size * 2 + 1, x, y - size * 1.5 + 0.5, color, w)
         drawing.line(x, y - size * 1.5 + 0.5, x + size - 1, y - size / 2 + 0.5, color, w)
         drawing.line(x + size - 1, y - size / 2 + 0.5, x + size - 1, y, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
     }
-    d T p t(drawing, x, y, size, color, w) {
+    letters["T"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size / 2 - 0.5, y, color, w)
     }
-    d U p t(drawing, x, y, size, color, w) {
+    letters["U"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y, x + size - 1, y, color, w)
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x + size - 1, y - size * 2 + 1, x + size - 1, y, color, w)
     }
-    d V p t(drawing, x, y, size, color, w) {
+    letters["V"] p t(drawing, x, y, size, color, w) {
         drawing.line(x + size / 2 - 0.5, y, x, y - 2 * size + 1, color, w)
         drawing.line(x + size / 2 - 0.5, y, x + size - 1, y - 2 * size + 1, color, w)
     }
-    d W p t(drawing, x, y, size, color, w) {
+    letters["W"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y, x + size - 1, y, color, w)
         drawing.line(x, y - size * 2 + 1, x, y, color, w)
         drawing.line(x + size / 2 - 0.5, y - size * 2 + 1, x + size / 2 - 0.5, y, color, w)
         drawing.line(x + size - 1, y - size * 2 + 1, x + size - 1, y, color, w)
     }
-    d X p t(drawing, x, y, size, color, w) {
+    letters["X"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y, color, w)
         drawing.line(x + size - 1, y - size * 2 + 1, x, y, color, w)
     }
-    d Y p t(drawing, x, y, size, color, w) {
+    letters["Y"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x, y - size, color, w)
         drawing.line(x + size - 1, y - size * 2 + 1, x + size - 1, y - size, color, w)
         drawing.line(x, y - size, x + size - 1, y - size, color, w)
         drawing.line(x + size / 2 - 0.5, y - size + 1, x + size / 2 - 0.5, y, color, w)
     }
-    d Z p t(drawing, x, y, size, color, w) {
+    letters["Z"] p t(drawing, x, y, size, color, w) {
         drawing.line(x, y - size * 2 + 1, x + size - 1, y - size * 2 + 1, color, w)
         drawing.line(x + size - 1, y - size * 2 + 1, x, y, color, w)
         drawing.line(x, y, x + size - 1, y, color, w)
     }
-}
 letters["d"] p t(drawing, x, y, size, color, w) {
     drawing.rectangle(x, y - size + 1, size, size, color, no, w)
     drawing.line(x + size - 1, y - size * 2 + 1, x + size - 1, y - size, color, w)
@@ -621,7 +620,7 @@ d Drawing p class {
     @color@The color of the letter. Note that this parameter may be a simple number or a tool - if it is a number, that color will be applied to every applicable pixel. If it is a tool, it will take two parameters - x and y - and return a numerical value. This tool will be run individually for each pixel and colors will be applied according to the return values.@
     @strokeWidth@The width of each line in the letter, in pixels. Defaults to 1.@;
     d letter p t(character, x, y, fontSize, color, strokeWidth p 1) {
-        d res p letters.get(character)
+        d res p Object.get.call([character], letters)
         if res = null {
             res p letters["?"]
         }
