@@ -1,7 +1,8 @@
 
     ;Get the length of a string as a number.;
     String.length p 0
-    DEFINEPROPERTY(String, "length", null, t STRLEN(this))
+    d keys p String.keys()
+    DEFINEPROPERTY(String, keys[0], null, t STRLEN(this))
     ;Find the first 0-based index of a character within a string using Radish equivalence. This method will return -1 if the character is not found in the string.
     @input@The character (string with length = 1) to be searched for.@;
     String.indexOf p t(input p "") {

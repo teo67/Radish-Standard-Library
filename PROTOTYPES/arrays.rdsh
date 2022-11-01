@@ -1,6 +1,13 @@
     ;Get the length of an array. Note that this will count any additional object parameters that have been added to the array.;
     Array.length p 0
-    DEFINEPROPERTY(Array, "length", null, t ARRLEN(this))
+    ;Get the first item of an array, or arr[0].;
+    Array.first p null
+    ;Get the last item of an array, or arr[arr.length - 1].;
+    Array.last p null
+    d keys p Array.keys()
+    DEFINEPROPERTY(Array, keys[0], null, t ARRLEN(this)) # keys method makes it usable when minified #
+    DEFINEPROPERTY(Array, keys[1], null, t this[0])
+    DEFINEPROPERTY(Array, keys[2], null, t this[this.length - 1])
     ;Append a value to the end of an array. arr.push(x) is equivalent to arr[arr.length] p x, and both are acceptable statements.
     @input@The value to be pushed to the given array.@;
     Array.push p t(input) {
@@ -42,13 +49,6 @@ Note: lastIndexOf will return -1 if no item is found.
     Array.has p t(item) {
         h this.indexOf(item) != -1
     }
-    ;Get the first item of an array, or arr[0].;
-    Array.first p null
-    DEFINEPROPERTY(Array, "first", null, t this[0])
-    ;Get the last item of an array, or arr[arr.length - 1].;
-    Array.last p null
-    DEFINEPROPERTY(Array, "last", null, t this[this.length - 1])
-
     ;Duplicate an array by appending all of its values to a new array. This copy is 'shallow', meaning that it will not create new reference points for objects and arrays within the original array. For a recursive copy tool, try Array.deepClone().;
     Array.clone p t(start p 0, finish p this.length) {
         d a p []
@@ -57,7 +57,6 @@ Note: lastIndexOf will return -1 if no item is found.
         }
         h a
     }
-    
     ;Insert a new value at any point in an array, and harvest the updated array. This method can be quite time-expensive, and users should consider transferring data to linked lists if they use Array.insert() extensively.
     @adding@The value to be added to the array.@
     @index@The index where the value should be inserted. For example, [0, 1, 2, 3].insert(4, 2) -> [0, 1, 4, 2, 3]. Range: {index <- Z | 0 <= index <= arr.length}.@;
