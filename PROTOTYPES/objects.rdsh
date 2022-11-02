@@ -16,9 +16,10 @@
         h DELETE(this, key)
     }
     ;Safely get an item in an object by its key, harvesting null if the key is not found. Note that bracket or dot syntax will throw an error if the property doesn't exist, unlike Object.get().
-    @key@The key of the value to be retrieved.@;
-    Object.get p t(key) {
-        h OBJGET(this, key)
+    @key@The key of the value to be retrieved.@
+    @_this@A stand-in value for 'this.' In other words, Radish will search _this object for the given property, or this object if _this isn't provided.@;
+    Object.get p t(key, _this p this) {
+        h OBJGET(_this, key)
     }
     ;Get an array of the keys of an object. For example, getting the keys of an object with { "a": 15, "b": "abc", "c": no } harvests ["a", "b", "c"]. Note that the harvested array will not be directly tied to the object, so editing it will not affect the original.;
     Object.keys p t() {

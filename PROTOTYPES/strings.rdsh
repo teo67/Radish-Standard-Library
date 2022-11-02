@@ -158,7 +158,7 @@
     String.uppercase p t() {
         d r p ""
         for d i p 0, i < this.length, i++ {
-            d res p Object.get.call([this[i]]], __key)
+            d res p Object.get(this[i], __key)
             r += res = null ? this[i], res
         }
         h r
@@ -166,7 +166,7 @@
     String.lowercase p t() {
         d r p ""
         for d i p 0, i < this.length, i++ {
-            d res p Object.get.call([this[i]], __reverseKey)
+            d res p Object.get(this[i], __reverseKey)
             r += res = null ? this[i], res
         }
         h r
