@@ -1,0 +1,86 @@
+;A library for invoking methods from external DLL files with optional arguments and return values!;
+h {
+    ;An enumerable set to be used by the DLL.Argument and DLL.Method classes. These represent the basic types that will be accepted as arguments to DLL methods or as return types from those methods.;
+    d Types p enum {
+        STRING, DOUBLE, INTEGER, BOOLEAN, STRING_ARRAY, DOUBLE_ARRAY, INTEGER_ARRAY, BOOLEAN_ARRAY
+    }
+    ;A class to be used by the DLL.Method class. Each Argument represents a single value tied to a Type that the DLL method will recognize.
+    @value@The actual value to be passed into the method.@
+    @valueType@The type (DLL.Types) that this value is stored in.@;
+    d Argument p class {
+        constructor p t(value, valueType) {
+            this.value p value
+            this.valueType p valueType
+        }
+    }
+    ;A class to be used by DLL.runMethodFromDLL(...). A single Method consists of a name, an optional array of Arguments, and an optional return type.
+    @name@The name of the method. This is required, as it will be used to find the method in the imported class.@
+    @arguments@An array of arguments to be passed to the method, where each argument extends the DLL.Argument class.@
+    @returnType@A type (DLL.Types) that the DLL method returns. If this argument is provided, the method's return value will be harvested back to the user wrapped in this type.@;
+    d Method p class {
+        constructor p t(name, arguments p null, returnType p null) {
+            this.name p name
+            this.arguments p arguments
+            this.return p returnType
+        }
+    }
+    ;Invoke a method in a class in a DLL file, given the file name, class name, and method details. This may also return a value to the user if a method return type is provided.
+    @fileName@The exact path to the DLL file to be imported.@
+    @className@The name of the class (including namespace directory) that contains the target method in the given solution.@
+    @method@The method to be invoked (see DLL.Method).@;
+    d runMethodFromDLL p t(fileName, className, method) {
+        h IMPORTDLL(fileName, className, method)
+    }
+    ;Convert an array with multiple dimensions into a one-dimensional array of values. This may be useful when passing in arguments to DLL methods, which can only accept 1D arrays.
+    @arr@An array to be flattened to one dimension while preserving order.@;
+    d toSingleDimensionArray p t(arr) {
+        if (type arr) != Array {
+            throw "This method only works with arrays!"
+        }
+        d returning p []
+        d len p 0
+        each item of arr {
+            if (type item) != Array {
+                returning[len] p item
+                len++
+            } else {
+                d resolved p toSingleDimensionArray(item)
+                each subitem of resolved {
+                    returning[len] p subitem
+                    len++
+                }
+            }
+        }
+        h returning
+    }
+    ;Convert a single dimensional array into a multidimensional array of values. This may be useful when retrieving a return value from a DLL value, which can only output 1D arrays.
+    @arr@A 1D array to be expanded into a given set of dimensions.@
+    @boxSizes@An array of integers, where each value represents the length of its dimension in the array. For example, [9, 8, 7] represents a 9x8x7 array, where the innermost layer is set in arrays of 7.
+    Note that this array will be mutated during the method call, so do not pass in an array that you wish to conserve.@
+    @totalSize@The total size of the array. Do not pass this value in manually - it's only used to save time in recursive calls.@;
+    d toMultiDimensionalArray p t(arr, boxSizes, totalSize p -1) {
+        if totalSize = -1 {
+            totalSize p boxSizes.combine(1, t(a, b) a * b)
+        }
+        d lastSize p boxSizes.pop()
+        totalSize /= lastSize
+        d returning p []
+        d current p []
+        d currentLen p 0
+        d returningLen p 0
+        for 0 => i, returningLen < totalSize, i++ {
+            current[currentLen] p (i < arr.length) ? arr[i], null
+            currentLen++
+            if currentLen >= lastSize {
+                returning[returningLen] p current
+                current p []
+                currentLen p 0
+                returningLen++
+            }
+        }
+        if boxSizes.length <= 1 {
+            h returning
+        }
+        h toMultiDimensionalArray(returning, boxSizes, totalSize)
+    }
+}
